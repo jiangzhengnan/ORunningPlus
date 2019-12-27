@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.oplayer.orunningplus">
+
+     <!--前台服务-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!--蓝牙搜索所需权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
+    <application
+        android:name=".OSportApplciation"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="400"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="700"/>
+        <activity android:name=".function.connect.ConnectActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <!---->
+        <service android:name=".service.BleService" android:exported="false" />
+
+
+    </application>
+
+</manifest>

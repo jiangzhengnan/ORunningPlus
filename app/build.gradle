@@ -1,0 +1,236 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'realm-android'
+
+
+def releaseVersionCode() {
+    return (new Date().format("yyMMddHH", TimeZone.getTimeZone("UTC")).toInteger())
+}
+
+def dateTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+
+def getName(String variant) {
+    return variant.replaceAll("Release", "")
+}
+
+
+android {
+
+
+    signingConfigs {
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEY_STORE_PATH)
+            storePassword KEY_STORE_PASSWORD
+        }
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.oplayer.orunningplus"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode releaseVersionCode()
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        flavorDimensions "LocalAPP"
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+    packagingOptions {
+//https://www.jianshu.com/p/0c5fcdcba8d1
+        exclude "lib/arm64-v8a/librealm-jni.so"
+
+    }
+
+    buildTypes {
+        debug {
+            ndk {
+                abiFilters 'armeabi', "armeabi-v7a"
+            }
+            signingConfig signingConfigs.release
+        }
+        release {
+            ndk {
+                abiFilters 'armeabi', "armeabi-v7a"
+            }
+
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${getName(variant.name)}_${variant.versionName}_${variant.versionCode}.apk"
+                }
+            }
+            signingConfig signingConfigs.release
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    useLibrary 'org.apache.http.legacy'
+
+    packagingOptions {
+        pickFirst 'META-INF/*'
+    }
+    productFlavors {
+
+
+    }
+
+}
+
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    /**
+     *   ---------------------布局相关 Start---------------------
+     */
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //auto size //https://github.com/JessYanCoding/AndroidAutoSize
+    implementation 'me.jessyan:autosize:1.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    //https://github.com/garretyoder/Colorful
+    implementation 'com.github.garretyoder:Colorful:2.3.4'
+
+    //https://github.com/afollestad/material-dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
+    implementation 'com.afollestad.material-dialogs:color:3.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
+    def htextview_version = "0.1.6"
+    implementation "com.hanks:htextview-base:$htextview_version"
+
+    // base library
+    implementation "com.hanks:htextview-fade:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-line:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-rainbow:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-typer:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-scale:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-evaporate:$htextview_version"
+
+    // optional
+    implementation "com.hanks:htextview-fall:$htextview_version"
+
+    // optional
+
+    // RxKotlin and RxAndroid
+    implementation 'io.reactivex:rxkotlin:1.0.0'
+
+    //    api "io.reactivex:rxandroid:2.1.1"
+
+    //RxLifecycle
+    implementation 'com.trello:rxlifecycle-kotlin:1.0'
+    implementation 'com.trello:rxlifecycle-components:1.0'
+
+    //Retrofit
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.6.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
+    //消息推送
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    //realm 拓展库
+    api 'com.github.vicpinm:krealmextensions:2.5.0'
+    api 'io.realm:realm-gradle-plugin:5.9.0'
+
+    //BRAVH
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+
+    //https://github.com/Polidea/RxAndroidBle
+    implementation 'com.polidea.rxandroidble2:rxandroidble:1.10.5'
+
+    //防止内存溢出
+    implementation 'com.badoo.mobile:android-weak-handler:1.1'
+
+    /**
+     *   ---------------------底层相关 End---------------------
+     */
+
+    /**
+     *   ---------------------第三方布局相关 Start---------------------
+     */
+
+    //下拉刷新与上拉加载
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-14'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-14'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //alerter
+    implementation 'com.tapadoo.android:alerter:4.0.2'
+    //cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+//带UI的权限申请  https://github.com/yewei02538/HiPermission/blob/master/README-CN.md
+    implementation 'me.weyye.hipermission:library:1.0.7'
+
+    /**
+     *   ---------------------第三方布局相关 End---------------------
+     */
+
+    /**
+     *   ---------------------调试工具 Start---------------------
+     */
+
+    // 调试工具--chrome://inspect/#devices
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.uphyca:stetho_realm:2.1.0'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+
+    /**
+     *   ---------------------调试工具 Start---------------------
+     */
+    /**
+     *   ---------------------安全保护 Start---------------------
+     */
+    implementation 'com.scottyab:rootbeer-lib:0.0.7'
+
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
+    /**
+     *   ---------------------安全保护 Start---------------------
+     */
+    implementation files('libs/kctbleSdk1.jar')
+    implementation files('libs/kctbleSdk2.jar')
+}

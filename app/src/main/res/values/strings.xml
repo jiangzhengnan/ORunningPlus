@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ORunningPlus</string>
+    <string name="server_contextText">server_contextText</string>
+    <string name="server_contextTitle">server_contextTitle</string>
+
+    <string name="device_state_success">Device Connection Success</string>
+    <string name="device_state_failed">Device Connection Failed</string>
+    <string name="device_state_connectionning">Device Connectionning …</string>
+
+</resources>
