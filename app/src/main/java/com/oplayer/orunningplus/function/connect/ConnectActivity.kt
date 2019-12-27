@@ -1,6 +1,7 @@
 package com.oplayer.orunningplus.function.connect
 
 import android.Manifest
+import android.os.Handler
 import android.os.ParcelUuid
 import android.view.View
 import android.widget.Toast
@@ -12,15 +13,15 @@ import com.oplayer.common.common.DeviceUUID
 import com.oplayer.common.common.ScanDeviceState
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
-import com.oplayer.lib_device.adapter.DeviceAdapter
-import com.oplayer.lib_device.bean.BluetoothDeviceInfo
+
 import com.oplayer.orunningplus.MainActivity
 
 import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
-import com.oplayer.orunningplus.common.RxBleFactory
+import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.test.TestActivity
 import com.oplayer.orunningplus.service.BleService
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
@@ -29,19 +30,12 @@ import kotlinx.android.synthetic.main.activity_connect.*
 import org.greenrobot.eventbus.EventBus
 
 class ConnectActivity : BaseActivity() {
-    private lateinit var mRxBleClient: RxBleClient
     var mDevice: MutableList<BluetoothDeviceInfo> = mutableListOf()
     private lateinit var mDeviceAdapter: DeviceAdapter
-
     override fun getLayoutId(): Int {
         return R.layout.activity_connect
     }
-
-
-    override fun initInfo() {
-        mRxBleClient = OSportApplciation.rxBleClient
-
-    }
+    override fun initInfo() {}
     override fun initView() {
         checkState()
         initSRL()
@@ -91,8 +85,11 @@ class ConnectActivity : BaseActivity() {
                     }
                     BluetoothState.CONNECTION_SUCCESS -> {
                         showAlert(UIUtils.getString(R.string.device_state_success), true, R.mipmap.ic_launcher_round, false)
-                        startTo(MainActivity::class.java)
-                        finish()
+
+                        //todo 测试代码跳转位置
+
+                       Handler().postDelayed({ startTo(TestActivity::class.java); finish() },1000)
+
                     }
                 }
 
@@ -113,16 +110,20 @@ class ConnectActivity : BaseActivity() {
         mDeviceAdapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
                 BleService.INSTANCE.stopScanDevice()
-                val deviceInfo = mDevice[position]
-                Slog.d("device  ${deviceInfo.toString()}")
-
+                val bluetoothDeviceInfo = mDevice[position]
+                Slog.d("device  $bluetoothDeviceInfo")
                 showAlert(UIUtils.getString(R.string.device_state_connectionning), true, R.mipmap.ic_launcher_round, false)
-
-                EventBus.getDefault().post(MessageEvent(Constants.BLUETOOTH_DEVICE, deviceInfo))
-
+                //发送连接对象
+                EventBus.getDefault().post(MessageEvent(Constants.BLUETOOTH_DEVICE, bluetoothDeviceInfo))
                 //设置不可点击
                 rv_devices.isEnabled=false
-             
+
+
+                //只保留点击设备
+                mDevice.clear()
+                mDevice.add(bluetoothDeviceInfo)
+                mDeviceAdapter.setNewData(mDevice)
+
             }
         rv_devices.adapter = mDeviceAdapter
 

@@ -24,14 +24,15 @@ open class DeviceInfo(
     open var bleAddress: String? = "",
     open var battery: String? = "0",
     open var platformCode: String? = "",
-    open var isBind: Boolean? = false
+    open var isBind: Boolean? = false,
+    open var isHandConnect: Boolean? = false
 
 ) : RealmObject() {
     @PrimaryKey
     open var id: String? = ""
 
     override fun toString(): String {
-        return "DeviceInfo(bleName=$bleName, deviceType=$deviceType, bleAddress=$bleAddress, battery=$battery, platformCode=$platformCode, isBind=$isBind, id=$id)"
+        return "DeviceInfo(bleName=$bleName, deviceType=$deviceType, bleAddress=$bleAddress, battery=$battery, platformCode=$platformCode, isBind=$isBind, isHandConnect=$isHandConnect, id=$id)"
     }
 
 

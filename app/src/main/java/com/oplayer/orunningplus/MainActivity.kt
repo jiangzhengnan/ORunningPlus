@@ -8,6 +8,7 @@ import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.bean.DeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.connect.ConnectActivity
+import com.oplayer.orunningplus.function.test.TestActivity
 import com.oplayer.orunningplus.service.BleService
 import com.vicpin.krealmextensions.createOrUpdate
 import com.vicpin.krealmextensions.queryAll
@@ -24,7 +25,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        testMethod()
+        //开发阶段 指令测试
+        startTo(TestActivity::class.java)
+
     }
 
 
@@ -32,13 +35,7 @@ class MainActivity : BaseActivity() {
         super.onResume()
 
 
-        if (tv_start != null) {
-            var device = DeviceInfo().queryFirst()
-            if (device != null) {
-                tv_start.setText(device.toString())
-            }
 
-        }
 
 
     }
@@ -51,9 +48,7 @@ class MainActivity : BaseActivity() {
     override fun onClick(v: View) {
 
         when (v.id) {
-            R.id.tv_start -> {
-                startTo(ConnectActivity::class.java)
-            }
+
 
         }
 
@@ -63,9 +58,4 @@ class MainActivity : BaseActivity() {
     }
 
 
-    private fun testMethod() {
-        Slog.d("currdevice  ${BleService.INSTANCE.getCurrDevice()}")
-        BleService.INSTANCE.setBind(true)
-        Slog.d("changedevice  ${BleService.INSTANCE.getCurrDevice()}")
-    }
 }

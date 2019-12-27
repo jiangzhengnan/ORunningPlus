@@ -165,7 +165,7 @@ import kotlin.collections.ArrayList
             private val ARGS = "args"
             private var mLogDir: String = "" // log存储目录
             private var mLogEnable = true // log总开关
-            private val mGlobalLogTag = "OPLAYER_TAG" // log标签
+            private val mGlobalLogTag = "Slog" // log标签
             private val mTagIsSpace = true // log标签是否为空白
             private val mLog2FileEnable = false// log是否写入文件
             private var mLogBorderEnable = false // log边框

@@ -1,6 +1,6 @@
 package com.oplayer.common.utils
 
-import com.oplayer.common.common.DeviceTypeCode
+import com.oplayer.common.common.DeviceType
 import com.oplayer.common.common.PreferencesKey
 
 /**
@@ -16,7 +16,7 @@ object PreferencesHelper {
 
 
     fun getDeviceType(): String {
-        return PreferencesUtil.getString(PreferencesKey.DEVICE_TYPE, DeviceTypeCode.DEVICE_FUNDO)
+        return PreferencesUtil.getString(PreferencesKey.DEVICE_TYPE, DeviceType.DEVICE_FUNDO)
     }
 
     fun setDeviceType(type: String) {

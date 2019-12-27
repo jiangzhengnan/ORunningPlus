@@ -11,6 +11,9 @@ class MessageEvent {
         this.message = message
     }
 
+
+
+
     fun getMessage(): Any? {
         return message
     }

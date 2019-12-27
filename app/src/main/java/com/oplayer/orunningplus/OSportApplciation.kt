@@ -148,6 +148,7 @@ class OSportApplciation : Application() {
             RealmConfiguration.Builder()
             .name("oplayer.realm")
             .schemaVersion(Constants.REALM_VERSION)
+             //开发阶段数据库改动频繁 采用删除升级
             .deleteRealmIfMigrationNeeded()
 //            .migration(Migration())
 //            .assetFile("oplayer.realm")
@@ -158,7 +159,6 @@ class OSportApplciation : Application() {
         Slog.getSettings()
             .setLogEnable(true)
             .setBorderEnable(true)
-
     }
 
 

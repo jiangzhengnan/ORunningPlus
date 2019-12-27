@@ -2,15 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.oplayer.orunningplus">
-
-     <!--前台服务-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!--蓝牙搜索所需权限-->
+    <!-- 前台服务 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 蓝牙搜索所需权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".OSportApplciation"
@@ -21,14 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".function.test.TestActivity"></activity>
 
         <meta-data
             android:name="design_width_in_dp"
-            android:value="400"/>
+            android:value="400" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="700"/>
+            android:value="700" />
+
         <activity android:name=".function.connect.ConnectActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -36,11 +34,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-         <!---->
-        <service android:name=".service.BleService" android:exported="false" />
-
-
+        </activity> <!--  -->
+        <service
+            android:name=".service.BleService"
+            android:exported="false" />
     </application>
 
 </manifest>

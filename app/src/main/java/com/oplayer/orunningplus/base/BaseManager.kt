@@ -1,6 +1,6 @@
 package com.oplayer.orunningplus.base
 
-import com.oplayer.lib_device.bean.BluetoothDeviceInfo
+
 
 /**
  *

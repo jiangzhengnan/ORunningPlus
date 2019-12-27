@@ -26,7 +26,7 @@ class Constants {
 }
 class PreferencesKey {
     companion object {
-        const val DEVICE_TYPE = DeviceTypeCode.DEVICE_FUNDO
+        const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
 
 
     }
@@ -41,7 +41,7 @@ class DeviceSetting {
 }
 
 
-class DeviceTypeCode {
+class DeviceType {
     companion object {
         const val DEVICE_FUNDO = "DEVICE_FUNDO"
         const val DEVICE_UNKNOWN = "DEVICE_UNKNOWN"

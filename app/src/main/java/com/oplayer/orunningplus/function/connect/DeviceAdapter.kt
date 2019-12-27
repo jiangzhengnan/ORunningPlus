@@ -1,9 +1,10 @@
-package com.oplayer.lib_device.adapter
+package com.oplayer.orunningplus.function.connect
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.oplayer.lib_device.bean.BluetoothDeviceInfo
+
 import com.oplayer.orunningplus.R
+import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.polidea.rxandroidble2.scan.ScanResult
 
 /**
