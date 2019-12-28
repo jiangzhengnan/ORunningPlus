@@ -13,16 +13,45 @@ package com.oplayer.orunningplus.base
  */
 interface BaseManager {
 
-//    //连接设备
-//    fun ConnectDevice(btDevice: BluetoothDeviceInfo)
-//
-//    //查找设备
-//    fun FindDevice()
-//
-//    //获取固件信息
-//    fun getFirmwareInfo()
-//
-//    //时间设备
-//    fun sendTime()
+    /**
+     * 当前设备是否连接
+     */
+    fun isConnected():Boolean
+
+    /**
+     * 查找设备
+     */
+    fun findDevice()
+
+
+    /**
+     * 查找设备电量
+     */
+    fun queryPower()
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 当前指令执行成功
+     */
+    fun executionSucceed()
+    /**
+     * 当前指令执行失败
+     */
+    fun executionFailed()
+    /**
+     * 当前指令执行中
+     */
+    fun executionInProgress()
+
+
 
 }

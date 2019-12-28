@@ -130,9 +130,16 @@ dependencies {
     implementation 'com.github.garretyoder:Colorful:2.3.4'
 
     //https://github.com/afollestad/material-dialogs
-    implementation 'com.afollestad.material-dialogs:core:3.1.0'
-    implementation 'com.afollestad.material-dialogs:color:3.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
+//    implementation 'com.afollestad.material-dialogs:color:3.1.0'
+//    implementation 'com.google.android.material:material:1.2.0-alpha03'
+
+//    https://github.com/sd6352051/NiftyDialogEffects
+    implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
+//https://github.com/code-mc/loadtoast
+    implementation 'net.steamcrafted:load-toast:1.0.12'
+//https://github.com/JohnPersano/SuperToasts
+    implementation 'com.github.johnpersano:supertoasts:2.0'
+
     def htextview_version = "0.1.6"
     implementation "com.hanks:htextview-base:$htextview_version"
 

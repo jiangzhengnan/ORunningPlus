@@ -1,18 +1,20 @@
 package com.oplayer.orunningplus.base
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
+import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.github.johnpersano.supertoasts.library.Style
+import com.github.johnpersano.supertoasts.library.SuperActivityToast
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
 import com.ng.lib_common.base.Weak
 import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
@@ -23,18 +25,11 @@ import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.multimoon.colorful.CAppCompatActivity
-import io.multimoon.colorful.Colorful
+import me.weyye.hipermission.HiPermission
+import me.weyye.hipermission.PermissionCallback
+import me.weyye.hipermission.PermissionItem
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.nio.file.Path
-import com.kct.bluetooth.pkt.FunDo.i
-import me.weyye.hipermission.PermissionCallback
-import me.weyye.hipermission.HiPermission
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.fragment.app.FragmentActivity
-import me.weyye.hipermission.PermissionItem
 
 
 abstract class BaseActivity : CAppCompatActivity(), IBaseView {
@@ -52,9 +47,8 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         act = this
         AppManager.instance.addActivity(act as BaseActivity)
         registerEventBus(this)
-
-        initInfo()
         initView()
+        initInfo()
         initData()
     }
 
@@ -66,9 +60,7 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
     }
 
 
-
     abstract fun getLayoutId(): Int
-
 
 
     abstract fun initData()
@@ -113,9 +105,17 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         }
     }
 
+    @SuppressLint("WrongConstant")
     fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        SuperActivityToast.create(this, Style(), Style.DURATION_SHORT)
+            .setText(msg)
+            .setDuration(Style.DURATION_VERY_SHORT)
+            .setFrame(Style.FRAME_LOLLIPOP)
+            .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN))
+            .setAnimations(Style.ANIMATIONS_POP).show()
     }
+
+
 
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
@@ -170,7 +170,7 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
 
 
     //带UI的权限请求
-    public fun checkPermis( permissionItems:MutableList<PermissionItem>) {
+    public fun checkPermis(permissionItems: MutableList<PermissionItem>) {
 
 
         HiPermission.create(this)
@@ -235,4 +235,23 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         }
     }
 
+    fun isNotificationEnabled(): Boolean {
+        val pkgName = packageName
+        val flat = Settings.Secure.getString(
+            contentResolver,
+            "enabled_notification_listeners"
+        )
+        if (!TextUtils.isEmpty(flat)) {
+            val names = flat.split(":").toTypedArray()
+            for (i in names.indices) {
+                val cn = ComponentName.unflattenFromString(names[i])
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.packageName)) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
 }

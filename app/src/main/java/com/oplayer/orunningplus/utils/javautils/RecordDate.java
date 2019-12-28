@@ -1,4 +1,4 @@
-package com.oplayer.orunningplus.javautils;
+package com.oplayer.orunningplus.utils.javautils;
 
 import java.util.ArrayList;
 import java.util.List;

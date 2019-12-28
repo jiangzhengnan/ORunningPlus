@@ -1,19 +1,21 @@
-package com.oplayer.orunningplus.BleManager
+package com.oplayer.orunningplus.manager
 
 import android.bluetooth.BluetoothDevice
+import android.os.Handler
 import com.kct.bluetooth.KCTBluetoothManager
-import com.kct.bluetooth.bean.BluetoothLeDevice
 import com.kct.bluetooth.callback.IConnectListener
 import com.kct.command.BLEBluetoothManager
 import com.kct.command.IReceiveListener
 import com.kct.command.KCTBluetoothCommand
+import com.oplayer.common.common.ExecutionStatus
 import com.oplayer.common.common.FundoCompanyCode
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.OSportApplciation.Companion.sContext
 import com.oplayer.orunningplus.base.BaseManager
-import com.oplayer.orunningplus.bean.DeviceInfo
+import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.service.BleService
 import com.vicpin.krealmextensions.createOrUpdate
+import org.greenrobot.eventbus.EventBus
 
 /**
  *
@@ -45,14 +47,15 @@ class FunDoManager private constructor() : BaseManager {
     }
 
 
-    fun isConnected(): Boolean =
-        KCTBluetoothManager.getInstance().connectState == KCTBluetoothManager.STATE_CONNECTED
-
     fun disConnectBle(iconCallback: IConnectListener) {
         Slog.d("手动断开连接")
         KCTBluetoothManager.getInstance()?.disConnect_a2d()
         KCTBluetoothManager.getInstance().unregisterListener(iconCallback)
     }
+
+    override fun isConnected(): Boolean =
+        KCTBluetoothManager.getInstance().connectState == KCTBluetoothManager.STATE_CONNECTED
+
 
     /**
      * FunDo接收数据
@@ -68,8 +71,8 @@ class FunDoManager private constructor() : BaseManager {
     /**
      * FunDo接收数据 实际处理位置
      * */
-    fun receiveBTDada(type: Byte, response: Boolean, vararg `object`: Any) {
-        if (`object`[0] is String && `object`[0] == "") return
+    fun receiveBTDada(type: Byte, response: Boolean, anys: Array<Any>) {
+        if (anys[0] is String && anys[0] == "") return
 
         when (type) {
             FundoCompanyCode.BLE_COMMMAND_SET -> {
@@ -77,14 +80,10 @@ class FunDoManager private constructor() : BaseManager {
             FundoCompanyCode.BLE_KEY_RETURN_FIRMWARE_INFO -> {
             }
             FundoCompanyCode.BLE_KEY_RETURN_FORTHWITH_STEP -> {
-//                `object`.forEach {
-//                    Slog.d("接收当前步数  it ${it.toString()}")
-//                }
-                Slog.d("接收当前步数  it ${`object`.size}")
-//                val step = `object`[0] as Int
-//                val cal = `object`[1] as Float
-//                val distance = `object`[2] as Float
-//                Slog.d("接收当前步数   step ${`object`[0]}  cal ${`object`[1]} distance ${`object`[2]}")
+                val step = anys[0] as Int
+                val cal = anys[1] as Float
+                val distance = anys[2] as Float
+                Slog.d("接收当前步数   step $step  cal $cal distance $distance")
             }
             FundoCompanyCode.BLE_KEY_RETURN_FORTHWITH_HR -> {
             }
@@ -99,10 +98,17 @@ class FunDoManager private constructor() : BaseManager {
             FundoCompanyCode.BLE_KEY_RETURN_READ_SETTING -> {
             }
             FundoCompanyCode.BLE_KEY_RETURN_ELEC -> {
+
                 Slog.d("接收到电池电量")
                 var currDevice = BleService.INSTANCE.getCurrDevice()
-                currDevice.battery=`object`[0] as String
+                currDevice.battery = anys[0].toString()
                 currDevice.createOrUpdate()
+
+                Handler().postDelayed(Runnable {
+                    Slog.d("模拟执行时间")
+                    executionSucceed()
+                }, 2000);
+
 
             }
             FundoCompanyCode.BLE_KEY_RETURN_STEPS -> {
@@ -153,15 +159,42 @@ class FunDoManager private constructor() : BaseManager {
 
 
     /**
-     * 主动下发指令
+     * === 主动下发指令
      * */
 
+    /**
+     * 查找设备
+     * */
+    override fun findDevice() {
+        KCTBluetoothManager.getInstance()
+            .sendCommand_a2d(BLEBluetoothManager.BLE_COMMAND_a2d_findDevice_pack())
+        executionSucceed()
+    }
 
-    fun findDevice() {
 
-        val findDevice = BLEBluetoothManager.BLE_COMMAND_a2d_findDevice_pack()
-        Slog.d("发送查找手环指令")
-        KCTBluetoothManager.getInstance().sendCommand_a2d(findDevice)
+    /**
+     * 查询设备电量
+     * */
+    override fun queryPower() {
+        KCTBluetoothManager.getInstance()
+            .sendCommand_a2d(BLEBluetoothManager.BLE_COMMAND_a2d_getBatteryStatus_pack())
+        executionInProgress()
+
+    }
+
+    override fun executionSucceed() {
+        EventBus.getDefault()
+            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_SUCCEED))
+    }
+
+    override fun executionFailed() {
+        EventBus.getDefault()
+            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_FAILED))
+    }
+
+    override fun executionInProgress() {
+        EventBus.getDefault()
+            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_IN_PROGRESS))
     }
 
 

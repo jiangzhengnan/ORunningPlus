@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.oplayer.orunningplus">
+
     <!-- 前台服务 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 蓝牙搜索所需权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -18,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".function.test.TestActivity"></activity>
+
+
+        <activity android:name=".function.test.TestActivity" />
 
         <meta-data
             android:name="design_width_in_dp"
@@ -34,10 +37,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!--  -->
+        </activity>
         <service
             android:name=".service.BleService"
             android:exported="false" />
+
+
+        <service
+            android:name=".service.NotificationReceiverService"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter android:priority="1000">
+                <action android:name="android.service.notification.NotificationListenerService" />
+                <action android:name="android.deletion.notification" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

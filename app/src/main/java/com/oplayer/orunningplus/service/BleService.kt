@@ -1,50 +1,44 @@
 package com.oplayer.orunningplus.service
 
-import android.app.Service
 import android.bluetooth.BluetoothDevice
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
-import android.os.ParcelUuid
 import android.widget.Toast
 import com.kct.bluetooth.KCTBluetoothManager
 import com.kct.bluetooth.bean.BluetoothLeDevice
 import com.kct.bluetooth.callback.IConnectListener
 import com.oplayer.common.base.BaseService
 import com.oplayer.common.common.*
-import com.oplayer.common.utils.NotifiUtils
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 
-import com.oplayer.orunningplus.BleManager.FunDoManager
+import com.oplayer.orunningplus.manager.FunDoManager
 import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.bean.DeviceInfo
 import com.oplayer.orunningplus.common.RxBleFactory
 import com.oplayer.orunningplus.event.MessageEvent
-import com.oplayer.orunningplus.javautils.JavaUtil
-import com.oplayer.orunningplus.utils.ThreadPoolManager
+import com.oplayer.orunningplus.utils.javautils.JavaUtil
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
-import com.polidea.rxandroidble2.scan.ScanSettings
 import com.vicpin.krealmextensions.createOrUpdate
 import com.vicpin.krealmextensions.queryFirst
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.disposables.DisposableHelper.dispose
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
+import java.lang.Exception
+import java.util.*
 
 
 class BleService : BaseService() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
     val sContext = UIUtils.getContext()
     private var scanDisposable: Disposable? = null
     private val isScanning: Boolean get() = scanDisposable != null
@@ -55,6 +49,7 @@ class BleService : BaseService() {
         super.onCreate()
 //        startService()
     }
+
     companion object {
         val INSTANCE: BleService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             BleService()
@@ -65,6 +60,7 @@ class BleService : BaseService() {
      * 维护当前连接设备
      * */
     var device: DeviceInfo? = null
+
     fun getCurrDevice(): DeviceInfo {
         if (device == null) {
             var deviceByRealm = DeviceInfo().queryFirst()
@@ -77,9 +73,9 @@ class BleService : BaseService() {
         return device as DeviceInfo
     }
 
-   /**
-    * 启动服务方法
-    * */
+    /**
+     * 启动服务方法
+     * */
     public fun startService() {
 
         if (!isRunning()) {
@@ -110,7 +106,6 @@ class BleService : BaseService() {
      * */
     fun isRunning(): Boolean {
         return AppManager.instance.isServiceRunning(sContext, BleService::class.java.name)
-
     }
 
     /**
@@ -129,14 +124,12 @@ class BleService : BaseService() {
      */
     private fun checkConnState() {
         var deviceInfo = getCurrDevice()
-
         if (deviceInfo.isBind == true && !isConnected()) {
             //更新绑定状态，非手动连接
             setBind(true, false)
             //已经绑定但是没有连接
             reScanDevice(deviceInfo)
         }
-
     }
 
     /**
@@ -271,8 +264,6 @@ class BleService : BaseService() {
     override fun onDestroy() {
         super.onDestroy()
         scanDisposable?.dispose()
-
-
     }
 
     /**
@@ -305,7 +296,8 @@ class BleService : BaseService() {
                     )
                 )
                 chageContextText(UIUtils.getString(R.string.device_state_failed) + device?.bleName)
-
+                //断开连接 清空消息队列
+                executionQueue.clear()
             }
             BluetoothState.CONNECTIONNTING -> {
                 EventBus.getDefault()
@@ -334,13 +326,13 @@ class BleService : BaseService() {
                     device = getCurrDevice()
                     device!!.bleName = bleDevice.name
                     device!!.bleAddress = bleDevice.address
-                    device!!.deviceType =DeviceType.DEVICE_FUNDO
+                    device!!.deviceType = DeviceType.DEVICE_FUNDO
                     Slog.d("分动设备执行连接 ")
                     FunDoManager.instance.bindBle(bleDevice, iconCallback)
                 }
                 //添加多种协议设备
                 else -> {
-                Slog.d("未知设备类型  ")
+                    Slog.d("未知设备类型  ")
                 }
             }
 
@@ -363,7 +355,7 @@ class BleService : BaseService() {
                 Slog.d("未知设备类型  ")
             }
         }
-        setBind(false,true)
+        setBind(false, true)
     }
 
     /**
@@ -378,6 +370,33 @@ class BleService : BaseService() {
             DeviceSetting -> {
                 controllingDevice(event.getMessage() as String)
             }
+
+            ExecutionStatus -> {
+                detectionExecutionStatus(event.getMessage() as String)
+            }
+
+
+        }
+    }
+
+    /**
+     * 指令执行回调
+     * */
+    private fun detectionExecutionStatus(status: String) {
+        when (status) {
+            ExecutionStatus.EXECUTION_SUCCEED -> {
+                Slog.d("指令执行成功  方法：  ${currentOrder.toString()}  time:  ${System.currentTimeMillis()}")
+                endOrder()
+            }
+            ExecutionStatus.EXECUTION_IN_PROGRESS -> {
+                Slog.d("指令执行中  方法：  ${currentOrder.toString()}")
+
+            }
+            ExecutionStatus.EXECUTION_FAILED -> {
+                Slog.d("指令执行失败  方法：  ${currentOrder.toString()}")
+
+            }
+
         }
     }
 
@@ -387,24 +406,36 @@ class BleService : BaseService() {
     private fun controllingDevice(message: String) {
         if (!isConnected()) {
             Slog.d("设备未连接 无法发送消息")
-            Toast.makeText(this,UIUtils.getString(R.string.device_state_not_conn),Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                UIUtils.getString(R.string.device_state_not_conn),
+                Toast.LENGTH_LONG
+            ).show()
         }
 
+
         when (message) {
-
-            //查找设备
+            //查找设备指令
             DeviceSetting.FIND_DEVICE -> {
+                Slog.d("发送查找设备指令")
                 when (getCurrDevice().deviceType) {
-                    DeviceType.DEVICE_FUNDO -> {
-                        FunDoManager.instance.findDevice()
-
-                    }
+                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.findDevice() }
                     else -> {
                     }
                 }
-
-
             }
+
+            //查询设备电量指令
+            DeviceSetting.QUERY_BATTERY -> {
+                Slog.d("发送查找设备指令")
+                when (getCurrDevice().deviceType) {
+                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.queryPower() }
+                    else -> {
+                    }
+                }
+            }
+
+
             else -> {
 
             }
@@ -437,10 +468,6 @@ class BleService : BaseService() {
 
         return false
     }
-
-
-
-
 
 
     /**
@@ -481,11 +508,39 @@ class BleService : BaseService() {
         override fun onScanDevice(device: BluetoothLeDevice?) {
             Slog.d("  onScanDevice  搜索到设备  ${device?.name}")
         }
-
-
     }
 
 
+    //队列存储方法
+    private var executionQueue = LinkedList<Order>()
+    // 当前任务
+    private var currentOrder: (() -> Unit?)? = null
+    //添加任务到队列
+    fun addFunc(function: () -> Unit?) {
+        var order = Order(function)
+        doOrder(order)
+    }
+
+    fun endOrder() {
+        doOrder(null)
+    }
+
+    private fun doOrder(order: Order?) {
+        if (order != null) {
+            executionQueue.offer(order)
+        } else {
+            currentOrder = null
+        }
+        if (currentOrder == null) {
+            if (executionQueue.size != 0) {
+                var funnow = executionQueue.poll()
+                currentOrder = funnow.function
+                currentOrder?.invoke()
+            }
+        }
+    }
+
+    data class Order(var function: () -> Unit? = {})
 
 }
 

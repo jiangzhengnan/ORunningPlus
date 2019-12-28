@@ -1,7 +1,7 @@
 package com.oplayer.common.common
 
 import android.Manifest
-import android.os.ParcelUuid
+import android.content.Intent
 import java.util.*
 
 /**
@@ -24,6 +24,7 @@ class Constants {
 
     }
 }
+
 class PreferencesKey {
     companion object {
         const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
@@ -35,6 +36,7 @@ class PreferencesKey {
 class DeviceSetting {
     companion object {
         const val FIND_DEVICE = "FIND_DEVICE"
+        const val QUERY_BATTERY = "QUERY_BATTERY"
     }
 
 
@@ -58,8 +60,9 @@ class BluetoothState {
         const val CONNECTIONNTING = "CONNECTIONNTING"
     }
 
- 
+
 }
+
 class ScanDeviceState {
     companion object {
         const val SCAN_START = "SCAN_START"
@@ -74,7 +77,7 @@ class ScanDeviceState {
 class DeviceUUID() {
     companion object {
         //过滤非手环的蓝牙设备
-         val FUNDO_BLE_YDS_UUID =
+        val FUNDO_BLE_YDS_UUID =
             UUID.fromString("0000FEA0-0000-1000-8000-00805f9b34fb") as UUID//分动
 
 
@@ -87,7 +90,18 @@ class CompanyCode() {
 
     }
 }
-class FundoCompanyCode() {
+
+class ExecutionStatus {
+    companion object {
+        val EXECUTION_SUCCEED = "EXECUTION_SUCCEED"
+        val EXECUTION_FAILED = "EXECUTION_FAILED"
+        val EXECUTION_IN_PROGRESS = "EXECUTION_IN_PROGRESS"
+
+    }
+
+}
+
+class FundoCompanyCode {
     companion object {
         //手环命令
         val BLE_PROTOCOL_MARK = 0XBA.toByte()                  //分动手环协议识别标志
@@ -153,34 +167,48 @@ class FundoCompanyCode() {
 
     }
 }
-class PermissList(){
-        companion object{
 
-            var PERMISSIONS_LIST = arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_CALL_LOG,
-                Manifest.permission.WRITE_CALL_LOG,
-                Manifest.permission.CALL_PHONE,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.READ_SMS,
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_CALENDAR,
-                Manifest.permission.FOREGROUND_SERVICE,
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.RECEIVE_SMS,
-                Manifest.permission.WRITE_CONTACTS,
-                Manifest.permission.GET_ACCOUNTS,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.CALL_PHONE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
+/**
+ * 系统界面
+ * */
+class SystemSetting{
+    companion object{
+       //通知使用界面
+        val NOTIFICATION_LISTENER_INTENT = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
 
-        }
 
     }
+
+}
+
+class PermissList {
+    companion object {
+
+        var PERMISSIONS_LIST = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_CALL_LOG,
+            Manifest.permission.WRITE_CALL_LOG,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_SMS,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CALENDAR,
+            Manifest.permission.FOREGROUND_SERVICE,
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.WRITE_CONTACTS,
+            Manifest.permission.GET_ACCOUNTS,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+
+    }
+
+}
 

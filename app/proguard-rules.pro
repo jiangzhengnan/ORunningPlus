@@ -192,3 +192,15 @@
 -keep @io.realm.internal.Keep class *
 -dontwarn io.realm.**
 
+
+
+
+#https://github.com/sd6352051/NiftyDialogEffects
+-keep class com.gitonway.lee  ** { *; }
+
+#https://github.com/code-mc/loadtoast
+-keep class net.steamcrafted.loadtoast  ** { *; }
+
+
+
+

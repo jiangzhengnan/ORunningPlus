@@ -1,4 +1,4 @@
-package com.oplayer.orunningplus.javautils;
+package com.oplayer.orunningplus.utils.javautils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
