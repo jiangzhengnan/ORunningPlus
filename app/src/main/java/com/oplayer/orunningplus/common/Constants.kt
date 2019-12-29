@@ -25,6 +25,18 @@ class Constants {
     }
 }
 
+class SecurityKey {
+    companion object {
+        const val SECURE_PREFERENCES_KEY = "com.oplayer"
+        const val REALM_KEY = "com.oplayer.comm"
+
+    }
+
+
+}
+
+
+
 class PreferencesKey {
     companion object {
         const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
@@ -73,6 +85,21 @@ class ScanDeviceState {
 
 
 }
+
+
+class NotifiPackName {
+    companion object {
+        const val QQ = "com.tencent.mobileqq"
+        const val WeChat = "com.tencent.mm "
+
+    }
+
+
+}
+
+
+
+
 
 class DeviceUUID() {
     companion object {

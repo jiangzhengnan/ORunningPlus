@@ -22,21 +22,34 @@ class RxBleFactory {
     lateinit var deviceInfo: DeviceInfo
     lateinit var scanFilter: ScanFilter
 
+    /**
+     * 返回默认搜索过滤
+     * */
     constructor() {
         this.scanFilter = ScanFilter.Builder()
             .build()
     }
 
+    /**
+     * 设置UUID返回搜索过滤
+     * */
     constructor(uuid: String) {
         this.uuid = uuid
         this.scanFilter = ScanFilter.Builder()
             .setServiceUuid(ParcelUuid.fromString(uuid))
             .build()
     }
+
+    /**
+     * 传入过滤条件
+     * */
     constructor(scanFilter: ScanFilter) {
         this.scanFilter = scanFilter
     }
 
+    /**
+     * 用于重新搜索 根据用户名和mac地址搜索指定设备
+     * */
     constructor(deviceInfo: DeviceInfo) {
         this.deviceInfo = deviceInfo
         this.scanFilter = ScanFilter.Builder()
@@ -44,6 +57,7 @@ class RxBleFactory {
             .setDeviceAddress(deviceInfo.bleAddress)
             .build()
     }
+
 
     fun getObservable(): Observable<ScanResult> {
         val scanSettings = ScanSettings.Builder()
@@ -56,6 +70,7 @@ class RxBleFactory {
             scanFilter
         )
     }
+
 
 
 }

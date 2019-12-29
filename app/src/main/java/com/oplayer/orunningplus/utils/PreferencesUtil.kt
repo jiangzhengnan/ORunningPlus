@@ -1,7 +1,7 @@
 package com.oplayer.common.utils
 
-import android.content.Context
-import android.content.SharedPreferences
+import com.oplayer.common.common.SecurityKey
+import com.securepreferences.SecurePreferences
 
 /**
  *
@@ -13,8 +13,12 @@ import android.content.SharedPreferences
  * @CreateDate:     2019/10/15 15:31
  */
 object PreferencesUtil {
-    private val name = "OSport_config"
-    private val prefs: SharedPreferences by lazy { UIUtils.getContext().getSharedPreferences(name, Context.MODE_PRIVATE) }
+    private val fileName = "OSport_config"
+   //传统sp
+//    private val prefs: SharedPreferences by lazy { UIUtils.getContext().getSharedPreferences(name, Context.MODE_PRIVATE) }
+   //加密sp
+  private  val prefs: SecurePreferences by lazy { SecurePreferences(UIUtils.getContext(),
+       SecurityKey.SECURE_PREFERENCES_KEY,fileName) }
 
     /**
      * 获取存放数据

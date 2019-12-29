@@ -47,13 +47,17 @@ class BleService : BaseService() {
 
     override fun onCreate() {
         super.onCreate()
-//        startService()
+
+        startService()
+
     }
 
     companion object {
         val INSTANCE: BleService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             BleService()
         }
+
+
     }
 
     /**
@@ -76,25 +80,25 @@ class BleService : BaseService() {
     /**
      * 启动服务方法
      * */
-    public fun startService() {
+    private fun startService() {
 
         if (!isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
-            Slog.d("启动服务 ")
+            Slog.d("执行服务器启动方法")
             if (Build.VERSION.SDK_INT >= 26) {
                 sContext.startForegroundService(intent)
             } else {
                 sContext.startService(intent)
             }
         } else {
-            Slog.d("不启动服务 ")
+            Slog.d("服务已在运行   ")
         }
     }
 
     /**
      * 终止服务方法
      * */
-    public fun stopBleService() {
+     fun stopBleService() {
         if (isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
             sContext.stopService(intent)
@@ -167,7 +171,7 @@ class BleService : BaseService() {
                     if (!scanResult.bleDevice?.name.isNullOrEmpty()) {
                         var isFound = false
                         mDevice.forEach {
-                            if (it.bleDevice.macAddress.equals(scanResult.bleDevice.macAddress)) { /*重复设备*/ isFound =
+                            if (it.bleDevice.macAddress == scanResult.bleDevice.macAddress) { /*重复设备*/ isFound =
                                 true
                             }
                         }
@@ -363,20 +367,32 @@ class BleService : BaseService() {
      * */
     override fun onGetEvent(event: MessageEvent) {
         when (event.getMessageType()) {
+            //分发设备链接
             Constants.BLUETOOTH_DEVICE -> {
                 var deviceInfo = event.getMessage() as BluetoothDeviceInfo
                 connBle(deviceInfo)
             }
+            //分发设置设备指令
             DeviceSetting -> {
                 controllingDevice(event.getMessage() as String)
             }
-
+            //指令执行回调
             ExecutionStatus -> {
                 detectionExecutionStatus(event.getMessage() as String)
+            }
+            //通知消息接收 分发
+            NotifiPackName->{
+                //传入包名 消息内容 按协议分发
+                detectionNotification(event.getMessage() as String)
+
             }
 
 
         }
+    }
+
+    private fun detectionNotification(notification: String) {
+
     }
 
     /**
@@ -388,10 +404,12 @@ class BleService : BaseService() {
                 Slog.d("指令执行成功  方法：  ${currentOrder.toString()}  time:  ${System.currentTimeMillis()}")
                 endOrder()
             }
+
             ExecutionStatus.EXECUTION_IN_PROGRESS -> {
                 Slog.d("指令执行中  方法：  ${currentOrder.toString()}")
 
             }
+
             ExecutionStatus.EXECUTION_FAILED -> {
                 Slog.d("指令执行失败  方法：  ${currentOrder.toString()}")
 
@@ -411,6 +429,7 @@ class BleService : BaseService() {
                 UIUtils.getString(R.string.device_state_not_conn),
                 Toast.LENGTH_LONG
             ).show()
+
         }
 
 
@@ -511,6 +530,7 @@ class BleService : BaseService() {
     }
 
 
+/***********************使用队列存储命令 - start******************************/
     //队列存储方法
     private var executionQueue = LinkedList<Order>()
     // 当前任务
@@ -520,11 +540,11 @@ class BleService : BaseService() {
         var order = Order(function)
         doOrder(order)
     }
-
+    //结束任务
     fun endOrder() {
         doOrder(null)
     }
-
+    //执行任务
     private fun doOrder(order: Order?) {
         if (order != null) {
             executionQueue.offer(order)
@@ -539,8 +559,12 @@ class BleService : BaseService() {
             }
         }
     }
-
+    //存储任务
     data class Order(var function: () -> Unit? = {})
+
+/***********************使用队列存储命令 - stop******************************/
+
+
 
 }
 

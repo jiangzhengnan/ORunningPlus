@@ -24,7 +24,10 @@ import com.oplayer.orunningplus.service.BleService
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.oplayer.common.common.SecurityKey
+import com.oplayer.orunningplus.utils.javautils.Utils
 import com.squareup.leakcanary.LeakCanary
+import java.security.SecureRandom
 
 
 /**
@@ -77,6 +80,9 @@ class OSportApplciation : Application() {
     }
 
 
+    /**
+     * 启动蓝牙管理通用服务
+     * */
     private fun initBTService() {
         var isRunning =
             AppManager.instance.isServiceRunning(this, BleService()::class.java.name)
@@ -95,7 +101,9 @@ class OSportApplciation : Application() {
 
     }
 
-
+    /**
+     * 初始化Realm测试工具
+     * */
     private fun initStetho() {
         Stetho.initialize(
             Stetho.newInitializerBuilder(this)
@@ -106,19 +114,23 @@ class OSportApplciation : Application() {
     }
 
     private val DEV_MODE = true
+
+    /**
+     * 初始化严格模式
+     * */
     private fun initStrictMode() {
         if (DEV_MODE) {
-//            StrictMode.setThreadPolicy(
-//                StrictMode.ThreadPolicy.Builder()
-//                    .detectCustomSlowCalls() //API等级11，使用StrictMode.noteSlowCode
-//                    .detectDiskReads()
-//                    .detectDiskWrites()
-//                    .detectNetwork()   // or .detectAll() for all detectable problems
-//                    .penaltyDialog() //弹出违规提示对话框
-//                    .penaltyLog() //在Logcat 中打印违规异常信息
-//                    .penaltyFlashScreen() //API等级11
-//                    .build()
-//            )
+            StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder()
+                    .detectCustomSlowCalls() //API等级11，使用StrictMode.noteSlowCode
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyDialog() //弹出违规提示对话框
+                    .penaltyLog() //在Logcat 中打印违规异常信息
+                    .penaltyFlashScreen() //API等级11
+                    .build()
+            )
             StrictMode.setVmPolicy(
                 StrictMode.VmPolicy.Builder()
                     .detectAll()
@@ -129,11 +141,17 @@ class OSportApplciation : Application() {
         }
     }
 
+    /**
+     * 初始化蓝牙sdk Fundo
+     * */
     private fun initSDK() {
         KCTBluetoothManager.getInstance().init(this)
     }
 
 
+    /**
+     * 初始化蓝牙框架 RxBle
+     * */
     private fun initRxBleClient() {
         rxBleClient = RxBleClient.create(this)
         RxBleClient.updateLogOptions(
@@ -146,6 +164,10 @@ class OSportApplciation : Application() {
         )
     }
 
+
+    /**
+     * 初始化主题框架
+     * */
     private fun initSkin() {
         val defaults: Defaults = Defaults(
             primaryColor = ThemeColor.GREEN,
@@ -156,21 +178,38 @@ class OSportApplciation : Application() {
         initColorful(this, defaults)
     }
 
-
+    /**
+     * 初始化Realm数据库
+     * */
     private fun initRealm() {
         Realm.init(this)
+        val  realmKey=Utils.getRealmKey(SecurityKey.REALM_KEY) as ByteArray
+
+        SecureRandom().nextBytes(realmKey)
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
                 .name("oplayer.realm")
+                .encryptionKey(realmKey)//指定数据库的密钥。
                 .schemaVersion(Constants.REALM_VERSION)
                 //开发阶段数据库改动频繁 采用删除升级
                 .deleteRealmIfMigrationNeeded()
-//            .migration(Migration())
-//            .assetFile("oplayer.realm")
+             // .migration(Migration())  //数据库升级
+             // .assetFile("oplayer.realm")
                 .build()
         )
+
+
+
+
+
+
+
+
     }
 
+    /**
+     * 初始化Log
+     * */
     private fun initLog() {
         Slog.getSettings()
             .setLogEnable(true)

@@ -10,7 +10,7 @@ import java.util.*
  * @ProjectName:    ORunningPlus
  * @Package:        com.oplayer.common.common
  * @ClassName:      AppManger
- * @Description:     java类作用描述
+ * @Description:     App管理方法
  * @Author:         Ben
  * @CreateDate:     2019/7/23 10:50
  */

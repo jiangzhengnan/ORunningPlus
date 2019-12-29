@@ -115,9 +115,8 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         }
     }
 
-    @SuppressLint("WrongConstant")
     fun showToast(msg: String) {
-        SuperActivityToast.create(this, Style(), Style.DURATION_SHORT)
+        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
             .setText(msg)
             .setDuration(Style.DURATION_VERY_SHORT)
             .setFrame(Style.FRAME_LOLLIPOP)
@@ -133,7 +132,7 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
             .enableProgress(enablePro)
             .setIcon(iconResId)
             .showIcon(showIcon)
-            .setBackgroundColorInt(UIUtils.getSkinColor())
+//            .setBackgroundColorInt(UIUtils.getSkinColor())
             .setText(message)
             .show()
     }

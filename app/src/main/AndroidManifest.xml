@@ -20,6 +20,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+
 
         <activity android:name=".function.test.TestActivity" />
 
