@@ -25,6 +25,7 @@ import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.multimoon.colorful.CAppCompatActivity
+import kotlinx.android.synthetic.main.toolbar_common.*
 import me.weyye.hipermission.HiPermission
 import me.weyye.hipermission.PermissionCallback
 import me.weyye.hipermission.PermissionItem
@@ -47,10 +48,19 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         act = this
         AppManager.instance.addActivity(act as BaseActivity)
         registerEventBus(this)
+
         initView()
         initInfo()
         initData()
     }
+
+    open fun initToolbar(title: String, isShowBack: Boolean) {
+        toolbar_title.text = title
+        supportActionBar?.setDisplayHomeAsUpEnabled(isShowBack)
+
+    }
+
+
 
     open fun startTo(targetClass: Class<out Activity>) {
         Slog.d("普通 跳转 目标 ${targetClass.name}")
@@ -114,8 +124,6 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
             .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN))
             .setAnimations(Style.ANIMATIONS_POP).show()
     }
-
-
 
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {

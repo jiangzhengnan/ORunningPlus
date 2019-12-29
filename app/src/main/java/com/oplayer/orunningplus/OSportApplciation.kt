@@ -24,8 +24,7 @@ import com.oplayer.orunningplus.service.BleService
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import com.squareup.leakcanary.LeakCanary
 
 
 /**
@@ -57,6 +56,23 @@ class OSportApplciation : Application() {
         initSDK()
         initStrictMode()
         initBTService()
+        initLeakCanary()
+
+
+    }
+
+    /**
+     * 初始化内存泄漏检测工具
+     * */
+    fun initLeakCanary() {
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+        // Normal app init code...
 
     }
 
@@ -85,7 +101,8 @@ class OSportApplciation : Application() {
             Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                 .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-                .build())
+                .build()
+        )
     }
 
     private val DEV_MODE = true
@@ -140,19 +157,18 @@ class OSportApplciation : Application() {
     }
 
 
-
-
     private fun initRealm() {
         Realm.init(this)
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
-            .name("oplayer.realm")
-            .schemaVersion(Constants.REALM_VERSION)
-             //开发阶段数据库改动频繁 采用删除升级
-            .deleteRealmIfMigrationNeeded()
+                .name("oplayer.realm")
+                .schemaVersion(Constants.REALM_VERSION)
+                //开发阶段数据库改动频繁 采用删除升级
+                .deleteRealmIfMigrationNeeded()
 //            .migration(Migration())
 //            .assetFile("oplayer.realm")
-            .build())
+                .build()
+        )
     }
 
     private fun initLog() {

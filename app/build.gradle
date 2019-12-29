@@ -59,7 +59,7 @@ android {
 //  x86: 平板、模拟器用得比较多。
 //  x86_64: 64位的平板。
 
-        ndk.abiFilters "armeabi-v7a"
+        ndk.abiFilters "armeabi-v7a","x86"
 //        packagingOptions {
 //        exclude "lib/armeabi/librealm-jni.so"
 //            exclude "lib/mips/librealm-jni.so"
@@ -73,9 +73,10 @@ android {
 
 
     buildTypes {
-        debug {
-            signingConfig signingConfigs.release
-        }
+//        debug {
+//            signingConfig signingConfigs.release
+//
+//        }
         release {
             shrinkResources true
             minifyEnabled true
@@ -234,6 +235,9 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.uphyca:stetho_realm:2.1.0'
     testImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+
+    //https://www.jianshu.com/p/4deb3b6e9515
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 
     /**
      *   ---------------------调试工具 Start---------------------

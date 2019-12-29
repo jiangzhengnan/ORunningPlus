@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.EventBus
 import java.lang.StringBuilder
 
 class TestActivity : BaseActivity() {
+
     override fun getLayoutId(): Int = R.layout.activity_test
 
     var message = StringBuilder()
@@ -44,8 +45,7 @@ class TestActivity : BaseActivity() {
 
     override fun initView() {
 
-        val tvMessage = findViewById<TextView>(R.id.tv_message)
-
+        initToolbar("TestActivity", true)
     }
 
     override fun initInfo() {
@@ -80,13 +80,13 @@ class TestActivity : BaseActivity() {
          * RotateBottom, RotateLeft, Slit, Shake, Sidefill
          * */
 
-        if(isNotificationEnabled()){
+        if (isNotificationEnabled()) {
             showToast("通知使用权已经开启  ")
-          return
+            return
         }
-        val dialogBuilder=  NiftyDialogBuilder.getInstance(this)
+        val dialogBuilder = NiftyDialogBuilder.getInstance(this)
 
-        dialogBuilder .withTitle("通知使用权")
+        dialogBuilder.withTitle("通知使用权")
             .withMessage("请开启通知使用权")
             .withEffect(Effectstype.RotateBottom)
             .withButton1Text("取消")
