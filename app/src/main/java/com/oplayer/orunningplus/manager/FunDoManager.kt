@@ -7,15 +7,12 @@ import com.kct.bluetooth.callback.IConnectListener
 import com.kct.command.BLEBluetoothManager
 import com.kct.command.IReceiveListener
 import com.kct.command.KCTBluetoothCommand
-import com.oplayer.common.common.ExecutionStatus
 import com.oplayer.common.common.FundoCompanyCode
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.OSportApplciation.Companion.sContext
 import com.oplayer.orunningplus.base.BaseManager
-import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.service.BleService
 import com.vicpin.krealmextensions.createOrUpdate
-import org.greenrobot.eventbus.EventBus
 
 /**
  *
@@ -33,28 +30,30 @@ class FunDoManager private constructor() : BaseManager {
         val instance: FunDoManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             FunDoManager()
         }
+
+
+        val getManager: KCTBluetoothManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            KCTBluetoothManager.getInstance()
+        }
+
     }
+
+    //手表管理实例
+    private val kctBluetoothManager = getManager
 
 
     /**
      * 使用了仅BLE的sdk kctbleSdk2.jar
      * */
-    fun bindBle(bluetoothLeDevice: BluetoothDevice, iconCallback: IConnectListener) {
+    override fun bindBle(bluetoothLeDevice: BluetoothDevice, any: Any) {
+        var iconCallback: IConnectListener = any as IConnectListener
+        kctBluetoothManager.registerListener(iconCallback)
+        kctBluetoothManager.connect(bluetoothLeDevice)
 
-        KCTBluetoothManager.getInstance().registerListener(iconCallback)
-        KCTBluetoothManager.getInstance()?.connect(bluetoothLeDevice)
-
-    }
-
-
-    fun disConnectBle(iconCallback: IConnectListener) {
-        Slog.d("手动断开连接")
-        KCTBluetoothManager.getInstance()?.disConnect_a2d()
-        KCTBluetoothManager.getInstance().unregisterListener(iconCallback)
     }
 
     override fun isConnected(): Boolean =
-        KCTBluetoothManager.getInstance().connectState == KCTBluetoothManager.STATE_CONNECTED
+        kctBluetoothManager.connectState == KCTBluetoothManager.STATE_CONNECTED
 
 
     /**
@@ -104,7 +103,7 @@ class FunDoManager private constructor() : BaseManager {
                 currDevice.battery = anys[0].toString()
                 currDevice.createOrUpdate()
 
-                Handler().postDelayed(Runnable {
+                Handler().postDelayed({
                     Slog.d("模拟执行时间")
                     executionSucceed()
                 }, 2000);
@@ -165,37 +164,38 @@ class FunDoManager private constructor() : BaseManager {
     /**
      * 查找设备
      * */
-    override fun findDevice() {
-        KCTBluetoothManager.getInstance()
-            .sendCommand_a2d(BLEBluetoothManager.BLE_COMMAND_a2d_findDevice_pack())
-        executionSucceed()
-    }
-
+    override fun findDevice() =
+        sendInstruction(BLEBluetoothManager.BLE_COMMAND_a2d_findDevice_pack())
 
     /**
      * 查询设备电量
      * */
-    override fun queryPower() {
-        KCTBluetoothManager.getInstance()
-            .sendCommand_a2d(BLEBluetoothManager.BLE_COMMAND_a2d_getBatteryStatus_pack())
+    override fun queryPower() =
+        sendInstruction(BLEBluetoothManager.BLE_COMMAND_a2d_getBatteryStatus_pack())
+
+    /**
+     * 重置设备
+     * */
+    override fun resetWatch() =
+        sendInstruction(BLEBluetoothManager.BLE_COMMAND_a2d_sendReset_pack())
+
+    override fun disConnectBle(any: Any) {
+        try {
+            val iconCallback = any as IConnectListener
+            kctBluetoothManager.disConnect_a2d()
+            kctBluetoothManager.unregisterListener(iconCallback)
+        } catch (e: Exception) {
+            Slog.e("取消链接失败  回调类型错误   $e")
+        }
+    }
+
+    /**
+     * 发送指令方法
+     * */
+
+    fun sendInstruction(array: ByteArray) {
+        kctBluetoothManager.sendCommand_a2d(array)
         executionInProgress()
-
     }
-
-    override fun executionSucceed() {
-        EventBus.getDefault()
-            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_SUCCEED))
-    }
-
-    override fun executionFailed() {
-        EventBus.getDefault()
-            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_FAILED))
-    }
-
-    override fun executionInProgress() {
-        EventBus.getDefault()
-            .post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_IN_PROGRESS))
-    }
-
 
 }

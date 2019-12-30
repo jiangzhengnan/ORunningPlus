@@ -111,12 +111,24 @@ android {
 
 }
 
+//依赖libs 下面的aar包
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+
 dependencies {
+
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
 
     /**
      *   ---------------------布局相关 Start---------------------
@@ -251,6 +263,23 @@ dependencies {
     /**
      *   ---------------------安全保护 Start---------------------
      */
+
+    /**
+     *   ---------------------外部协议SDk Start---------------------
+     */
+     //fundo
     implementation files('libs/kctbleSdk1.jar')
     implementation files('libs/kctbleSdk2.jar')
+
+    //fitcloud
+    implementation(name: 'libraryCore-release_19_1113_1', ext: 'aar')
+    //fitcloud  dfu dial
+    implementation(name: 'libraryDfu-release_19_1013_1', ext: 'aar')
+
+
+    /**
+     *   ---------------------外部协议SDk End---------------------
+     */
+
+
 }

@@ -13,9 +13,21 @@ import java.util.*
  * @Author:         Ben
  * @CreateDate:     2019/7/24 9:46
  */
+
+//定制包名
+class CustomizedPackName {
+    companion object {
+        var ORunningPlus="com.oplayer.orunningplus"
+
+    }
+
+
+}
+
+
+
 class Constants {
     companion object {
-
         const val REALM_VERSION = 1L
         const val OPLAYER_LOG = "oplayer_error_log"
         const val BLUETOOTH_MESSAGE = "BLUETOOTH_MESSAGE"
@@ -29,10 +41,7 @@ class SecurityKey {
     companion object {
         const val SECURE_PREFERENCES_KEY = "com.oplayer"
         const val REALM_KEY = "com.oplayer.comm"
-
     }
-
-
 }
 
 
@@ -58,6 +67,7 @@ class DeviceSetting {
 class DeviceType {
     companion object {
         const val DEVICE_FUNDO = "DEVICE_FUNDO"
+        const val DEVICE_FITCLOUD = "DEVICE_FITCLOUD"
         const val DEVICE_UNKNOWN = "DEVICE_UNKNOWN"
 
     }
@@ -89,8 +99,20 @@ class ScanDeviceState {
 
 class NotifiPackName {
     companion object {
-        const val QQ = "com.tencent.mobileqq"
-        const val WeChat = "com.tencent.mm "
+
+        const val APP_PACKAGE_QQ = "com.tencent.mobileqq"
+        const val APP_PACKAGE_WECHAT = "com.tencent.mm"
+        const val APP_PACKAGE_WHATSAPP = "com.whatsapp"
+        const val APP_PACKAGE_MESSENGER = "com.facebook.orca"
+        const val APP_PACKAGE_TWITTER = "com.twitter.android"
+        const val APP_PACKAGE_LINKEDIN = "com.linkedin.android"
+        const val APP_PACKAGE_INSTAGRAM = "com.instagram.android"
+        const val APP_PACKAGE_FACEBOOK = "com.facebook.katana"
+        const val APP_PACKAGE_SMS = "com.android.mms"
+        const val APP_PACKAGE_LINE = "jp.naver.line.android"
+        const val APP_PACKAGE_VIBER = "com.viber.voip"
+        const val APP_PACKAGE_SKYPE = "com.skype.raider"
+        const val APP_PACKAGE_OUTLOOK = "com.microsoft.office.outlook"
 
     }
 

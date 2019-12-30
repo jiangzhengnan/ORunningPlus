@@ -4,29 +4,24 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.oplayer.common.common.AppManager
-import com.oplayer.common.common.Constants
+import android.os.StrictMode
+import com.facebook.stetho.Stetho
+import com.htsmart.wristband2.WristbandApplication
+import com.kct.bluetooth.KCTBluetoothManager
+import com.oplayer.common.common.*
 import com.oplayer.common.utils.Slog
+import com.oplayer.orunningplus.service.BleService
+import com.oplayer.orunningplus.utils.javautils.Utils
 import com.polidea.rxandroidble2.LogConstants
 import com.polidea.rxandroidble2.LogOptions
 import com.polidea.rxandroidble2.RxBleClient
+import com.squareup.leakcanary.LeakCanary
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider
 import io.multimoon.colorful.Defaults
 import io.multimoon.colorful.ThemeColor
 import io.multimoon.colorful.initColorful
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import android.os.StrictMode
-import android.provider.SyncStateContract
-import com.facebook.stetho.Stetho
-import com.kct.bluetooth.KCTBluetoothManager
-
-import com.oplayer.orunningplus.service.BleService
-import com.uphyca.stetho_realm.RealmInspectorModulesProvider
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import com.oplayer.common.common.SecurityKey
-import com.oplayer.orunningplus.utils.javautils.Utils
-import com.squareup.leakcanary.LeakCanary
 import java.security.SecureRandom
 
 
@@ -50,6 +45,8 @@ class OSportApplciation : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Slog.d("当前工作模式 debug? :  ${BuildConfig.DEBUG}")
+
         sContext = this
         initSkin()
         initLog()
@@ -145,7 +142,40 @@ class OSportApplciation : Application() {
      * 初始化蓝牙sdk Fundo
      * */
     private fun initSDK() {
-        KCTBluetoothManager.getInstance().init(this)
+
+        var initSdklist: MutableList<String> = mutableListOf()
+
+        when (packageName) {
+            CustomizedPackName.ORunningPlus -> {
+                initSdklist.add(DeviceType.DEVICE_FUNDO)
+                initSdklist.add(DeviceType.DEVICE_FITCLOUD)
+            }
+            else -> {
+            }
+        }
+
+
+
+
+
+
+        initSdklist.forEach {
+            when (it) {
+                DeviceType.DEVICE_FUNDO -> {
+                    KCTBluetoothManager.getInstance().init(this)
+                }
+                DeviceType.DEVICE_FITCLOUD -> {
+
+                    WristbandApplication.init(this)
+                    WristbandApplication.setDebugEnable(BuildConfig.DEBUG)
+                }
+                else -> {
+                }
+            }
+
+        }
+
+
     }
 
 
@@ -183,7 +213,7 @@ class OSportApplciation : Application() {
      * */
     private fun initRealm() {
         Realm.init(this)
-        val  realmKey=Utils.getRealmKey(SecurityKey.REALM_KEY) as ByteArray
+        val realmKey = Utils.getRealmKey(SecurityKey.REALM_KEY) as ByteArray
 
         SecureRandom().nextBytes(realmKey)
         Realm.setDefaultConfiguration(
@@ -193,16 +223,10 @@ class OSportApplciation : Application() {
                 .schemaVersion(Constants.REALM_VERSION)
                 //开发阶段数据库改动频繁 采用删除升级
                 .deleteRealmIfMigrationNeeded()
-             // .migration(Migration())  //数据库升级
-             // .assetFile("oplayer.realm")
+                // .migration(Migration())  //数据库升级
+                // .assetFile("oplayer.realm")
                 .build()
         )
-
-
-
-
-
-
 
 
     }
