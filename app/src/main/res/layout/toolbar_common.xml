@@ -13,8 +13,8 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:lines="1"
-        android:textColor="@color/colorAccent"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@color/colorAccent"/>
 
 
 </androidx.appcompat.widget.Toolbar>

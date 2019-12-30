@@ -12,35 +12,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:layout_margin="10dp"
-        >
+        android:orientation="horizontal">
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_conn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Scan Device" />
+                    android:text="Scan Device"/>
 
                 <Button
                     android:id="@+id/btn_disconn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="DisConn Device" />
+                    android:text="DisConn Device"/>
 
 
                 <Button
@@ -48,13 +46,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Find Device" />
+                    android:text="Find Device"/>
+
                 <Button
                     android:id="@+id/btn_query_power"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Query Power" />
+                    android:text="Query Power"/>
             </LinearLayout>
 
         </ScrollView>
@@ -63,8 +62,8 @@
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -72,8 +71,7 @@
                 <TextView
                     android:id="@+id/tv_message"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
 
 
             </LinearLayout>
