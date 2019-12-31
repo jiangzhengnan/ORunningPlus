@@ -3,14 +3,18 @@ package com.oplayer.orunningplus.manager
 import android.bluetooth.BluetoothDevice
 import android.os.Handler
 import com.kct.bluetooth.KCTBluetoothManager
+import com.kct.bluetooth.bean.BluetoothLeDevice
 import com.kct.bluetooth.callback.IConnectListener
 import com.kct.command.BLEBluetoothManager
 import com.kct.command.IReceiveListener
 import com.kct.command.KCTBluetoothCommand
+import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.FundoCompanyCode
+import com.oplayer.common.common.NotifiDate
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.OSportApplciation.Companion.sContext
 import com.oplayer.orunningplus.base.BaseManager
+import com.oplayer.orunningplus.bean.NotificationDate
 import com.oplayer.orunningplus.service.BleService
 import com.vicpin.krealmextensions.createOrUpdate
 
@@ -45,12 +49,76 @@ class FunDoManager private constructor() : BaseManager {
     /**
      * 使用了仅BLE的sdk kctbleSdk2.jar
      * */
-    override fun bindBle(bluetoothLeDevice: BluetoothDevice, any: Any) {
-        var iconCallback: IConnectListener = any as IConnectListener
+    override fun bindBle(bluetoothLeDevice: BluetoothDevice) {
         kctBluetoothManager.registerListener(iconCallback)
         kctBluetoothManager.connect(bluetoothLeDevice)
 
     }
+
+    override fun sendNotification(notification: NotificationDate) {
+        when (notification.pkg) {
+            NotifiDate.APP_PACKAGE_QQ         -> {                                 }
+            NotifiDate.APP_PACKAGE_WECHAT     -> {                                 }
+            NotifiDate.APP_PACKAGE_WHATSAPP   -> {                                 }
+            NotifiDate.APP_PACKAGE_MESSENGER  -> {                                 }
+            NotifiDate.APP_PACKAGE_TWITTER    -> {                                 }
+            NotifiDate.APP_PACKAGE_LINKEDIN   -> {                                 }
+            NotifiDate.APP_PACKAGE_INSTAGRAM  -> {                                 }
+            NotifiDate.APP_PACKAGE_FACEBOOK   -> {                                 }
+            NotifiDate.APP_PACKAGE_SMS        -> {                                 }
+            NotifiDate.APP_PACKAGE_LINE       -> {                                 }
+            NotifiDate.APP_PACKAGE_VIBER      -> {                                 }
+            NotifiDate.APP_PACKAGE_SKYPE      -> {                                 }
+            NotifiDate.APP_PACKAGE_OUTLOOK    -> {                                 }
+
+        }
+
+    }
+
+    /**
+     * FunDo数据连接回调
+     */
+    var iconCallback = object : IConnectListener {
+        override fun onConnectState(state: Int) {
+            Slog.d("  onConnectState    $state")
+            when (state) {
+                KCTBluetoothManager.STATE_CONNECTED -> {
+                    Slog.d("连接成功")
+                    BleService.INSTANCE.ConnectStatus(BluetoothState.CONNECTION_SUCCESS)
+                }
+                KCTBluetoothManager.STATE_NONE,
+                KCTBluetoothManager.STATE_CONNECT_FAIL -> {
+                    Slog.d("连接失败")
+                    BleService.INSTANCE. ConnectStatus(BluetoothState.CONNECTION_FAILED)
+
+                }
+                KCTBluetoothManager.STATE_CONNECTING -> {
+                    Slog.d("连接中")
+                    BleService.INSTANCE.   ConnectStatus(BluetoothState.CONNECTIONNTING)
+                }
+
+            }
+        }
+
+        override fun onCommand_d2a(byteArray: ByteArray?) {
+//            Slog.d("  onCommand_d2a  接收数据  $byteArray")
+         onReceiveMessage(byteArray)
+
+        }
+
+        override fun onConnectDevice(device: BluetoothDevice?) {
+            Slog.d("  onConnectDevice    ${device?.name}")
+        }
+
+        override fun onScanDevice(device: BluetoothLeDevice?) {
+            Slog.d("  onScanDevice  搜索到设备  ${device?.name}")
+        }
+    }
+
+
+
+
+
 
     override fun isConnected(): Boolean =
         kctBluetoothManager.connectState == KCTBluetoothManager.STATE_CONNECTED
@@ -179,14 +247,9 @@ class FunDoManager private constructor() : BaseManager {
     override fun resetWatch() =
         sendInstruction(BLEBluetoothManager.BLE_COMMAND_a2d_sendReset_pack())
 
-    override fun disConnectBle(any: Any) {
-        try {
-            val iconCallback = any as IConnectListener
+    override fun disConnectBle() {
             kctBluetoothManager.disConnect_a2d()
             kctBluetoothManager.unregisterListener(iconCallback)
-        } catch (e: Exception) {
-            Slog.e("取消链接失败  回调类型错误   $e")
-        }
     }
 
     /**

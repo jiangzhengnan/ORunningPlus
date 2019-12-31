@@ -7,6 +7,7 @@ import android.os.IBinder
 import com.oplayer.common.utils.NotifiUtils
 import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.common.utils.NotifiUtils.Companion.getNotification
+import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
@@ -51,10 +52,6 @@ abstract class BaseService : Service() {
         return null
     }
 
-    public fun openForegroundService(mContext: Context,sourcesId: Int, contextText: String,  cls: Class<*>) {
-        val notification = NotifiUtils. getNotification(mContext, contextText, sourcesId, cls)
-        startForeground(NOTIFICATION_ID, notification)
-    }
 
     fun isEventBusRegisted(subscribe: Any): Boolean {
         return EventBus.getDefault().isRegistered(subscribe)

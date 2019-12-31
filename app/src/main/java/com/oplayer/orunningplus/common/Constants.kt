@@ -28,6 +28,7 @@ class CustomizedPackName {
 
 class Constants {
     companion object {
+
         const val REALM_VERSION = 1L
         const val OPLAYER_LOG = "oplayer_error_log"
         const val BLUETOOTH_MESSAGE = "BLUETOOTH_MESSAGE"
@@ -42,6 +43,8 @@ class SecurityKey {
         const val SECURE_PREFERENCES_KEY = "com.oplayer"
         const val REALM_KEY = "com.oplayer.comm"
     }
+
+
 }
 
 
@@ -97,22 +100,22 @@ class ScanDeviceState {
 }
 
 
-class NotifiPackName {
+class NotifiDate {
     companion object {
 
-        const val APP_PACKAGE_QQ = "com.tencent.mobileqq"
-        const val APP_PACKAGE_WECHAT = "com.tencent.mm"
-        const val APP_PACKAGE_WHATSAPP = "com.whatsapp"
-        const val APP_PACKAGE_MESSENGER = "com.facebook.orca"
-        const val APP_PACKAGE_TWITTER = "com.twitter.android"
-        const val APP_PACKAGE_LINKEDIN = "com.linkedin.android"
-        const val APP_PACKAGE_INSTAGRAM = "com.instagram.android"
-        const val APP_PACKAGE_FACEBOOK = "com.facebook.katana"
-        const val APP_PACKAGE_SMS = "com.android.mms"
-        const val APP_PACKAGE_LINE = "jp.naver.line.android"
-        const val APP_PACKAGE_VIBER = "com.viber.voip"
-        const val APP_PACKAGE_SKYPE = "com.skype.raider"
-        const val APP_PACKAGE_OUTLOOK = "com.microsoft.office.outlook"
+        const val APP_PACKAGE_QQ            = "com.tencent.mobileqq"
+        const val APP_PACKAGE_WECHAT        = "com.tencent.mm"
+        const val APP_PACKAGE_WHATSAPP      = "com.whatsapp"
+        const val APP_PACKAGE_MESSENGER     = "com.facebook.orca"
+        const val APP_PACKAGE_TWITTER        = "com.twitter.android"
+        const val APP_PACKAGE_LINKEDIN       = "com.linkedin.android"
+        const val APP_PACKAGE_INSTAGRAM      = "com.instagram.android"
+        const val APP_PACKAGE_FACEBOOK      = "com.facebook.katana"
+        const val APP_PACKAGE_SMS           = "com.android.mms"
+        const val APP_PACKAGE_LINE           = "jp.naver.line.android"
+        const val APP_PACKAGE_VIBER          = "com.viber.voip"
+        const val APP_PACKAGE_SKYPE          = "com.skype.raider"
+        const val APP_PACKAGE_OUTLOOK         = "com.microsoft.office.outlook"
 
     }
 
@@ -129,6 +132,8 @@ class DeviceUUID() {
         val FUNDO_BLE_YDS_UUID =
             UUID.fromString("0000FEA0-0000-1000-8000-00805f9b34fb") as UUID//分动
 
+         //仿苹果设备没有UUID 用公司识别码判断
+        val FITCLOULD_TYPE: Int = 0x5448
 
     }
 }

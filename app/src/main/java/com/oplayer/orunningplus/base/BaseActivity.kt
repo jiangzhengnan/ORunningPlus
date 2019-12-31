@@ -25,6 +25,7 @@ import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.multimoon.colorful.CAppCompatActivity
+import io.multimoon.colorful.ThemeColor
 import kotlinx.android.synthetic.main.toolbar_common.*
 import me.weyye.hipermission.HiPermission
 import me.weyye.hipermission.PermissionCallback
@@ -46,15 +47,18 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         act = this
+
+
+
         AppManager.instance.addActivity(act as BaseActivity)
         registerEventBus(this)
-
         initView()
         initInfo()
         initData()
     }
 
     open fun initToolbar(title: String, isShowBack: Boolean) {
+        toolbar.setBackgroundColor( UIUtils.getSkinColor())
         toolbar_title.text = title
         supportActionBar?.setDisplayHomeAsUpEnabled(isShowBack)
 
@@ -93,7 +97,9 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         super.onDestroy()
         unregisterEventBus(this)
         presenters.forEach { it.detachView() }
-        //AppManager.finishActivity()
+        AppManager.instance.finishActivity(this)
+
+
     }
 
 
@@ -132,7 +138,7 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
             .enableProgress(enablePro)
             .setIcon(iconResId)
             .showIcon(showIcon)
-//            .setBackgroundColorInt(UIUtils.getSkinColor())
+            .setBackgroundColorInt(UIUtils.getSkinColor())
             .setText(message)
             .show()
     }

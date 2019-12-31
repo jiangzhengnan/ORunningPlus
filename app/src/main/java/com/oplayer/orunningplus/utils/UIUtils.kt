@@ -21,7 +21,7 @@ class UIUtils {
 
 
         fun getContext(): Context {
-            return com.oplayer.orunningplus.OSportApplciation.sContext
+            return OSportApplciation.sContext
         }
 
 

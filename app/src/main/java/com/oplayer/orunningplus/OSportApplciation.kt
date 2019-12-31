@@ -1,16 +1,19 @@
 package com.oplayer.orunningplus
-
 import android.app.Application
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.StrictMode
+import android.util.Log
 import com.facebook.stetho.Stetho
 import com.htsmart.wristband2.WristbandApplication
 import com.kct.bluetooth.KCTBluetoothManager
 import com.oplayer.common.common.*
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.service.BleService
+import com.oplayer.orunningplus.service.NotificationReceiverService
 import com.oplayer.orunningplus.utils.javautils.Utils
 import com.polidea.rxandroidble2.LogConstants
 import com.polidea.rxandroidble2.LogOptions
@@ -22,7 +25,6 @@ import io.multimoon.colorful.ThemeColor
 import io.multimoon.colorful.initColorful
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import java.security.SecureRandom
 
 
 /**
@@ -46,17 +48,23 @@ class OSportApplciation : Application() {
     override fun onCreate() {
         super.onCreate()
         Slog.d("当前工作模式 debug? :  ${BuildConfig.DEBUG}")
-
+        initRealm()
         sContext = this
         initSkin()
         initLog()
-        initRealm()
+initNotifiCation()
         initStetho()
         initRxBleClient()
         initSDK()
         initStrictMode()
         initBTService()
         initLeakCanary()
+
+
+    }
+
+    private fun initNotifiCation() {
+
 
 
     }
@@ -69,9 +77,9 @@ class OSportApplciation : Application() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
-            return;
+            return
         }
-        LeakCanary.install(this);
+        LeakCanary.install(this)
         // Normal app init code...
 
     }
@@ -117,17 +125,17 @@ class OSportApplciation : Application() {
      * */
     private fun initStrictMode() {
         if (DEV_MODE) {
-            StrictMode.setThreadPolicy(
-                StrictMode.ThreadPolicy.Builder()
-                    .detectCustomSlowCalls() //API等级11，使用StrictMode.noteSlowCode
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyDialog() //弹出违规提示对话框
-                    .penaltyLog() //在Logcat 中打印违规异常信息
-                    .penaltyFlashScreen() //API等级11
-                    .build()
-            )
+//            StrictMode.setThreadPolicy(
+//                StrictMode.ThreadPolicy.Builder()
+//                    .detectCustomSlowCalls() //API等级11，使用StrictMode.noteSlowCode
+//                    .detectDiskReads()
+//                    .detectDiskWrites()
+//                    .detectNetwork()   // or .detectAll() for all detectable problems
+//                    .penaltyDialog() //弹出违规提示对话框
+//                    .penaltyLog() //在Logcat 中打印违规异常信息
+//                    .penaltyFlashScreen() //API等级11
+//                    .build()
+//            )
             StrictMode.setVmPolicy(
                 StrictMode.VmPolicy.Builder()
                     .detectAll()
@@ -213,9 +221,8 @@ class OSportApplciation : Application() {
      * */
     private fun initRealm() {
         Realm.init(this)
-        val realmKey = Utils.getRealmKey(SecurityKey.REALM_KEY) as ByteArray
-
-        SecureRandom().nextBytes(realmKey)
+           val realmKey=Utils.toMakekey(SecurityKey.REALM_KEY,64,"0")?.toByteArray()
+        //   SecureRandom().nextBytes(realmKey)
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
                 .name("oplayer.realm")

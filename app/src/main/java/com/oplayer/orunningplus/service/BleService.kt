@@ -1,43 +1,35 @@
 package com.oplayer.orunningplus.service
 
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothDevice
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.widget.Toast
-import com.kct.bluetooth.KCTBluetoothManager
-import com.kct.bluetooth.bean.BluetoothLeDevice
-import com.kct.bluetooth.callback.IConnectListener
 import com.oplayer.common.base.BaseService
 import com.oplayer.common.common.*
+import com.oplayer.common.utils.NotifiUtils
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
-
-import com.oplayer.orunningplus.manager.FunDoManager
-import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseManager
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.bean.DeviceInfo
+import com.oplayer.orunningplus.bean.NotificationDate
 import com.oplayer.orunningplus.common.RxBleFactory
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.manager.FitCloudManager
+import com.oplayer.orunningplus.manager.FunDoManager
 import com.oplayer.orunningplus.utils.javautils.JavaUtil
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
-import com.realsil.sdk.core.corespec.BleManager
 import com.vicpin.krealmextensions.createOrUpdate
-import com.vicpin.krealmextensions.queryAsFlowable
 import com.vicpin.krealmextensions.queryFirst
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_test.*
 import org.greenrobot.eventbus.EventBus
-import java.lang.Exception
-import java.lang.StringBuilder
 import java.util.*
 
 
@@ -54,29 +46,7 @@ class BleService : BaseService() {
 
     override fun onCreate() {
         super.onCreate()
-
         startService()
-
-        initDeviceChage()
-
-    }
-
-    @SuppressLint("CheckResult")
-    private fun initDeviceChage() {
-        getManager(null)
-
-        DeviceInfo().queryAsFlowable { queryFirst<DeviceInfo>() }.subscribe {
-            if (it != null) {
-                var deviceInfo = it.first()
-                Slog.d("deviceinfo 修改回调")
-                getManager(deviceInfo)
-
-                // TODO: 2019/12/30   重点！：  链接设备之后Currmanger 会不会切换到对应的manager
-
-            }
-
-        }
-
     }
 
     companion object {
@@ -89,27 +59,16 @@ class BleService : BaseService() {
 
 
     @SuppressLint("CheckResult")
-    private fun getManager(device: DeviceInfo?) {
-
-        var deviceByRealm = device
-        if (deviceByRealm == null) {
-            deviceByRealm = DeviceInfo().queryFirst()
-            if (deviceByRealm == null) {
-                deviceByRealm = DeviceInfo()
-            }
-
-        }
-        when (deviceByRealm.deviceType) {
-            DeviceType.DEVICE_FUNDO -> {
-                currManager = FunDoManager.instance
-            }
-            DeviceType.DEVICE_FITCLOUD -> {
-                currManager = FitCloudManager.instance
-            }
+    private fun getManager(): BaseManager {
+        when (getCurrDevice().deviceType) {
+            DeviceType.DEVICE_FUNDO -> currManager = FunDoManager.instance
+            DeviceType.DEVICE_FITCLOUD -> currManager = FitCloudManager.instance
+            DeviceType.DEVICE_UNKNOWN -> Slog.d("未知设备类型")
             else -> {
             }
         }
-
+        Slog.d("getManager  currManager  $currManager")
+        return currManager
 
     }
 
@@ -140,11 +99,7 @@ class BleService : BaseService() {
         if (!isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
             Slog.d("执行服务器启动方法")
-            if (Build.VERSION.SDK_INT >= 26) {
-                sContext.startForegroundService(intent)
-            } else {
-                sContext.startService(intent)
-            }
+            if (Build.VERSION.SDK_INT >= 26) sContext.startForegroundService(intent) else sContext.startService(intent)
         } else {
             Slog.d("服务已在运行   ")
         }
@@ -172,9 +127,15 @@ class BleService : BaseService() {
      * */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         instance = this
-        var contextText = UIUtils.getString(R.string.server_contextText)
-        chageContextText(contextText)
         checkConnState()
+        var contextText = UIUtils.getString(R.string.server_contextText)
+
+        if (Build.VERSION.SDK_INT >= 26) {
+//            chageContextText(UIUtils.getString(R.string.server_contextText))
+            openForegroundService(UIUtils.getContext(), R.mipmap.ic_launcher, UIUtils.getString(R.string.server_contextText))
+        }
+        //分离设备管理器
+        getManager()
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -183,11 +144,15 @@ class BleService : BaseService() {
      */
     private fun checkConnState() {
         var deviceInfo = getCurrDevice()
-        if (deviceInfo.isBind == true && !isConnected()) {
+        if (deviceInfo.isBind == true && !isConnected() && !deviceInfo.bleName.isNullOrEmpty() && !deviceInfo.bleAddress.isNullOrEmpty()) {
             //更新绑定状态，非手动连接
             setBind(true, false)
             //已经绑定但是没有连接
             reScanDevice(deviceInfo)
+        } else {
+
+            Slog.d(" 重新连接条件不足   $deviceInfo ")
+
         }
     }
 
@@ -195,13 +160,26 @@ class BleService : BaseService() {
      * 修改服务通知信息方法
      */
     private fun chageContextText(str: String) {
-        var cls = OSportApplciation.javaClass
-        openForegroundService(
-            UIUtils.getContext(),
-            R.mipmap.ic_launcher,
-            str,
-            cls
-        )
+//        if (isRunning()) {
+//            openForegroundService(UIUtils.getContext(), R.mipmap.ic_launcher, str)
+//        }
+    }
+
+
+     fun openForegroundService(mContext: Context, sourcesId: Int, contextText: String) {
+        val notification = NotifiUtils.getNotification(mContext, contextText, sourcesId)
+            startForeground(NOTIFICATION_ID, notification)
+
+    }
+
+
+
+    fun closeForegroundService() {
+        try {
+            stopForeground(true) // 停止前台服务
+        } catch (e: Exception) {
+         Slog.d(" 停止前台服务错误  $e ")
+        }
     }
 
     /**
@@ -209,15 +187,12 @@ class BleService : BaseService() {
      * scanFilter 搜索过滤器
      * */
     public fun scanDevice(scanFilter: ScanFilter) {
-
-
         if (isScanning) {
             //如果处于搜索状态，则清空已搜索到的设备 不重新开始搜索 搜索频繁会导致搜索失败
 //            scanDisposable?.dispose()
             mDevice.clear()
             Slog.d("正在搜索中")
         } else {
-
             RxBleFactory(scanFilter).getObservable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { dispose() }
@@ -231,18 +206,31 @@ class BleService : BaseService() {
                             }
                         }
                         if (!isFound) {
-                            mDevice.add(scanResult)
-                            EventBus.getDefault().post(
-                                MessageEvent(
-                                    ScanDeviceState.SCAN_RESULT,
-                                    BluetoothDeviceInfo(scanResult, DeviceType.DEVICE_FUNDO)
+                            if (scanResult.bleDevice.name!!.isEmpty()) {
+                                return@subscribe
+                            }
+
+                            var identifyDevice = IdentifyTypes(scanResult)
+                            //todo 测试代码 搜索单一协议
+                            if (identifyDevice.deviceType == DeviceType.DEVICE_FITCLOUD) {
+                                mDevice.add(scanResult)
+                                EventBus.getDefault().post(
+                                    MessageEvent(
+                                        ScanDeviceState.SCAN_RESULT,
+                                        identifyDevice
+                                    )
                                 )
-                            )
+
+                            }
+
+
                         }
                     }
                 }, {
                     Slog.d("搜索蓝牙出错  $it")
+
                     EventBus.getDefault().post(MessageEvent(ScanDeviceState.SCAN_ERROR, it))
+
                 })
                 .let {
                     scanDisposable = it
@@ -289,22 +277,27 @@ class BleService : BaseService() {
     }
 
     /**
-     * 协议识别方法   分动添加配对指令之后无法识别
+     * 协议识别方法   分动添加配对指令之后无法识别  可能无法搜索到
      * */
     private fun IdentifyTypes(device: ScanResult): BluetoothDeviceInfo {
         var recordDate = JavaUtil.parseData(device.scanRecord.bytes)
         var deviceType = DeviceType.DEVICE_FUNDO
         var uuids = recordDate.getUuids()
+
+
+        var sia = device.scanRecord.manufacturerSpecificData
+        if (sia != null && sia.size() > 0) {
+            if (sia.keyAt(0) == DeviceUUID.FITCLOULD_TYPE) {
+                return BluetoothDeviceInfo(device, DeviceType.DEVICE_FITCLOUD)
+            }
+        }
         uuids.forEach {
             when (it) {
                 DeviceUUID.FUNDO_BLE_YDS_UUID -> {
                     Slog.d("发现分动设备")
                     deviceType = DeviceType.DEVICE_FUNDO
                 }
-                else -> {
-//                    Slog.d(" 未知设备类型  ${recordDate.getManufacturer()} ")
-                    deviceType = DeviceType.DEVICE_UNKNOWN
-                }
+                else -> deviceType = DeviceType.DEVICE_UNKNOWN
             }
 
         }
@@ -333,7 +326,7 @@ class BleService : BaseService() {
     /**
      *多协议下 统一连接状态
      * */
-    private fun ConnectStatus(state: String) {
+    public fun ConnectStatus(state: String) {
 
         when (state) {
             BluetoothState.CONNECTION_SUCCESS -> {
@@ -350,7 +343,7 @@ class BleService : BaseService() {
                         BluetoothState.CONNECTION_SUCCESS
                     )
                 )
-                chageContextText(UIUtils.getString(R.string.device_state_success) + device?.bleName)
+//                chageContextText("${UIUtils.getString(R.string.device_state_success)} :  ${device?.bleName}")
             }
             BluetoothState.CONNECTION_FAILED -> {
                 EventBus.getDefault().post(
@@ -359,14 +352,16 @@ class BleService : BaseService() {
                         BluetoothState.CONNECTION_FAILED
                     )
                 )
-                chageContextText(UIUtils.getString(R.string.device_state_failed) + device?.bleName)
+//                chageContextText("${UIUtils.getString(R.string.device_state_failed)} :  ${device?.bleName}")
                 //断开连接 清空消息队列
                 executionQueue.clear()
             }
             BluetoothState.CONNECTIONNTING -> {
                 EventBus.getDefault()
                     .post(MessageEvent(Constants.BLUETOOTH_MESSAGE, BluetoothState.CONNECTIONNTING))
-                chageContextText(UIUtils.getString(R.string.device_state_connectionning))
+
+//                chageContextText("${UIUtils.getString(R.string.device_state_connectionning)} :  ${device?.bleName}")
+
 
             }
 
@@ -381,26 +376,21 @@ class BleService : BaseService() {
     public fun connBle(bluetoothDeviceInfo: BluetoothDeviceInfo) {
         //连接设备的时候应该停止搜索 并延时连接
         stopScanDevice()
+
         Handler().postDelayed({
             var bleDevice = bluetoothDeviceInfo.scanResult.bleDevice.bluetoothDevice
             //准备连接设备  电量 适配号 绑定状态未知
             device = getCurrDevice()
             device!!.bleName = bleDevice.name
             device!!.bleAddress = bleDevice.address
-            device!!.deviceType = DeviceType.DEVICE_FUNDO
-            Slog.d("分动设备执行连接 ")
-            currManager.bindBle(bleDevice, iconCallback)
+            device!!.deviceType = bluetoothDeviceInfo.deviceType
+            device!!.createOrUpdate()
 
-//            when (bluetoothDeviceInfo.deviceType) {
-//                DeviceType.DEVICE_FUNDO -> {
-//                    //todo 添加配对指令之后无法发现服务 无法分辨设备类型
-//
-//                }
-//                //添加多种协议设备
-//                else -> {
-//                    Slog.d("未知设备类型  ")
-//                }
-//            }
+
+            Slog.d("执行设备连接   当前管理  ${currManager} ")
+            getManager().bindBle(bleDevice)
+            Slog.d("执行设备连接  切换 当前管理  ${currManager} ")
+
 
         }, 500)
 
@@ -411,7 +401,7 @@ class BleService : BaseService() {
      * 断开连接分发
      * */
     public fun disConnBle() {
-        currManager.disConnectBle(iconCallback)
+        currManager.disConnectBle()
 //        when (getCurrDevice().deviceType) {
 //            DeviceType.DEVICE_FUNDO -> {
 //                Slog.d("DEVICE FUNDO DISCONNECT BLE")
@@ -444,19 +434,14 @@ class BleService : BaseService() {
                 detectionExecutionStatus(event.getMessage() as String)
             }
             //通知消息接收 分发
-            NotifiPackName -> {
-                //传入包名 消息内容 按协议分发
-                detectionNotification(event.getMessage() as String)
-
+            NotifiDate -> {
+                currManager.sendNotification(event.getMessage() as NotificationDate)
             }
 
 
         }
     }
 
-    private fun detectionNotification(notification: String) {
-
-    }
 
     /**
      * 指令执行回调
@@ -555,49 +540,6 @@ class BleService : BaseService() {
 //        }
 //
 //        return false
-    }
-
-
-    /**
-     * FunDo数据连接回调
-     */
-    var iconCallback = object : IConnectListener {
-        override fun onConnectState(state: Int) {
-            Slog.d("  onConnectState    $state")
-            when (state) {
-                KCTBluetoothManager.STATE_CONNECTED -> {
-                    Slog.d("连接成功")
-                    ConnectStatus(BluetoothState.CONNECTION_SUCCESS)
-                }
-                KCTBluetoothManager.STATE_NONE,
-                KCTBluetoothManager.STATE_CONNECT_FAIL -> {
-                    Slog.d("连接失败")
-                    ConnectStatus(BluetoothState.CONNECTION_FAILED)
-
-                }
-                KCTBluetoothManager.STATE_CONNECTING -> {
-                    Slog.d("连接中")
-                    ConnectStatus(BluetoothState.CONNECTIONNTING)
-                }
-
-            }
-        }
-
-        override fun onCommand_d2a(byteArray: ByteArray?) {
-//            Slog.d("  onCommand_d2a  接收数据  $byteArray")
-
-            //FunDo独有数据解析方式
-            FunDoManager.instance.onReceiveMessage(byteArray)
-
-        }
-
-        override fun onConnectDevice(device: BluetoothDevice?) {
-            Slog.d("  onConnectDevice    ${device?.name}")
-        }
-
-        override fun onScanDevice(device: BluetoothLeDevice?) {
-            Slog.d("  onScanDevice  搜索到设备  ${device?.name}")
-        }
     }
 
 

@@ -1,8 +1,5 @@
 package com.oplayer.orunningplus.bean
 
-import android.bluetooth.BluetoothDevice
-import com.oplayer.common.common.CompanyCode
-import com.polidea.rxandroidble2.scan.ScanResult
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
@@ -12,13 +9,12 @@ import io.realm.annotations.RealmClass
  * @ProjectName:    ORunningPlus
  * @Package:        com.oplayer.provider.bean
  * @ClassName:      DeviceInfo
- * @Description:     java类作用描述
+ * @Description:    封装设备信息
  * @Author:         Ben
  * @CreateDate:     2019/9/5 15:27
  */
 @RealmClass
 open class DeviceInfo(
-//    open var  bluetoothDevice: BluetoothDevice?=null,
     open var bleName: String? = "",
     open var deviceType: String? = "",
     open var bleAddress: String? = "",

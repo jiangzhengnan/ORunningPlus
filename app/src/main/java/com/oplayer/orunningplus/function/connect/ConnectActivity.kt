@@ -36,11 +36,13 @@ class ConnectActivity : BaseActivity() {
         return R.layout.activity_connect
     }
     override fun initInfo() {}
+
     override fun initView() {
-        checkState()
         initSRL()
         checkState()
         initRecycle()
+
+        initToolbar(UIUtils.getString(R.string.title_current_device),false)
     }
     override fun initData() {
         scanDevice()
@@ -115,8 +117,6 @@ class ConnectActivity : BaseActivity() {
                 EventBus.getDefault().post(MessageEvent(Constants.BLUETOOTH_DEVICE, bluetoothDeviceInfo))
                 //设置不可点击
                 rv_devices.isEnabled=false
-
-
                 //只保留点击设备
                 mDevice.clear()
                 mDevice.add(bluetoothDeviceInfo)
@@ -147,13 +147,13 @@ class ConnectActivity : BaseActivity() {
         srl_device.setPrimaryColors(UIUtils.getSkinColor())
         srl_device.setRefreshHeader(BezierRadarHeader(this).setEnableHorizontalDrag(true))
         srl_device.setOnRefreshListener {
-            it.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            it.finishRefresh(2000/*,false*/)//传入false表示刷新失败
             mDevice.clear()
             mDeviceAdapter.notifyDataSetChanged()
             scanDevice()
         }
         srl_device.setOnLoadMoreListener {
-            it.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            it.finishLoadMore(2000/*,false*/)//传入false表示加载失败
         }
 
 
@@ -161,7 +161,7 @@ class ConnectActivity : BaseActivity() {
 
     private fun scanDevice() {
         val scanFilter = ScanFilter.Builder()
-            .setServiceUuid(ParcelUuid.fromString(DeviceUUID.FUNDO_BLE_YDS_UUID.toString()))
+//            .setServiceUuid(ParcelUuid.fromString(DeviceUUID.FUNDO_BLE_YDS_UUID.toString()))
             .build()
         BleService.INSTANCE.scanDevice(scanFilter)
     }

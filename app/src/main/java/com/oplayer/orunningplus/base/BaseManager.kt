@@ -2,6 +2,7 @@ package com.oplayer.orunningplus.base
 
 import android.bluetooth.BluetoothDevice
 import com.oplayer.common.common.ExecutionStatus
+import com.oplayer.orunningplus.bean.NotificationDate
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.service.BleService
 import org.greenrobot.eventbus.EventBus
@@ -52,14 +53,14 @@ interface BaseManager {
 
 
     /**
-     * 断开手表方法，不需要传参传NULL即可
+     * 断开手表方法
      */
-    fun disConnectBle(any: Any)
+    fun disConnectBle()
 
     /**
      * 链接手表通用方法
      */
-    fun  bindBle(bluetoothLeDevice: BluetoothDevice,any: Any)
+    fun  bindBle(bluetoothLeDevice: BluetoothDevice)
 
     /**
      * 当前指令执行成功
@@ -75,6 +76,9 @@ interface BaseManager {
      * 当前指令执行中
      */
     fun executionInProgress() = EventBus.getDefault().post(MessageEvent(ExecutionStatus, ExecutionStatus.EXECUTION_IN_PROGRESS))
+
+
+     fun sendNotification(notification: NotificationDate)
 
 
 }

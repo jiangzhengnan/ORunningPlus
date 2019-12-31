@@ -3,13 +3,14 @@ package com.oplayer.common.utils
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Build
+import android.text.TextUtils
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.oplayer.common.common.CustomizedPackName
 import com.oplayer.orunningplus.R
+import java.util.*
 
 /**
  *
@@ -23,7 +24,7 @@ import com.oplayer.orunningplus.R
 
 class NotifiUtils {
 
-    companion object{
+    companion object {
 
 
         /**
@@ -33,17 +34,15 @@ class NotifiUtils {
          * @param contextText  内容
          */
         fun getNotification(
-            mContext:Context,
+            mContext: Context,
             contextText: String,
-            sourcesId: Int,
-            cls: Class<*>
+            sourcesId: Int
         ): Notification {
-            var mNotificationManager = UIUtils.getContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            var mNotificationManager =
+                mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val notification: Notification
             if (Build.VERSION.SDK_INT >= 26) {
-                val channelName = UIUtils.getString(R.string.app_name)
-                val channelID = mContext.packageName
-                val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_LOW)
+                Slog.d("构建通知 Build.VERSION ${Build.VERSION.SDK_INT} ")
                 /**
                  * IMPORTANCE_NONE 关闭通知
                  * IMPORTANCE_MIN 开启通知，不会弹出，但没有提示音，状态栏中无显示
@@ -51,61 +50,31 @@ class NotifiUtils {
                  * IMPORTANCE_DEFAULT 开启通知，不会弹出，发出提示音，状态栏中显示
                  * IMPORTANCE_HIGH 开启通知，会弹出，发出提示音，状态栏中显示
                  */
-                channel.setShowBadge(false)//设置是否显示角标
+                val channelName = UIUtils.getString(R.string.app_name)
+                val channelID = CustomizedPackName.ORunningPlus
+
+                val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_LOW)
                 mNotificationManager.createNotificationChannel(channel)
-                val builder = Notification.Builder(mContext, channelID) //获取一个Notification构造器
-                val nfIntent = Intent(mContext, cls)
-                builder.setContentIntent(
-                    PendingIntent.getActivity(
-                        mContext,
-                        0,
-                        nfIntent,
-                        0
-                    )
-                )// 设置PendingIntent
-                    .setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            mContext.resources,
-                            sourcesId
-                        )
-                    )// 设置下拉列表中的图标(大图标)
+                notification = Notification.Builder(mContext, channelID)
                     .setContentTitle(channelName)// 设置下拉列表里的标题
                     .setSmallIcon(sourcesId) // 设置状态栏内的小图标
                     .setContentText(contextText) // 设置上下文内容
-                    .setWhen(System.currentTimeMillis()) // 设置该通知发生的时间
-
-                notification = builder.build() // 获取构建好的Notification
+                    .setWhen(System.currentTimeMillis()).build()// 设置该通知发生的时间
+                //显示通知
+                mNotificationManager.notify(0, notification)
             } else {
-                val builder = NotificationCompat.Builder(mContext)
-                val nfIntent = Intent(mContext, cls)
-                builder.setContentIntent(
-                    PendingIntent.getActivity(
-                        UIUtils.getContext(),
-                        0,
-                        nfIntent,
-                        0
-                    )
-                )// 设置PendingIntent
-                    .setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            mContext.resources,
-                            sourcesId
-                        )
-                    )// 设置下拉列表中的图标(大图标)
+                Slog.d("构建通知 Build.VERSION ${Build.VERSION.SDK_INT} ")
+                notification = NotificationCompat.Builder(mContext)
                     .setContentTitle(UIUtils.getString(R.string.app_name)) // 设置下拉列表里的标题
                     .setSmallIcon(sourcesId) // 设置状态栏内的小图标
                     .setContentText(contextText) // 设置上下文内容
-                    .setWhen(System.currentTimeMillis()) // 设置该通知发生的时间
-                notification = builder.build()
+                    .setWhen(System.currentTimeMillis()).build() // 设置该通知发生的时间
             }
             return notification
         }
 
 
 
+
     }
-
-
-
-
 }

@@ -53,7 +53,7 @@
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter android:priority="1000">
                 <action android:name="android.service.notification.NotificationListenerService" />
-                <action android:name="android.deletion.notification" />
+<!--                <action android:name="android.deletion.notification" />-->
             </intent-filter>
         </service>
     </application>
