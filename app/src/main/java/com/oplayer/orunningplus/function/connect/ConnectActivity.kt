@@ -48,8 +48,6 @@ class ConnectActivity : BaseActivity() {
 
 
 
-
-
     override fun onClick(v: View) {
     }
 

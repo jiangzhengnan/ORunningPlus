@@ -2,6 +2,7 @@ package com.oplayer.common.utils
 
 import android.text.TextUtils
 import android.util.Log
+import com.oplayer.orunningplus.BuildConfig
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -166,7 +167,7 @@ import kotlin.collections.ArrayList
             private val NULL = "null"
             private val ARGS = "args"
             private var mLogDir: String = "" // log存储目录
-            private var mLogEnable = true // log总开关
+            private var mLogEnable = BuildConfig.DEBUG // log总开关
             private val mGlobalLogTag = "Slog" // log标签
             private val mTagIsSpace = true // log标签是否为空白
             private val mLog2FileEnable = false// log是否写入文件
@@ -200,6 +201,10 @@ import kotlin.collections.ArrayList
 
             fun e(tag: String = mGlobalLogTag, contents: Any) {
                 log(Log.ERROR, tag, contents)
+            }
+
+            fun e(contents: Any) {
+                log(Log.ERROR, mGlobalLogTag, contents)
             }
 
             fun a(contents: Any) {

@@ -1,5 +1,6 @@
 package com.oplayer.orunningplus.service
 
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Build
@@ -17,20 +18,26 @@ import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.manager.FunDoManager
 import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
+import com.oplayer.orunningplus.base.BaseManager
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.bean.DeviceInfo
 import com.oplayer.orunningplus.common.RxBleFactory
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.manager.FitCloudManager
 import com.oplayer.orunningplus.utils.javautils.JavaUtil
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
+import com.realsil.sdk.core.corespec.BleManager
 import com.vicpin.krealmextensions.createOrUpdate
+import com.vicpin.krealmextensions.queryAsFlowable
 import com.vicpin.krealmextensions.queryFirst
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_test.*
 import org.greenrobot.eventbus.EventBus
 import java.lang.Exception
+import java.lang.StringBuilder
 import java.util.*
 
 
@@ -50,20 +57,68 @@ class BleService : BaseService() {
 
         startService()
 
+        initDeviceChage()
+
+    }
+
+    @SuppressLint("CheckResult")
+    private fun initDeviceChage() {
+        getManager(null)
+
+        DeviceInfo().queryAsFlowable { queryFirst<DeviceInfo>() }.subscribe {
+            if (it != null) {
+                var deviceInfo = it.first()
+                Slog.d("deviceinfo 修改回调")
+                getManager(deviceInfo)
+
+                // TODO: 2019/12/30   重点！：  链接设备之后Currmanger 会不会切换到对应的manager
+
+            }
+
+        }
+
     }
 
     companion object {
         val INSTANCE: BleService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             BleService()
         }
+        var currManager: BaseManager = FunDoManager.instance
+
+    }
+
+
+    @SuppressLint("CheckResult")
+    private fun getManager(device: DeviceInfo?) {
+
+        var deviceByRealm = device
+        if (deviceByRealm == null) {
+            deviceByRealm = DeviceInfo().queryFirst()
+            if (deviceByRealm == null) {
+                deviceByRealm = DeviceInfo()
+            }
+
+        }
+        when (deviceByRealm.deviceType) {
+            DeviceType.DEVICE_FUNDO -> {
+                currManager = FunDoManager.instance
+            }
+            DeviceType.DEVICE_FITCLOUD -> {
+                currManager = FitCloudManager.instance
+            }
+            else -> {
+            }
+        }
 
 
     }
+
 
     /**
      * 维护当前连接设备
      * */
     var device: DeviceInfo? = null
+
 
     fun getCurrDevice(): DeviceInfo {
         if (device == null) {
@@ -98,7 +153,7 @@ class BleService : BaseService() {
     /**
      * 终止服务方法
      * */
-     fun stopBleService() {
+    fun stopBleService() {
         if (isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
             sContext.stopService(intent)
@@ -200,8 +255,12 @@ class BleService : BaseService() {
      * 重新搜索蓝牙方法 根据设备名称  mac地址构建搜索过滤器搜索
      * scanFilter 搜索过滤器
      * */
-    public fun reScanDevice(deviceInfo: DeviceInfo) {
-        RxBleFactory(deviceInfo).getObservable()
+    public fun reScanDevice(deviceInfo: DeviceInfo?) {
+
+        var device = deviceInfo
+        //为传输设备重连时，重连当前设备
+        if (device == null) device = getCurrDevice()
+        RxBleFactory(device).getObservable()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .doFinally { dispose() }
@@ -217,6 +276,7 @@ class BleService : BaseService() {
             .let {
                 scanDisposable = it
             }
+
     }
 
     /**
@@ -322,23 +382,25 @@ class BleService : BaseService() {
         //连接设备的时候应该停止搜索 并延时连接
         stopScanDevice()
         Handler().postDelayed({
-            when (bluetoothDeviceInfo.deviceType) {
-                DeviceType.DEVICE_FUNDO -> {
-                    //todo 添加配对指令之后无法发现服务 无法分辨设备类型
-                    var bleDevice = bluetoothDeviceInfo.scanResult.bleDevice.bluetoothDevice
-                    //准备连接设备  电量 适配号 绑定状态未知
-                    device = getCurrDevice()
-                    device!!.bleName = bleDevice.name
-                    device!!.bleAddress = bleDevice.address
-                    device!!.deviceType = DeviceType.DEVICE_FUNDO
-                    Slog.d("分动设备执行连接 ")
-                    FunDoManager.instance.bindBle(bleDevice, iconCallback)
-                }
-                //添加多种协议设备
-                else -> {
-                    Slog.d("未知设备类型  ")
-                }
-            }
+            var bleDevice = bluetoothDeviceInfo.scanResult.bleDevice.bluetoothDevice
+            //准备连接设备  电量 适配号 绑定状态未知
+            device = getCurrDevice()
+            device!!.bleName = bleDevice.name
+            device!!.bleAddress = bleDevice.address
+            device!!.deviceType = DeviceType.DEVICE_FUNDO
+            Slog.d("分动设备执行连接 ")
+            currManager.bindBle(bleDevice, iconCallback)
+
+//            when (bluetoothDeviceInfo.deviceType) {
+//                DeviceType.DEVICE_FUNDO -> {
+//                    //todo 添加配对指令之后无法发现服务 无法分辨设备类型
+//
+//                }
+//                //添加多种协议设备
+//                else -> {
+//                    Slog.d("未知设备类型  ")
+//                }
+//            }
 
         }, 500)
 
@@ -349,16 +411,17 @@ class BleService : BaseService() {
      * 断开连接分发
      * */
     public fun disConnBle() {
-        when (getCurrDevice().deviceType) {
-            DeviceType.DEVICE_FUNDO -> {
-                Slog.d("DEVICE FUNDO DISCONNECT BLE")
-                FunDoManager.instance.disConnectBle(iconCallback)
-            }
-            //添加多种协议设备
-            else -> {
-                Slog.d("未知设备类型  ")
-            }
-        }
+        currManager.disConnectBle(iconCallback)
+//        when (getCurrDevice().deviceType) {
+//            DeviceType.DEVICE_FUNDO -> {
+//                Slog.d("DEVICE FUNDO DISCONNECT BLE")
+//                FunDoManager.instance.disConnectBle(iconCallback)
+//            }
+//            //添加多种协议设备
+//            else -> {
+//                Slog.d("未知设备类型  ")
+//            }
+//        }
         setBind(false, true)
     }
 
@@ -381,7 +444,7 @@ class BleService : BaseService() {
                 detectionExecutionStatus(event.getMessage() as String)
             }
             //通知消息接收 分发
-            NotifiPackName->{
+            NotifiPackName -> {
                 //传入包名 消息内容 按协议分发
                 detectionNotification(event.getMessage() as String)
 
@@ -437,21 +500,23 @@ class BleService : BaseService() {
             //查找设备指令
             DeviceSetting.FIND_DEVICE -> {
                 Slog.d("发送查找设备指令")
-                when (getCurrDevice().deviceType) {
-                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.findDevice() }
-                    else -> {
-                    }
-                }
+                addFunc { currManager.findDevice() }
+//                when (getCurrDevice().deviceType) {
+//                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.findDevice() }
+//                    else -> {
+//                    }
+//                }
             }
 
             //查询设备电量指令
             DeviceSetting.QUERY_BATTERY -> {
                 Slog.d("发送查找设备指令")
-                when (getCurrDevice().deviceType) {
-                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.queryPower() }
-                    else -> {
-                    }
-                }
+                addFunc { currManager.queryPower() }
+//                when (getCurrDevice().deviceType) {
+//                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.queryPower() }
+//                    else -> {
+//                    }
+//                }
             }
 
 
@@ -476,16 +541,20 @@ class BleService : BaseService() {
      *多协议下 请求链接状态
      * */
     fun isConnected(): Boolean {
-        when (getCurrDevice().deviceType) {
-            DeviceType.DEVICE_FUNDO -> {
-                return FunDoManager.instance.isConnected()
-            }
-            else -> {
-                Slog.d("未知设备类型 ")
-            }
-        }
-
-        return false
+        return currManager.isConnected()
+//          when (getCurrDevice().deviceType) {
+//            DeviceType.DEVICE_FUNDO -> {
+//                return FunDoManager.instance.isConnected()
+//            }
+//            DeviceType.DEVICE_FITCLOUD -> {
+//                return FitCloudManager.instance.isConnected()
+//            }
+//            else -> {
+//                Slog.d("未知设备类型 ")
+//            }
+//        }
+//
+//        return false
     }
 
 
@@ -516,6 +585,8 @@ class BleService : BaseService() {
 
         override fun onCommand_d2a(byteArray: ByteArray?) {
 //            Slog.d("  onCommand_d2a  接收数据  $byteArray")
+
+            //FunDo独有数据解析方式
             FunDoManager.instance.onReceiveMessage(byteArray)
 
         }
@@ -530,20 +601,23 @@ class BleService : BaseService() {
     }
 
 
-/***********************使用队列存储命令 - start******************************/
+    /***********************使用队列存储命令 - start******************************/
     //队列存储方法
     private var executionQueue = LinkedList<Order>()
     // 当前任务
     private var currentOrder: (() -> Unit?)? = null
+
     //添加任务到队列
     fun addFunc(function: () -> Unit?) {
         var order = Order(function)
         doOrder(order)
     }
+
     //结束任务
     fun endOrder() {
         doOrder(null)
     }
+
     //执行任务
     private fun doOrder(order: Order?) {
         if (order != null) {
@@ -559,11 +633,11 @@ class BleService : BaseService() {
             }
         }
     }
+
     //存储任务
     data class Order(var function: () -> Unit? = {})
 
-/***********************使用队列存储命令 - stop******************************/
-
+    /***********************使用队列存储命令 - stop******************************/
 
 
 }
