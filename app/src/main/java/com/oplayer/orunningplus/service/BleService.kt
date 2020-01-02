@@ -99,7 +99,9 @@ class BleService : BaseService() {
         if (!isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
             Slog.d("执行服务器启动方法")
-            if (Build.VERSION.SDK_INT >= 26) sContext.startForegroundService(intent) else sContext.startService(intent)
+            if (Build.VERSION.SDK_INT >= 26) sContext.startForegroundService(intent) else sContext.startService(
+                intent
+            )
         } else {
             Slog.d("服务已在运行   ")
         }
@@ -132,7 +134,11 @@ class BleService : BaseService() {
 
         if (Build.VERSION.SDK_INT >= 26) {
 //            chageContextText(UIUtils.getString(R.string.server_contextText))
-            openForegroundService(UIUtils.getContext(), R.mipmap.ic_launcher, UIUtils.getString(R.string.server_contextText))
+            openForegroundService(
+                UIUtils.getContext(),
+                R.mipmap.ic_launcher,
+                UIUtils.getString(R.string.server_contextText)
+            )
         }
         //分离设备管理器
         getManager()
@@ -166,19 +172,18 @@ class BleService : BaseService() {
     }
 
 
-     fun openForegroundService(mContext: Context, sourcesId: Int, contextText: String) {
+    fun openForegroundService(mContext: Context, sourcesId: Int, contextText: String) {
         val notification = NotifiUtils.getNotification(mContext, contextText, sourcesId)
-            startForeground(NOTIFICATION_ID, notification)
+        startForeground(NOTIFICATION_ID, notification)
 
     }
-
 
 
     fun closeForegroundService() {
         try {
             stopForeground(true) // 停止前台服务
         } catch (e: Exception) {
-         Slog.d(" 停止前台服务错误  $e ")
+            Slog.d(" 停止前台服务错误  $e ")
         }
     }
 
@@ -209,7 +214,6 @@ class BleService : BaseService() {
                             if (scanResult.bleDevice.name!!.isEmpty()) {
                                 return@subscribe
                             }
-
                             var identifyDevice = IdentifyTypes(scanResult)
                             //todo 测试代码 搜索单一协议
                             if (identifyDevice.deviceType == DeviceType.DEVICE_FITCLOUD) {
@@ -385,13 +389,7 @@ class BleService : BaseService() {
             device!!.bleAddress = bleDevice.address
             device!!.deviceType = bluetoothDeviceInfo.deviceType
             device!!.createOrUpdate()
-
-
-            Slog.d("执行设备连接   当前管理  ${currManager} ")
             getManager().bindBle(bleDevice)
-            Slog.d("执行设备连接  切换 当前管理  ${currManager} ")
-
-
         }, 500)
 
 
@@ -402,16 +400,6 @@ class BleService : BaseService() {
      * */
     public fun disConnBle() {
         currManager.disConnectBle()
-//        when (getCurrDevice().deviceType) {
-//            DeviceType.DEVICE_FUNDO -> {
-//                Slog.d("DEVICE FUNDO DISCONNECT BLE")
-//                FunDoManager.instance.disConnectBle(iconCallback)
-//            }
-//            //添加多种协议设备
-//            else -> {
-//                Slog.d("未知设备类型  ")
-//            }
-//        }
         setBind(false, true)
     }
 
@@ -425,7 +413,7 @@ class BleService : BaseService() {
                 var deviceInfo = event.getMessage() as BluetoothDeviceInfo
                 connBle(deviceInfo)
             }
-            //分发设置设备指令
+            //指令回调
             DeviceSetting -> {
                 controllingDevice(event.getMessage() as String)
             }
@@ -486,22 +474,12 @@ class BleService : BaseService() {
             DeviceSetting.FIND_DEVICE -> {
                 Slog.d("发送查找设备指令")
                 addFunc { currManager.findDevice() }
-//                when (getCurrDevice().deviceType) {
-//                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.findDevice() }
-//                    else -> {
-//                    }
-//                }
             }
 
             //查询设备电量指令
             DeviceSetting.QUERY_BATTERY -> {
                 Slog.d("发送查找设备指令")
                 addFunc { currManager.queryPower() }
-//                when (getCurrDevice().deviceType) {
-//                    DeviceType.DEVICE_FUNDO -> addFunc { FunDoManager.instance.queryPower() }
-//                    else -> {
-//                    }
-//                }
             }
 
 
@@ -527,19 +505,6 @@ class BleService : BaseService() {
      * */
     fun isConnected(): Boolean {
         return currManager.isConnected()
-//          when (getCurrDevice().deviceType) {
-//            DeviceType.DEVICE_FUNDO -> {
-//                return FunDoManager.instance.isConnected()
-//            }
-//            DeviceType.DEVICE_FITCLOUD -> {
-//                return FitCloudManager.instance.isConnected()
-//            }
-//            else -> {
-//                Slog.d("未知设备类型 ")
-//            }
-//        }
-//
-//        return false
     }
 
 

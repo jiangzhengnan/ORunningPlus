@@ -200,6 +200,8 @@
 
 #https://github.com/code-mc/loadtoast
 -keep class net.steamcrafted.loadtoast  ** { *; }
+#不混淆自定义view
+-keep class com.oplayer.orunningplus.view  ** { *; }
 
 
 

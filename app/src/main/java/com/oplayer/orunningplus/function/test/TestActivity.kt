@@ -2,23 +2,21 @@ package com.oplayer.orunningplus.function.test
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.TextView
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.color.colorChooser
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.oplayer.common.common.DeviceSetting
-import com.oplayer.common.common.SystemSetting
-import com.oplayer.common.utils.Slog
+import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
-import com.oplayer.orunningplus.bean.DeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.connect.ConnectActivity
 import com.oplayer.orunningplus.service.BleService
-import com.vicpin.krealmextensions.queryAsFlowable
-import com.vicpin.krealmextensions.queryFirst
+import com.yarolegovich.discretescrollview.DSVOrientation
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer
+import io.multimoon.colorful.Colorful
 import kotlinx.android.synthetic.main.activity_test.*
 import org.greenrobot.eventbus.EventBus
-import java.lang.StringBuilder
 
 class TestActivity : BaseActivity() {
 
@@ -42,8 +40,23 @@ class TestActivity : BaseActivity() {
     }
 
     override fun initView() {
-
         initToolbar("TestActivity", true)
+        crv_main.setOrientation(DSVOrientation.VERTICAL)
+        val imgList = mutableListOf<Int>()
+        imgList.add(R.mipmap.pic4)
+        imgList.add(R.mipmap.pic5)
+        imgList.add(R.mipmap.pic6)
+        val mainAdapter = MainAdapter(R.layout.item_card_main, imgList)
+        mainAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        crv_main.adapter = mainAdapter
+        crv_main.setItemTransitionTimeMillis(300)
+        crv_main.setItemTransformer(
+            ScaleTransformer.Builder()
+                .setMinScale(0.8f)
+                .build()
+        )
+
+
     }
 
     override fun initInfo() {
@@ -54,16 +67,49 @@ class TestActivity : BaseActivity() {
         when (v.id) {
             R.id.btn_conn -> startTo(ConnectActivity::class.java)
             R.id.btn_disconn -> BleService.INSTANCE.disConnBle()
-            R.id.btn_find_device -> EventBus.getDefault().post(MessageEvent(DeviceSetting, DeviceSetting.FIND_DEVICE))
-            R.id.btn_query_power -> EventBus.getDefault().post(MessageEvent(DeviceSetting, DeviceSetting.QUERY_BATTERY))
+            R.id.btn_find_device -> EventBus.getDefault().post(
+                MessageEvent(
+                    DeviceSetting,
+                    DeviceSetting.FIND_DEVICE
+                )
+            )
+            R.id.btn_query_power -> EventBus.getDefault().post(
+                MessageEvent(
+                    DeviceSetting,
+                    DeviceSetting.QUERY_BATTERY
+                )
+            )
+            R.id.btn_chage_skin -> {
+                chcageSkin()
+            }
+
         }
     }
+
+    private fun chcageSkin() {
+        val colors = UIUtils.getSkinArray()
+        MaterialDialog(this).show {
+            title(R.string.app_name)
+            colorChooser(colors) { dialog, color ->
+                // Use color integer
+                Colorful().edit()
+                    .setPrimaryColor(UIUtils.getSkinThem(color))
+                    .setAccentColor(UIUtils.getSkinThem(color))
+                    .setDarkTheme(false)
+                    .setTranslucent(false)
+                    .apply(UIUtils.getContext()) {
+                        //                        toolbar.setBackgroundColor(color)
+                        dialog.dismiss()
+                    }
+            }
+            positiveButton(R.string.app_name)
+        }
+    }
+
 
     override fun onGetEvent(event: MessageEvent) {
 
     }
-
-
 
 
 }

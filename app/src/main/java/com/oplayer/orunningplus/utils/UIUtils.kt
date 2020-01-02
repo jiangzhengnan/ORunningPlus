@@ -24,8 +24,6 @@ class UIUtils {
             return OSportApplciation.sContext
         }
 
-
-
         /**
          * 获取资源对象
          */

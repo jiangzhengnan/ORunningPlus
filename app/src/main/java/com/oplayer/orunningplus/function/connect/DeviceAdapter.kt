@@ -20,7 +20,6 @@ class DeviceAdapter(layoutResId: Int, data: List<BluetoothDeviceInfo>):BaseQuick
     override fun convert(helper: BaseViewHolder?, item: BluetoothDeviceInfo?) {
         helper?.setText(R.id.tv_device_name, item?.scanResult?.bleDevice?.name)
         helper?.setText(R.id.tv_device_address, item?.scanResult?.bleDevice?.macAddress)
-//        helper?.setText(R.id.tv_device_rssi, item?.rssi!!)
     }
 
 

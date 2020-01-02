@@ -48,8 +48,6 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         setContentView(getLayoutId())
         act = this
 
-
-
         AppManager.instance.addActivity(act as BaseActivity)
         registerEventBus(this)
         initView()

@@ -50,16 +50,14 @@ android {
         }
 
 //https://www.jianshu.com/p/0c5fcdcba8d1
-
 // realm 数据库支持库冲突  https://github.com/realm/realm-java/issues/3484
-
 //  armeabiv-v7a: 第7代及以上的 ARM 处理器。2011年15月以后的生产的大部分Android设备都使用它.
 //  arm64-v8a: 第8代、64位ARM处理器，很少设备，三星 Galaxy S6是其中之一。
 //  armeabi: 第5代、第6代的ARM处理器，早期的手机用的比较多。
 //  x86: 平板、模拟器用得比较多。
 //  x86_64: 64位的平板。
 
-        ndk.abiFilters "armeabi-v7a","x86"
+        ndk.abiFilters "armeabi-v7a"
 //        packagingOptions {
 //        exclude "lib/armeabi/librealm-jni.so"
 //            exclude "lib/mips/librealm-jni.so"
@@ -119,7 +117,6 @@ repositories {
 }
 
 
-
 dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -127,7 +124,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 
 
     /**
@@ -143,8 +139,9 @@ dependencies {
     implementation 'com.github.garretyoder:Colorful:2.3.4'
 
     //https://github.com/afollestad/material-dialogs
-//    implementation 'com.afollestad.material-dialogs:color:3.1.0'
-//    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    api 'com.afollestad.material-dialogs:core:3.1.0'
+    implementation 'com.afollestad.material-dialogs:color:3.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
 //    https://github.com/sd6352051/NiftyDialogEffects
     implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
@@ -231,10 +228,20 @@ dependencies {
     implementation 'com.tapadoo.android:alerter:4.0.2'
     //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
-
-//带UI的权限申请  https://github.com/yewei02538/HiPermission/blob/master/README-CN.md
+    //https://github.com/yarolegovich/DiscreteScrollView
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+    //带UI的权限申请  https://github.com/yewei02538/HiPermission/blob/master/README-CN.md
     implementation 'me.weyye.hipermission:library:1.0.7'
 
+    //圆环布局  https://github.com/GIGAMOLE/ArcProgressStackView
+    implementation 'devlight.io:arcprogressstackview:1.0.4'
+
+    //Tab 布局 https://github.com/Devlight/NavigationTabBar
+    implementation 'devlight.io:navigationtabbar:1.2.5'
+
+
+    //图片加载框架
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
     /**
      *   ---------------------第三方布局相关 End---------------------
      */
@@ -267,7 +274,7 @@ dependencies {
     /**
      *   ---------------------外部协议SDk Start---------------------
      */
-     //fundo
+    //fundo
     implementation files('libs/kctbleSdk1.jar')
     implementation files('libs/kctbleSdk2.jar')
 

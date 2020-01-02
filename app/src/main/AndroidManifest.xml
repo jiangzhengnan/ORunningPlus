@@ -28,13 +28,14 @@
 
         <meta-data
             android:name="design_width_in_dp"
-            android:value="400" />
+            android:value="360" />
+<!--        2340 1080  480  640-->
         <meta-data
             android:name="design_height_in_dp"
-            android:value="700" />
+            android:value="780" />
 
         <activity android:name=".function.connect.ConnectActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".function.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

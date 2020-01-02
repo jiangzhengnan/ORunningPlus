@@ -2,28 +2,21 @@ package com.oplayer.orunningplus.function.connect
 
 import android.Manifest
 import android.os.Handler
-import android.os.ParcelUuid
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.Constants
-import com.oplayer.common.common.DeviceUUID
 import com.oplayer.common.common.ScanDeviceState
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 
-import com.oplayer.orunningplus.MainActivity
-
-import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.test.TestActivity
 import com.oplayer.orunningplus.service.BleService
-import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader
 import kotlinx.android.synthetic.main.activity_connect.*
@@ -106,7 +99,7 @@ class ConnectActivity : BaseActivity() {
         mDeviceAdapter = DeviceAdapter(R.layout.item_device, mDevice)
         //渐显、缩放、从下到上，从左到右、从右到左
         mDeviceAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        mDeviceAdapter.isFirstOnly(false);
+        mDeviceAdapter.isFirstOnly(false)
         mDeviceAdapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
                 BleService.INSTANCE.stopScanDevice()

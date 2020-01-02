@@ -38,7 +38,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isViewPrepare = true
-
         initView()
         lazyLoadDataIfPrepared()
 
@@ -103,8 +102,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
     private fun lazyLoad() {
         initInjector()
         lazyLoadData()
-
-
     }
 
     abstract fun onClick(v: View)
