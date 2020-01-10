@@ -15,6 +15,7 @@ import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.main.MainActivity
 import com.oplayer.orunningplus.function.test.TestActivity
 import com.oplayer.orunningplus.service.BleService
 import com.polidea.rxandroidble2.scan.ScanFilter
@@ -78,10 +79,8 @@ class ConnectActivity : BaseActivity() {
                     }
                     BluetoothState.CONNECTION_SUCCESS -> {
                         showAlert(UIUtils.getString(R.string.device_state_success), true, R.mipmap.ic_launcher_round, false)
-
                         //todo 测试代码跳转位置
-
-                       Handler().postDelayed({ startTo(TestActivity::class.java); finish() },1000)
+                       Handler().postDelayed({ startTo(MainActivity::class.java); finish() },1000)
 
                     }
                 }
@@ -90,9 +89,7 @@ class ConnectActivity : BaseActivity() {
 
         }
 
-
     }
-
 
     private fun initRecycle() {
         rv_devices.layoutManager = LinearLayoutManager(this)
@@ -135,9 +132,14 @@ class ConnectActivity : BaseActivity() {
         BleService.INSTANCE.stopScanDevice()
     }
 
+    override fun onStop() {
+        super.onStop()
+        BleService.INSTANCE.stopScanDevice()
+    }
+
     private fun initSRL() {
         //设置 Header 为 贝塞尔雷达 样式
-        srl_device.setPrimaryColors(UIUtils.getSkinColor())
+        srl_device.setPrimaryColors(getBGColor())
         srl_device.setRefreshHeader(BezierRadarHeader(this).setEnableHorizontalDrag(true))
         srl_device.setOnRefreshListener {
             it.finishRefresh(2000/*,false*/)//传入false表示刷新失败
@@ -158,5 +160,8 @@ class ConnectActivity : BaseActivity() {
             .build()
         BleService.INSTANCE.scanDevice(scanFilter)
     }
+
+
+
 
 }

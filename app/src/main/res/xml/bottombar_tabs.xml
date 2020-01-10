@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_today"
+        icon="@mipmap/today_calendar"
+        title="@string/main_today" />
+    <tab
+        id="@+id/tab_history"
+        icon="@mipmap/today_history"
+        title="@string/main_history" />
+
+    <tab
+        id="@+id/tab_clockface"
+        icon="@mipmap/today_clockface"
+        title="@string/main_clock_face" />
+
+    <tab
+        id="@+id/tab_settings"
+        icon="@mipmap/today_settings"
+        title="@string/main_settings" />
+</tabs>

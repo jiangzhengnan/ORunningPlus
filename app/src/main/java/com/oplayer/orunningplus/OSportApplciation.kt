@@ -1,28 +1,28 @@
 package com.oplayer.orunningplus
+
+import android.annotation.SuppressLint
 import android.app.Application
-import android.content.ComponentName
+import android.app.UiModeManager.MODE_NIGHT_NO
+import android.app.UiModeManager.MODE_NIGHT_YES
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Build
 import android.os.StrictMode
-import android.util.Log
+import android.util.DisplayMetrics
+import androidx.appcompat.app.AppCompatDelegate
 import com.facebook.stetho.Stetho
 import com.htsmart.wristband2.WristbandApplication
 import com.kct.bluetooth.KCTBluetoothManager
 import com.oplayer.common.common.*
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.service.BleService
-import com.oplayer.orunningplus.service.NotificationReceiverService
 import com.oplayer.orunningplus.utils.javautils.Utils
 import com.polidea.rxandroidble2.LogConstants
 import com.polidea.rxandroidble2.LogOptions
 import com.polidea.rxandroidble2.RxBleClient
 import com.squareup.leakcanary.LeakCanary
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider
-import io.multimoon.colorful.Defaults
-import io.multimoon.colorful.ThemeColor
-import io.multimoon.colorful.initColorful
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -48,11 +48,14 @@ class OSportApplciation : Application() {
     override fun onCreate() {
         super.onCreate()
         Slog.d("当前工作模式 debug? :  ${BuildConfig.DEBUG}")
+
+
+
         initRealm()
         sContext = this
         initSkin()
         initLog()
-initNotifiCation()
+        initNotifiCation()
         initStetho()
         initRxBleClient()
         initSDK()
@@ -73,7 +76,6 @@ initNotifiCation()
      * 初始化内存泄漏检测工具
      * */
     fun initLeakCanary() {
-
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
@@ -150,9 +152,7 @@ initNotifiCation()
      * 初始化蓝牙sdk Fundo
      * */
     private fun initSDK() {
-
         var initSdklist: MutableList<String> = mutableListOf()
-
         when (packageName) {
             CustomizedPackName.ORunningPlus -> {
                 initSdklist.add(DeviceType.DEVICE_FUNDO)
@@ -206,14 +206,16 @@ initNotifiCation()
     /**
      * 初始化主题框架
      * */
+    @SuppressLint("WrongConstant")
     private fun initSkin() {
-        val defaults: Defaults = Defaults(
-            primaryColor = ThemeColor.GREEN,
-            accentColor = ThemeColor.BLUE,
-            useDarkTheme = false,
-            translucent = false
-        )
-        initColorful(this, defaults)
+        //  MODE_NIGHT_NO: 使用亮色(light)主题,不使用夜间模式
+        //  MODE_NIGHT_YES:使用暗色(dark)主题,使用夜间模式
+        //  MODE_NIGHT_AUTO:根据当前时间自动切换 亮色(light)/暗色(dark)主题
+        //  MODE_NIGHT_FOLLOW_SYSTEM(默认选项):设置为跟随系统,通常为 MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+//        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+
+
     }
 
     /**
@@ -239,6 +241,18 @@ initNotifiCation()
     }
 
     /**
+     * 切换 夜间模式
+     * @param on true 夜间， false  日间
+     */
+    fun updateNightMode(on: Boolean) {
+        val dm: DisplayMetrics = resources.displayMetrics
+        val config: Configuration = resources.configuration
+        config.uiMode = config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()
+        config.uiMode = config.uiMode or if (on) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+        resources.updateConfiguration(config, dm)
+    }
+
+    /**
      * 初始化Log
      * */
     private fun initLog() {
@@ -246,6 +260,8 @@ initNotifiCation()
             .setLogEnable(true)
             .setBorderEnable(true)
     }
+
+
 
 
 }

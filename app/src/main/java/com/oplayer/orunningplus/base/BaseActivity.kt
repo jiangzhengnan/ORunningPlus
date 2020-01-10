@@ -12,6 +12,8 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
@@ -21,11 +23,10 @@ import com.oplayer.common.mvp.IBasePresenter
 import com.oplayer.common.mvp.IBaseView
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
+import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.multimoon.colorful.CAppCompatActivity
-import io.multimoon.colorful.ThemeColor
 import kotlinx.android.synthetic.main.toolbar_common.*
 import me.weyye.hipermission.HiPermission
 import me.weyye.hipermission.PermissionCallback
@@ -34,7 +35,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 
-abstract class BaseActivity : CAppCompatActivity(), IBaseView {
+abstract class BaseActivity : AppCompatActivity(), IBaseView {
     private var presenters: MutableList<IBasePresenter<IBaseView>> = mutableListOf()
 
     var act: Activity? by Weak()
@@ -43,11 +44,11 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         presenters.add(p)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         act = this
-
         AppManager.instance.addActivity(act as BaseActivity)
         registerEventBus(this)
         initView()
@@ -55,13 +56,14 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         initData()
     }
 
+
+
+
     open fun initToolbar(title: String, isShowBack: Boolean) {
-        toolbar.setBackgroundColor( UIUtils.getSkinColor())
         toolbar_title.text = title
+//        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(isShowBack)
-
     }
-
 
 
     open fun startTo(targetClass: Class<out Activity>) {
@@ -124,20 +126,21 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
             .setText(msg)
             .setDuration(Style.DURATION_VERY_SHORT)
             .setFrame(Style.FRAME_LOLLIPOP)
-            .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_GREEN))
+            .setTextColor(getTextColor())
+            .setColor(getBGColor())
             .setAnimations(Style.ANIMATIONS_POP).show()
     }
 
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
-
-
         Alerter.create(this@BaseActivity)
             .enableProgress(enablePro)
             .setIcon(iconResId)
             .showIcon(showIcon)
-            .setBackgroundColorInt(UIUtils.getSkinColor())
+
+            .setBackgroundColorInt(getIconColor())
             .setText(message)
+
             .show()
     }
 
@@ -265,4 +268,17 @@ abstract class BaseActivity : CAppCompatActivity(), IBaseView {
         }
         return false
     }
+
+    /**
+     * 获取主题颜色
+     * */
+
+        fun getBGColor():Int = UIUtils.getColor( R.color.colorPrimary)
+        fun getTransparentColor():Int = UIUtils.getColor( R.color.transparent_color)
+        fun getTextColor():Int = UIUtils.getColor( R.color.white_date_text_color)
+        fun getIconColor():Int = UIUtils.getColor( R.color.icon_green_color)
+
+
+
+
 }

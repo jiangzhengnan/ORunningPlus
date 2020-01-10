@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- Base application theme. -->
+    <style name="AppLightTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:animationDuration">0</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorAppBg">@color/white_bg_color</item>
+        <item name="colorTabBg">@color/white_tab_color</item>
+        <item name="colorDateBg">@color/white_date_bg_color</item>
+        <item name="colorDateText">@android:color/black</item>
+    </style>
+
+
+
 </resources>

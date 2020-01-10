@@ -38,6 +38,27 @@ class Constants {
     }
 }
 
+
+
+
+class TodayDateType {
+    companion object {
+     const  val STEP = 0
+     const  val HEART = 1
+     const  val SLEEP = 2
+     const  val SPORT = 3
+    }
+}
+
+
+class SleepDateType {
+    companion object {
+        const  val light = 0
+        const  val deep = 1
+        const  val wake = 2
+    }
+}
+
 class SecurityKey {
     companion object {
         const val SECURE_PREFERENCES_KEY = "com.oplayer"
@@ -59,6 +80,7 @@ class PreferencesKey {
 
 class DeviceSetting {
     companion object {
+        const val TODAY_QUERY = "TODAY_QUERY"
         const val FIND_DEVICE = "FIND_DEVICE"
         const val QUERY_BATTERY = "QUERY_BATTERY"
     }

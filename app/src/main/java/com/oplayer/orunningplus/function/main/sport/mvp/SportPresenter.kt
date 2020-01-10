@@ -7,8 +7,8 @@ import com.oplayer.common.utils.Slog
  *
  * @ProjectName:    ORunningPlus
  * @Package:        com.oplayer.orunningplus.function.main.today
- * @ClassName:      TodayPresenter
- * @Description:    Today 控制类
+ * @ClassName:      SportPresenter
+ * @Description:    Sport 控制类
  * @Author:         Ben
  * @CreateDate:     2020/1/2 16:28
  */

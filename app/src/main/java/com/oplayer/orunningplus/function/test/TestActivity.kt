@@ -2,19 +2,15 @@ package com.oplayer.orunningplus.function.test
 
 import android.annotation.SuppressLint
 import android.view.View
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.color.colorChooser
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.oplayer.common.common.DeviceSetting
-import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.connect.ConnectActivity
 import com.oplayer.orunningplus.service.BleService
-import com.yarolegovich.discretescrollview.DSVOrientation
-import com.yarolegovich.discretescrollview.transform.ScaleTransformer
-import io.multimoon.colorful.Colorful
+import com.oplayer.orunningplus.view.DiscreteScroll.DSVOrientation
+import com.oplayer.orunningplus.view.DiscreteScroll.transform.ScaleTransformer
 import kotlinx.android.synthetic.main.activity_test.*
 import org.greenrobot.eventbus.EventBus
 
@@ -41,20 +37,20 @@ class TestActivity : BaseActivity() {
 
     override fun initView() {
         initToolbar("TestActivity", true)
-        crv_main.setOrientation(DSVOrientation.VERTICAL)
-        val imgList = mutableListOf<Int>()
-        imgList.add(R.mipmap.pic4)
-        imgList.add(R.mipmap.pic5)
-        imgList.add(R.mipmap.pic6)
-        val mainAdapter = MainAdapter(R.layout.item_card_main, imgList)
-        mainAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-        crv_main.adapter = mainAdapter
-        crv_main.setItemTransitionTimeMillis(300)
-        crv_main.setItemTransformer(
-            ScaleTransformer.Builder()
-                .setMinScale(0.8f)
-                .build()
-        )
+//        crv_main.setOrientation(DSVOrientation.VERTICAL)
+//        val imgList = mutableListOf<Int>()
+//        val mainAdapter = MainAdapter(R.layout.item_card_main, imgList)
+//        mainAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+//
+//
+//        crv_main.adapter = mainAdapter
+//        crv_main.setItemTransitionTimeMillis(300)
+//        crv_main.setItemTransformer(
+//
+//            ScaleTransformer.Builder()
+//                .setMinScale(0.8f)
+//                .build()
+//        )
 
 
     }
@@ -80,31 +76,31 @@ class TestActivity : BaseActivity() {
                 )
             )
             R.id.btn_chage_skin -> {
-                chcageSkin()
+//                chcageSkin()
             }
 
         }
     }
 
-    private fun chcageSkin() {
-        val colors = UIUtils.getSkinArray()
-        MaterialDialog(this).show {
-            title(R.string.app_name)
-            colorChooser(colors) { dialog, color ->
-                // Use color integer
-                Colorful().edit()
-                    .setPrimaryColor(UIUtils.getSkinThem(color))
-                    .setAccentColor(UIUtils.getSkinThem(color))
-                    .setDarkTheme(false)
-                    .setTranslucent(false)
-                    .apply(UIUtils.getContext()) {
-                        //                        toolbar.setBackgroundColor(color)
-                        dialog.dismiss()
-                    }
-            }
-            positiveButton(R.string.app_name)
-        }
-    }
+//    private fun chcageSkin() {
+//        val colors = UIUtils.getSkinArray()
+//        MaterialDialog(this).show {
+//            title(R.string.app_name)
+//            colorChooser(colors) { dialog, color ->
+//                // Use color integer
+////                Colorful().edit()
+////                    .setPrimaryColor(UIUtils.getSkinThem(color))
+////                    .setAccentColor(UIUtils.getSkinThem(color))
+////                    .setDarkTheme(false)
+////                    .setTranslucent(false)
+////                    .apply(UIUtils.getContext()) {
+////                        //                        toolbar.setBackgroundColor(color)
+////                        dialog.dismiss()
+////                    }
+//            }
+//            positiveButton(R.string.app_name)
+//        }
+//    }
 
 
     override fun onGetEvent(event: MessageEvent) {

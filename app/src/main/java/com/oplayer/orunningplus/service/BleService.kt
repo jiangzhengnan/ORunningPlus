@@ -131,7 +131,6 @@ class BleService : BaseService() {
         instance = this
         checkConnState()
         var contextText = UIUtils.getString(R.string.server_contextText)
-
         if (Build.VERSION.SDK_INT >= 26) {
 //            chageContextText(UIUtils.getString(R.string.server_contextText))
             openForegroundService(
@@ -156,9 +155,7 @@ class BleService : BaseService() {
             //已经绑定但是没有连接
             reScanDevice(deviceInfo)
         } else {
-
             Slog.d(" 重新连接条件不足   $deviceInfo ")
-
         }
     }
 
@@ -363,10 +360,7 @@ class BleService : BaseService() {
             BluetoothState.CONNECTIONNTING -> {
                 EventBus.getDefault()
                     .post(MessageEvent(Constants.BLUETOOTH_MESSAGE, BluetoothState.CONNECTIONNTING))
-
 //                chageContextText("${UIUtils.getString(R.string.device_state_connectionning)} :  ${device?.bleName}")
-
-
             }
 
         }
@@ -423,7 +417,9 @@ class BleService : BaseService() {
             }
             //通知消息接收 分发
             NotifiDate -> {
-                currManager.sendNotification(event.getMessage() as NotificationDate)
+//          todo 测试阶段 不发送通知
+//                currManager.sendNotification(event.getMessage() as NotificationDate)
+
             }
 
 
@@ -467,14 +463,25 @@ class BleService : BaseService() {
             ).show()
 
         }
-
-
         when (message) {
+
+            //首页查询指令
+            DeviceSetting.TODAY_QUERY -> {
+                Slog.d("发送查找设备指令")
+                addFunc { currManager.todayQuery() }
+            }
+
+
+
+
             //查找设备指令
             DeviceSetting.FIND_DEVICE -> {
                 Slog.d("发送查找设备指令")
                 addFunc { currManager.findDevice() }
             }
+
+
+
 
             //查询设备电量指令
             DeviceSetting.QUERY_BATTERY -> {

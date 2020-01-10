@@ -9,9 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.github.johnpersano.supertoasts.library.Style
+import com.github.johnpersano.supertoasts.library.SuperActivityToast
 
 import com.oplayer.common.mvp.IBaseView
+import com.oplayer.common.utils.UIUtils
+import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
+import com.tapadoo.alerter.Alerter
+import kotlinx.android.synthetic.main.toolbar_common.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -104,10 +110,52 @@ abstract class BaseFragment : Fragment(), IBaseView {
         lazyLoadData()
     }
 
+
+
+
+
     abstract fun onClick(v: View)
     abstract fun getLayoutId(): Int
     abstract fun initInjector()
     abstract fun initView()
     abstract fun lazyLoadData()
+
+
+    /**
+     * 获取主题颜色
+     * */
+
+    fun getBGColor():Int = UIUtils.getColor( R.color.colorPrimary)
+    fun getTransparentColor():Int = UIUtils.getColor( R.color.transparent_color)
+    fun getTextColor():Int = UIUtils.getColor( R.color.white_date_text_color)
+    fun getIconColor():Int = UIUtils.getColor( R.color.icon_green_color)
+
+    open fun initToolbar(title: String) {
+//        toolbar.setBackgroundColor(getBGColor())
+        toolbar_title.text = title
+    }
+
+
+
+    fun showToast(msg: String) {
+        SuperActivityToast.create(mActivity, Style(), Style.TYPE_STANDARD)
+            .setText(msg)
+            .setDuration(Style.DURATION_VERY_SHORT)
+            .setFrame(Style.FRAME_LOLLIPOP)
+            .setTextColor(getTextColor())
+            .setColor(getBGColor())
+            .setAnimations(Style.ANIMATIONS_POP).show()
+    }
+
+
+    override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
+        Alerter.create(activity)
+            .enableProgress(enablePro)
+            .setIcon(iconResId)
+            .showIcon(showIcon)
+            .setBackgroundColorInt(getBGColor())
+            .setText(message)
+            .show()
+    }
 
 }

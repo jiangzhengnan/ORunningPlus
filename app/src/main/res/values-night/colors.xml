@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+     <!--  主题配置颜色 夜间模式主题 -->
+    <color name="colorPrimary">@android:color/black</color>
+    <color name="colorPrimaryDark">@android:color/black</color>
+    <color name="colorAccent">@android:color/black</color>
+    <color name="white_bg_color">@android:color/black</color>
+    <color name="white_tab_color">@android:color/black</color>
+    <color name="white_date_bg_color">#FFf2f2f2</color>
+    <color name="white_date_text_color">#FFf2f2f2</color>
+    <color name="icon_green_color">#FF00C996</color>
+
+
+
+
+
+
+
+</resources>

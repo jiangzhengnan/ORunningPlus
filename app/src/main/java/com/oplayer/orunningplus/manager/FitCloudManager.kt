@@ -6,7 +6,9 @@ import com.htsmart.wristband2.WristbandApplication
 import com.htsmart.wristband2.WristbandManager
 import com.htsmart.wristband2.bean.BatteryStatus
 import com.htsmart.wristband2.bean.ConnectionState
+import com.htsmart.wristband2.bean.SyncDataRaw
 import com.htsmart.wristband2.bean.WristbandNotification
+import com.htsmart.wristband2.packet.SyncDataParser
 import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.NotifiDate
 import com.oplayer.common.utils.Slog
@@ -14,12 +16,16 @@ import com.oplayer.orunningplus.base.BaseManager
 import com.oplayer.orunningplus.bean.NotificationDate
 import com.oplayer.orunningplus.service.BleService
 import com.vicpin.krealmextensions.createOrUpdate
+import io.reactivex.Completable
+import io.reactivex.CompletableSource
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
+import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 /**
  *
@@ -48,7 +54,7 @@ class FitCloudManager private constructor() : BaseManager {
 
     //手表管理实例
     private val wristbandManager = getWristbandManager
-
+    private var mSyncDisposable: Disposable? = null
 
     override fun isConnected(): Boolean = wristbandManager.isConnected
 
@@ -59,7 +65,7 @@ class FitCloudManager private constructor() : BaseManager {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Slog.d("查找设备  ")
+                    Slog.d("仿苹果 查找设备  ")
                     executionSucceed()
                 },
                 { throwable: Throwable ->
@@ -96,6 +102,84 @@ class FitCloudManager private constructor() : BaseManager {
                 }
             })
     }
+
+    override fun todayQuery() {
+
+      syncData()
+
+    }
+
+
+    private fun syncData() {
+        if (mSyncDisposable != null && !mSyncDisposable!!.isDisposed) { //Syncing\
+            return
+        }
+        val syncManual = true //Sync Manual
+        if (syncManual && isInExitSleepMonitorTime()) { //Exit sleep monitor
+            wristbandManager
+                .exitSleepMonitor().onErrorComplete().subscribe()
+        }
+        mSyncDisposable =
+            wristbandManager
+                .syncData()
+                .observeOn(Schedulers.io(), true)
+                .flatMapCompletable(Function<SyncDataRaw, CompletableSource?> { syncDataRaw ->
+                    //parser sync data and save to database
+                    if (syncDataRaw.dataType == SyncDataParser.TYPE_HEART_RATE.toInt()) {
+                        val datas = SyncDataParser.parserHeartRateData(syncDataRaw.datas)
+                  Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_BLOOD_PRESSURE.toInt()) {
+                        val datas =
+                            SyncDataParser.parserBloodPressureData(syncDataRaw.datas)
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_OXYGEN.toInt()) {
+                        val datas =
+                            SyncDataParser.parserOxygenData(syncDataRaw.datas)
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_RESPIRATORY_RATE.toInt()) {
+                        val datas =
+                            SyncDataParser.parserRespiratoryRateData(syncDataRaw.datas)
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_SLEEP.toInt()) {
+                        val datas =
+                            SyncDataParser.parserSleepData(syncDataRaw.datas)
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_SPORT.toInt()) {
+                        val datas =
+                            SyncDataParser.parserSportData(
+                                syncDataRaw.datas,
+                                syncDataRaw.config
+                            )
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_STEP.toInt()) {
+                        val datas =
+                            SyncDataParser.parserStepData(
+                                syncDataRaw.datas,
+                                syncDataRaw.config
+                            )
+                        Slog.d("$datas")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_ECG.toInt()) {
+                        val ecgData =
+                            SyncDataParser.parserEcgData(syncDataRaw.datas)
+                        Slog.d("$ecgData")
+                    } else if (syncDataRaw.dataType == SyncDataParser.TYPE_TOTAL_DATA.toInt()) {
+                        val data =
+                            SyncDataParser.parserTotalData(syncDataRaw.datas)
+                        Slog.d("$data")
+                    }
+                    Completable.complete()
+                })
+                .doOnComplete(Action {
+                    Slog.d(" 完成时操作 ！！")
+                })
+                .subscribe({
+                    Slog.d(" Sync Data Success  ")
+
+                }, { throwable ->
+                    Slog.d("Sync Data Failed  $throwable")
+                })
+    }
+
 
     @SuppressLint("CheckResult")
     override fun resetWatch() {
@@ -191,5 +275,18 @@ class FitCloudManager private constructor() : BaseManager {
                 { throwable -> Slog.d(" notification send error  $throwable") })
 
     }
+
+
+    /**
+     * Users may quit sleep between 4 and 12:00
+     */
+    fun isInExitSleepMonitorTime(): Boolean {
+        val cd = Calendar.getInstance()
+        val h = cd[Calendar.HOUR_OF_DAY]
+        val m = cd[Calendar.MINUTE]
+        val currentTime = h * 60 + m
+        return currentTime >= 4 * 60 && currentTime <= 12 * 60
+    }
+
 
 }

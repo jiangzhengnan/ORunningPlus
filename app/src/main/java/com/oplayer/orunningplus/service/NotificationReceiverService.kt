@@ -23,10 +23,11 @@ class NotificationReceiverService : NotificationListenerService() {
             val contentTitle = bundle.getString(Notification.EXTRA_TITLE)
             var contentText: String? = bundle.getString(Notification.EXTRA_TEXT)
             var contentSubtext: String? = bundle.getString(Notification.EXTRA_SUB_TEXT)
-       var notifiList=     NotificationDate().query { equalTo( "pkg",sbn.packageName) }
+            var notifiList=     NotificationDate().query { equalTo( "pkg",sbn.packageName) }
 
-       Slog.d("notifiList 是否包含某app  ${sbn.packageName}")
+//            Slog.d("notifiList 是否包含某app  ${sbn.packageName}")
             //阻止未经允许的通知
+
             EventBus.getDefault().post(
                 MessageEvent(
                     NotifiDate,

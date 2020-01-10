@@ -72,7 +72,11 @@ class SportFragment : BaseFragment(), SportContract.View {
 
     override fun onDetach() {
         super.onDetach()
-        mPresenter.detachView()
+        if(::mPresenter.isInitialized){
+            mPresenter.detachView()
+        }
+
+
     }
 
 }

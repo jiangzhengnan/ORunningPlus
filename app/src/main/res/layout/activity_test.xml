@@ -9,7 +9,8 @@
     <include layout="@layout/toolbar_common"/>
 
 
-    <com.yarolegovich.discretescrollview.DiscreteScrollView
+    <com.oplayer.orunningplus.view.DiscreteScroll.DiscreteScrollView
+
       android:id="@+id/crv_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -91,7 +92,6 @@
             </LinearLayout>
 
         </ScrollView>
-
 
     </LinearLayout>
 

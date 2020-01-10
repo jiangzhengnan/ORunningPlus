@@ -34,6 +34,13 @@ interface BaseManager {
      */
     fun queryPower()
 
+
+    /**
+     * 首页查询指令
+     */
+    fun todayQuery()
+
+
     /**
      * 重置手表
      */

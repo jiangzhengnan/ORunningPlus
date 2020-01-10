@@ -241,6 +241,10 @@ class FunDoManager private constructor() : BaseManager {
     override fun queryPower() =
         sendInstruction(BLEBluetoothManager.BLE_COMMAND_a2d_getBatteryStatus_pack())
 
+    //分动设备首页查询方法
+    override fun todayQuery() {
+    }
+
     /**
      * 重置设备
      * */

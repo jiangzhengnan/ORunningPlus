@@ -1,27 +1,25 @@
 package com.oplayer.orunningplus.function.main
 
-import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder
+import com.oplayer.common.common.BluetoothState
+import com.oplayer.common.common.Constants
 import com.oplayer.common.common.PermissList
 import com.oplayer.common.common.SystemSetting
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
-import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.main.settings.SettingsFragment
 import com.oplayer.orunningplus.function.main.today.SportFragment
 import com.oplayer.orunningplus.function.main.today.TodayFragment
-import com.oplayer.orunningplus.function.test.TestActivity
-import devlight.io.library.ntb.NavigationTabBar
+import com.oplayer.orunningplus.service.BleService
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainActivity : BaseActivity() {
@@ -40,33 +38,43 @@ class MainActivity : BaseActivity() {
     override fun initView() {
 //        startTo(TestActivity::class.java)
         //开发阶段 指令测试
-        initToolbar("MainActivity", true)
-        initTabBar()
         initViewPager()
+        initTabBar()
     }
 
     private fun initViewPager() {
 
         fragmentList.add(TodayFragment())
         fragmentList.add(SportFragment())
-        fragmentList.add(TodayFragment())
         fragmentList.add(SportFragment())
+        fragmentList.add(SettingsFragment())
         nsv_main.adapter = ViewPagerAdapter(supportFragmentManager)
-
-        val models: ArrayList<NavigationTabBar.Model> = ArrayList()
-        models.add(NavigationTabBar.Model.Builder(resources.getDrawable(R.drawable.ic_launcher_foreground), UIUtils.getSkinColor()).title("today"    ).build())
-        models.add(NavigationTabBar.Model.Builder(resources.getDrawable(R.drawable.ic_launcher_foreground), UIUtils.getSkinColor()).title("sport"    ).build())
-        models.add(NavigationTabBar.Model.Builder(resources.getDrawable(R.drawable.ic_launcher_foreground), UIUtils.getSkinColor()).title("heart"    ).build())
-        models.add(NavigationTabBar.Model.Builder(resources.getDrawable(R.drawable.ic_launcher_foreground), UIUtils.getSkinColor()).title("profile"    ).build())
-        ntb_main.setBackgroundColor(UIUtils.getSkinColor())
-        ntb_main.setModels(models)
-        ntb_main.setViewPager(nsv_main)
-
-
+        nsv_main.offscreenPageLimit = 4
 
     }
 
     private fun initTabBar() {
+        bb_main.setOnTabSelectListener {
+            when (it) {
+                R.id.tab_today -> {
+                    nsv_main.setCurrentItem(0,false)
+                }
+                R.id.tab_history -> {
+                    nsv_main.setCurrentItem(1,false)
+                }
+                R.id.tab_clockface -> {
+                    nsv_main.setCurrentItem(2,false)
+                }
+                R.id.tab_settings -> {
+                    nsv_main.setCurrentItem(3,false)
+                }
+                else -> {
+
+                Slog.d("未知按钮   $it")
+                }
+            }
+
+        }
 
 
     }
@@ -93,6 +101,8 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onGetEvent(event: MessageEvent) {
+
+
     }
 
     fun checkNotification() {
@@ -101,27 +111,23 @@ class MainActivity : BaseActivity() {
          * Slideright, Fall, Newspager, Fliph, Flipv,
          * RotateBottom, RotateLeft, Slit, Shake, Sidefill
          * */
-        Slog.d("检查通知使用权")
         if (isNotificationEnabled()) {
-            showToast("通知使用权已经开启  ")
-            Slog.d("通知使用权已经开启")
             return
         }
         val dialogBuilder = NiftyDialogBuilder.getInstance(this)
-
         dialogBuilder.withTitle("通知使用权")
             .withMessage("请开启通知使用权")
             .withEffect(Effectstype.RotateBottom)
-            .withDialogColor(UIUtils.getSkinColor())
+            .withDialogColor(getBGColor())
+            .withTitleColor(getTextColor())
+            .withMessageColor(getTextColor())
             .withButton1Text("取消")
             .withButton2Text("确定")
             .isCancelableOnTouchOutside(true)
             .setButton1Click {
-                showToast("点击按钮1")
                 dialogBuilder.dismiss()
             }
             .setButton2Click {
-                showToast("点击按钮2")
                 startActivity(SystemSetting.NOTIFICATION_LISTENER_INTENT)
                 dialogBuilder.dismiss()
             }

@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!--  主题配置颜色 白色主题 -->
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">@android:color/white</color>
+    <color name="colorAccent">@android:color/white</color>
+    <color name="white_bg_color">@android:color/white</color>
+    <color name="white_tab_color">@android:color/white</color>
+    <color name="white_date_bg_color">#FFf2f2f2</color>
+    <color name="white_date_text_color">@android:color/black</color>
+
+    <color name="gray_date_text_color">#808080</color>
+    <color name="icon_green_color">#FF00C996</color>
+    <!--  透明色-->
+    <color name="transparent_color">#00000000</color>
+    <color name="yellow_progress_color">#fcc917</color>
+
+
+
+<!--  首页心率颜色 -->
+    <color name="gray_heart_color">#999999</color>
+    <color name="blue_heart_color">#00bbff</color>
+    <color name="green_heart_color">#39d51f</color>
+    <color name="yellow_heart_color">#ff8d11</color>
+    <color name="red_heart_color">#f10826</color>
+    <color name="pick_heart_color">#fc3370</color>
+
+
+    <!--  首页睡眠颜色 -->
+    <color name="purple_sleep_color">#6e32bd</color>
+    <color name="blue_sleep_color">#57bfe3</color>
+    <color name="deepblue_sleep_color">#003399</color>
+    <color name="yellow_sleep_color">#ffa627</color>
+
+
+
+
+
 </resources>
