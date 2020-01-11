@@ -1,7 +1,5 @@
 package com.oplayer.orunningplus.function.main.today.mvp
 
-import android.os.Handler
-import com.oplayer.common.utils.Slog
 
 /**
  *
@@ -16,16 +14,6 @@ class TodayPresenter : TodayContract.Presenter {
 
     protected var mView: TodayContract.View? = null
 
-    override fun getTestMessage() {
-
-        Slog.d("UI界面调用  ")
-        Handler().postDelayed(Runnable {
-
-            mView?.testMessage(SportModel.getTestMessage())
-
-        }, 1000)
-
-    }
 
 
     override fun attachView(mRootView: TodayContract.View) {

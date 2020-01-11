@@ -15,6 +15,13 @@ import java.util.UUID;
 public class JavaUtil {
 
 
+
+
+
+    public static  int getAbs(int value){
+        return  Math.abs(value);
+    }
+
     //解析Ble广播数据
     public static RecordDate parseData(byte[] adv_data) {
         RecordDate recordDate = new RecordDate();

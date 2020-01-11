@@ -18,15 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".function.advanced.AdvancedSettingActivity"></activity>
+        <activity android:name=".function.profile.MyProfileActivity"></activity>
+        <activity android:name=".function.advanced.AdvancedSettingActivity" />
         <activity android:name=".function.test.Test2Activity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <uses-library

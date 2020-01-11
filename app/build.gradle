@@ -247,9 +247,14 @@ dependencies {
 //https://github.com/zcweng/SwitchButton
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 
-//图标框架  https://github.com/PhilJay/MPAndroidChart#quick-start
+//图表框架  https://github.com/PhilJay/MPAndroidChart#quick-start
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+
+
+
+//viewpager 2  https://www.jianshu.com/p/e754cbd2d329?tdsourcetag=s_pcqq_aiomsg
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     /**
      *   ---------------------第三方布局相关 End---------------------
      */

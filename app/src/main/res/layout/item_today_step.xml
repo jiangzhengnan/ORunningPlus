@@ -43,7 +43,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="7dp"
-                        android:text="8200"
+                        android:text="----"
                         android:gravity="bottom"
                         android:textSize="20sp" />
 
@@ -74,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center|center_vertical"
                         android:layout_marginStart="7dp"
-                        android:text="82%"
+                        android:text="--%"
                         android:gravity="bottom"
                         android:textSize="20sp" />
 
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="8200"
+                        android:text="----"
                         android:textColor="@color/white_date_text_color"
                         android:textSize="30sp"
                         android:textStyle="bold" />
@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
-                            android:text="4.92" />
+                            android:text="---" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
-                            android:text="285" />
+                            android:text="---" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
-                            android:text="01:25:33" />
+                            android:text="--:--:--" />
                     </LinearLayout>
                 </LinearLayout>
 

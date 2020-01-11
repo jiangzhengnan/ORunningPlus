@@ -48,11 +48,6 @@ class CircularProgressView @JvmOverloads constructor(
             ((if (viewWide > viewHigh) viewHigh else viewWide) - if (mBackPaint.strokeWidth > mProgPaint.strokeWidth) mBackPaint.strokeWidth else mProgPaint.strokeWidth).toInt()
         val mRectL = paddingLeft + (viewWide - mRectLength) / 2
         val mRectT = paddingTop + (viewHigh - mRectLength) / 2
-
-
-     Slog.d("CircularProgressView  viewWide $viewWide   viewHigh $viewHigh   mRectL $mRectL   mRectT  $mRectT")
-
-
         mRectF = RectF(mRectL.toFloat(), mRectT.toFloat(), (mRectL + mRectLength).toFloat(), (mRectT + mRectLength).toFloat())
         // 设置进度圆环渐变色
         if (mColorArray != null && mColorArray!!.size > 1) mProgPaint.shader = LinearGradient(0F, 0F, 0F, measuredWidth.toFloat(), mColorArray as IntArray, null, Shader.TileMode.MIRROR)

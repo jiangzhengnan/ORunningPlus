@@ -228,6 +228,9 @@ public class DiscreteScrollView extends RecyclerView {
             }
         }
 
+
+
+
         @Override
         public void onScroll(float currentViewPosition) {
             if (scrollStateChangeListeners.isEmpty()) {

@@ -16,13 +16,13 @@ class TodayContract {
 
     interface View : IBaseView {
 
-        fun testMessage(message: String)
+
 
     }
 
     interface Presenter : IBasePresenter<View> {
 
-        fun getTestMessage()
+
 
 
     }

@@ -1,4 +1,4 @@
-package com.oplayer.orunningplus.function.test
+package com.oplayer.orunningplus.function.main.today.mvp
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -21,16 +21,15 @@ import java.util.*
 class CandlerAdapter(layoutResId: Int, data: List<Date>) : BaseQuickAdapter<Date, BaseViewHolder>(layoutResId, data) {
 
     override fun convert(helper: BaseViewHolder?, item: Date) {
-
-
         val weekArray = UIUtils.getContext().resources.getStringArray(R.array.candler_week_arr) //already array
         val monthArray = UIUtils.getContext().resources.getStringArray(R.array.candler_month_arr) //already array
-
-
         helper?.setText(R.id.tv_day,DateUtil.getDay(item).toString())
         helper?.setText(R.id.tv_week,(weekArray[DateUtil.getWeek(item)-1]))
         helper?.setText(R.id.tv_month,monthArray[DateUtil.getMonth(item)-1])
     }
+
+
+
 
 
 }
