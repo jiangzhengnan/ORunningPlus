@@ -19,6 +19,7 @@ import com.oplayer.orunningplus.function.main.today.mvp.TodayContract
 import com.oplayer.orunningplus.function.main.today.mvp.TodayData
 import com.oplayer.orunningplus.function.main.today.mvp.TodayPresenter
 import com.oplayer.orunningplus.function.main.today.mvp.CandlerAdapter
+import com.oplayer.orunningplus.function.profile.MyProfileActivity
 import com.oplayer.orunningplus.service.BleService
 import com.oplayer.orunningplus.utils.javautils.JavaUtil
 import com.oplayer.orunningplus.view.DiscreteScroll.DSVOrientation
@@ -44,12 +45,9 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
     init {
         initDateList()
-        mCurrDate=Date()
+        mCurrDate = Date()
         mTodayPosition = dateList.size - 90
     }
-
-
-
 
 
     /**
@@ -59,11 +57,14 @@ class TodayFragment : BaseFragment(), TodayContract.View {
     private fun initDateList(): List<Date> {
         var tmpTime: Long = System.currentTimeMillis()
         var leftTime: Long = System.currentTimeMillis()
-        for (index in 1..90) { dateList.add(Date(tmpTime)); tmpTime += 1000 * 60 * 60 * 24 }
-        for (index in 0..90) { leftTime -= 1000 * 60 * 60 * 24; dateList.add(0, Date(leftTime)) }
+        for (index in 1..90) {
+            dateList.add(Date(tmpTime)); tmpTime += 1000 * 60 * 60 * 24
+        }
+        for (index in 0..90) {
+            leftTime -= 1000 * 60 * 60 * 24; dateList.add(0, Date(leftTime))
+        }
         return dateList
     }
-
 
 
     override fun onGetEvent(event: MessageEvent) {
@@ -99,18 +100,24 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
     }
 
-    override fun initInjector() {
-        mPresenter = TodayPresenter()
-        mPresenter.attachView(this)
-    }
 
     override fun initView() {
-        toolbar_title.text = UIUtils.getString(R.string.main_today)
+
+
+        initToolBar()
 
         tv_conn.setText("unKnow")
         initCander()
         initDSV()
 
+    }
+
+    private fun initToolBar() {
+        toolbar_title.text = UIUtils.getString(R.string.main_today)
+        iv_profile.setOnClickListener {
+            startTo(context, MyProfileActivity::class.java)
+
+        }
     }
 
 
@@ -130,13 +137,9 @@ class TodayFragment : BaseFragment(), TodayContract.View {
         view_today.setOnClickListener {
             //点击按钮滑动至当前选项
             dsv_candler.smoothScrollToPosition(mTodayPosition)
-            view_today.visibility= View.GONE
-            mCurrDate=Date()
+            view_today.visibility = View.GONE
+            mCurrDate = Date()
         }
-
-
-
-
 
 
     }
@@ -228,10 +231,19 @@ class TodayFragment : BaseFragment(), TodayContract.View {
     }
 
 
+    //建立引用
+    override fun initInjector() {
+        mPresenter = TodayPresenter()
+        mPresenter.attachView(this)
+    }
+
+
+    //销毁引用 防止泄露
     override fun onDetach() {
         super.onDetach()
         mPresenter.detachView()
     }
+
 
     private val mOnScrollListener: RecyclerView.OnScrollListener =
         object : RecyclerView.OnScrollListener() {
@@ -309,11 +321,14 @@ class TodayFragment : BaseFragment(), TodayContract.View {
                         mCurrDate = dateList[currItem]
 
 
-
                     }
 
-                    RecyclerView.SCROLL_STATE_DRAGGING   -> {  Slog.d("RecyclerView.SCROLL_STATE_DRAGGING") }
-                    RecyclerView.SCROLL_STATE_SETTLING   -> {  Slog.d("RecyclerView.SCROLL_STATE_SETTLING") }
+                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                        Slog.d("RecyclerView.SCROLL_STATE_DRAGGING")
+                    }
+                    RecyclerView.SCROLL_STATE_SETTLING -> {
+                        Slog.d("RecyclerView.SCROLL_STATE_SETTLING")
+                    }
 
                 }
 
@@ -321,6 +336,9 @@ class TodayFragment : BaseFragment(), TodayContract.View {
             }
 
         }
+
+
+
 
 
 }

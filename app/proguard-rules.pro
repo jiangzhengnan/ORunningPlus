@@ -196,12 +196,21 @@
 
 
 #https://github.com/sd6352051/NiftyDialogEffects
--keep class com.gitonway.lee  ** { *; }
+-keep class com.gitonway.lee.** { *; }
 
 #https://github.com/code-mc/loadtoast
--keep class net.steamcrafted.loadtoast  ** { *; }
+-keep class net.steamcrafted.loadtoast.** { *; }
 #不混淆自定义view
--keep class com.oplayer.orunningplus.view  ** { *; }
+-keep class com.oplayer.orunningplus.view.** { *; }
+
+
+
+
+#PictureSelector 2.0 图片选择框架
+-keep class com.luck.picture.lib.** { *; }
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
 
 
 

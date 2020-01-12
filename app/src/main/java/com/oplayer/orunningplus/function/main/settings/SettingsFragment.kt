@@ -50,6 +50,12 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
     }
 
 
+    override fun onDetach() {
+        super.onDetach()
+        mPresenter.detachView()
+
+
+    }
     override fun initView() {
         initToolbar(UIUtils.getString(R.string.main_settings))
         initRecycleView()
@@ -58,16 +64,17 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
     private fun initRecycleView() {
         var settingsList = mutableListOf<SettingItem>()
         settingsAdapter = SettingsAdapter(R.layout.item_settings, settingsList)
-        settingsAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+
+
+        settingsAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT)
+
+
         rv_settings.layoutManager = LinearLayoutManager(mActivity)
-
-
         settingsAdapter.setOnItemChildClickListener { adapter, view, position ->
             var switchButton = view.findViewById<SwitchButton>(R.id.sb_item)
             Slog.d(" switchButton.isChecked  ${switchButton.isChecked}")
          return@setOnItemChildClickListener
         }
-
 
         settingsAdapter.setOnItemClickListener { adapter, view, position ->
             var settingItem = adapter.data[position] as SettingItem
@@ -88,10 +95,7 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
                         }
                     }
 
-
                 }
-
-
                 else -> {
                     var function = settingItem.function as () -> Unit
                     Slog.d("点击可执行方法   $function")
@@ -112,7 +116,6 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
     override fun showSettingItem(list: List<SettingItem>) {
         Slog.d("showSettingItem  显示设置页列表 $list")
         settingsAdapter.setNewData(list)
-        rv_settings.adapter = settingsAdapter
     }
 
 

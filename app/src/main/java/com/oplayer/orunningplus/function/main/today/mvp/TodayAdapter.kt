@@ -54,7 +54,7 @@ class TodayAdapter(data: List<TodayData>) :
                 }
                 animation.start()
                 var apStep = helper.getView<CircularProgressView>(R.id.ap_step)
-                apStep.setProgress(6500/8000*100,commDuration)
+                apStep.setProgress(80,commDuration)
 
 
 

@@ -13,6 +13,7 @@ import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 
 import com.oplayer.common.mvp.IBaseView
+import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
@@ -147,6 +148,13 @@ abstract class BaseFragment : Fragment(), IBaseView {
             .setAnimations(Style.ANIMATIONS_POP).show()
     }
 
+
+    open fun startTo(mContext :Context?,targetClass: Class<out Activity>) {
+        Slog.d("普通 跳转 目标 ${targetClass.name}")
+        val intent = Intent(mContext, targetClass)
+        mContext?. startActivity(intent)
+
+    }
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
         Alerter.create(activity)

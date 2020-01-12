@@ -1,20 +1,34 @@
 package com.oplayer.orunningplus.function.profile.mvp
 
+import android.content.Context
+import com.oplayer.common.utils.Slog
+
 class ProfilePresenter : ProfileContract.Presenter {
 
 
 
-    override fun getTestMessage() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    protected var mView: ProfileContract.View? = null
+    protected var mModel: ProfileContract.Model
+
+    init {
+        mModel = ProfileModelImpl()
     }
 
-    override fun attachView(mRootView: ProfileContract.View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getSettingItem(mContext: Context) {
+
+        Slog.d("getSettingItem   ${ mModel.getSettingItem(mContext).size}")
+        mView?.showSettingItem( mModel.getSettingItem(mContext))
     }
 
-    override fun detachView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+
+
+
+
+    override fun attachView(mRootView: ProfileContract.View) { this.mView=mRootView }
+    override fun detachView() { this. mView=null }
+
+
 
 
 }

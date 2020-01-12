@@ -3,11 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.oplayer.orunningplus">
     <!-- 前台服务 -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 蓝牙搜索所需权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- 蓝牙搜索所需权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+
+    <!-- 文件夹读写权限   选择相片  拍照保存 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 相机权限   选择相片  拍照保存 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
 
     <application
         android:name=".OSportApplciation"
@@ -18,7 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".function.profile.MyProfileActivity"></activity>
+        <activity android:name=".function.profile.MyProfileActivity" />
         <activity android:name=".function.advanced.AdvancedSettingActivity" />
         <activity android:name=".function.test.Test2Activity">
 <!--            <intent-filter>-->

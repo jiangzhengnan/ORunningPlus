@@ -241,7 +241,7 @@ dependencies {
     implementation 'com.roughike:bottom-bar:2.3.1'
 
     //图片加载框架
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 
 
 //https://github.com/zcweng/SwitchButton
@@ -255,6 +255,13 @@ dependencies {
 
 //viewpager 2  https://www.jianshu.com/p/e754cbd2d329?tdsourcetag=s_pcqq_aiomsg
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+
+
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+   //图片选择  https://github.com/LuckSiege/PictureSelector
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.3'
     /**
      *   ---------------------第三方布局相关 End---------------------
      */

@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
@@ -17,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
+import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.config.PictureMimeType
+import com.luck.picture.lib.config.PictureMimeType.ofImage
 import com.ng.lib_common.base.Weak
 import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
@@ -33,6 +38,7 @@ import me.weyye.hipermission.PermissionCallback
 import me.weyye.hipermission.PermissionItem
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.io.File
 
 
 abstract class BaseActivity : AppCompatActivity(), IBaseView {
@@ -277,6 +283,8 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         fun getTransparentColor():Int = UIUtils.getColor( R.color.transparent_color)
         fun getTextColor():Int = UIUtils.getColor( R.color.white_date_text_color)
         fun getIconColor():Int = UIUtils.getColor( R.color.icon_green_color)
+
+
 
 
 

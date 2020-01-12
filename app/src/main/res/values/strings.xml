@@ -56,8 +56,17 @@
     <string name="sport_unit_km">km</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="profile_gender">Gender</string>
+    <string name="profile_birthday">Birthday</string>
+    <string name="profile_weirht">Weight</string>
+    <string name="profile_heightr">Height</string>
+    <string name="profile_bloodr">Blood Pressure</string>
+    <string name="profile_goals">Goals</string>
+    <string name="profile_them">Them</string>
+    <string name="profile_policyr">privacy Policy</string>
+
+
 
 
     <string-array name="candler_week_arr">
