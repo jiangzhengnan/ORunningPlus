@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.oplayer.common.base.BaseService
 import com.oplayer.common.common.*
 import com.oplayer.common.utils.NotifiUtils
@@ -25,6 +26,7 @@ import com.oplayer.orunningplus.utils.javautils.JavaUtil
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.vicpin.krealmextensions.createOrUpdate
+import com.vicpin.krealmextensions.queryAll
 import com.vicpin.krealmextensions.queryFirst
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -47,14 +49,17 @@ class BleService : BaseService() {
     override fun onCreate() {
         super.onCreate()
         startService()
+
+
     }
+
+
 
     companion object {
         val INSTANCE: BleService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             BleService()
         }
         var currManager: BaseManager = FunDoManager.instance
-
     }
 
 
@@ -80,15 +85,18 @@ class BleService : BaseService() {
 
 
     fun getCurrDevice(): DeviceInfo {
-        if (device == null) {
+//        if (this.device == null) {
             var deviceByRealm = DeviceInfo().queryFirst()
             if (deviceByRealm == null) {
-                device = DeviceInfo()
+                this.device = DeviceInfo()
             } else {
                 this.device = deviceByRealm
             }
-        }
-        return device as DeviceInfo
+//        }else{
+//            Slog.d("getCurrDevice 返回当前维护对象  当前对象不为空直接 返回   ${DeviceInfo().queryFirst()} ")
+//        }
+
+        return this.device as DeviceInfo
     }
 
     /**
@@ -99,9 +107,7 @@ class BleService : BaseService() {
         if (!isRunning()) {
             val intent = Intent(sContext, BleService::class.java)
             Slog.d("执行服务器启动方法")
-            if (Build.VERSION.SDK_INT >= 26) sContext.startForegroundService(intent) else sContext.startService(
-                intent
-            )
+            if (Build.VERSION.SDK_INT >= 26) sContext.startForegroundService(intent) else sContext.startService(intent)
         } else {
             Slog.d("服务已在运行   ")
         }
@@ -163,13 +169,15 @@ class BleService : BaseService() {
      * 修改服务通知信息方法
      */
     private fun chageContextText(str: String) {
-//        if (isRunning()) {
+        if (isRunning()&&Build.VERSION.SDK_INT >= 26) {
 //            openForegroundService(UIUtils.getContext(), R.mipmap.ic_launcher, str)
-//        }
+        }
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun openForegroundService(mContext: Context, sourcesId: Int, contextText: String) {
+
         val notification = NotifiUtils.getNotification(mContext, contextText, sourcesId)
         startForeground(NOTIFICATION_ID, notification)
 
@@ -244,12 +252,12 @@ class BleService : BaseService() {
      * 重新搜索蓝牙方法 根据设备名称  mac地址构建搜索过滤器搜索
      * scanFilter 搜索过滤器
      * */
-    public fun reScanDevice(deviceInfo: DeviceInfo?) {
+    public fun reScanDevice(deviceInfo: DeviceInfo) {
 
-        var device = deviceInfo
+
         //为传输设备重连时，重连当前设备
-        if (device == null) device = getCurrDevice()
-        RxBleFactory(device).getObservable()
+        Slog.d("reScanDevice  重新搜索蓝牙方法 根据设备名称  mac地址构建搜索过滤器搜索")
+        RxBleFactory(deviceInfo).getObservable()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .doFinally { dispose() }
@@ -257,7 +265,7 @@ class BleService : BaseService() {
                 val scanResult = it
                 if (!scanResult.bleDevice?.name.isNullOrEmpty()) {
                     Slog.d("搜索到指定设备 ${scanResult.bleDevice.name}  address ${scanResult.bleDevice.macAddress} ")
-                    connBle(BluetoothDeviceInfo(scanResult, getCurrDevice().deviceType))
+                    connBle(BluetoothDeviceInfo(scanResult, deviceInfo.deviceType))
                 }
             }, {
                 Slog.d("重新搜索蓝牙出错  $it")
@@ -295,7 +303,7 @@ class BleService : BaseService() {
         uuids.forEach {
             when (it) {
                 DeviceUUID.FUNDO_BLE_YDS_UUID -> {
-                    Slog.d("发现分动设备")
+//                    Slog.d("发现分动设备")
                     deviceType = DeviceType.DEVICE_FUNDO
                 }
                 else -> deviceType = DeviceType.DEVICE_UNKNOWN
@@ -334,33 +342,40 @@ class BleService : BaseService() {
                 /**
                  * device 当前点击连接设备
                  * */
-                device = getCurrDevice()
-                device!!.isBind = true
-                device!!.isHandConnect = true
-                device!!.createOrUpdate()
+                Slog.d("--- 当前点击连接设备  $device  \n   DeviceInfo().queryFirst() ${DeviceInfo().queryFirst()}")
+                this.device = getCurrDevice()
+                this.device!!.isBind = true
+                this.device!!.isHandConnect = true
+                this.device!!.createOrUpdate()
+
+Slog.d("--- CONNECTION_SUCCESS  $device")
+
                 EventBus.getDefault().post(
                     MessageEvent(
                         Constants.BLUETOOTH_MESSAGE,
                         BluetoothState.CONNECTION_SUCCESS
                     )
                 )
-//                chageContextText("${UIUtils.getString(R.string.device_state_success)} :  ${device?.bleName}")
+                chageContextText("${UIUtils.getString(R.string.device_state_success)} :  ${device?.bleName}")
             }
             BluetoothState.CONNECTION_FAILED -> {
-                EventBus.getDefault().post(
-                    MessageEvent(
-                        Constants.BLUETOOTH_MESSAGE,
-                        BluetoothState.CONNECTION_FAILED
+
+                if(!getCurrDevice().isHandConnect!!){
+                    EventBus.getDefault().post(
+                        MessageEvent(
+                            Constants.BLUETOOTH_MESSAGE,
+                            BluetoothState.CONNECTION_FAILED
+                        )
                     )
-                )
-//                chageContextText("${UIUtils.getString(R.string.device_state_failed)} :  ${device?.bleName}")
+                }
+                chageContextText("${UIUtils.getString(R.string.device_state_failed)} :  ${device?.bleName}")
                 //断开连接 清空消息队列
                 executionQueue.clear()
             }
             BluetoothState.CONNECTIONNTING -> {
                 EventBus.getDefault()
                     .post(MessageEvent(Constants.BLUETOOTH_MESSAGE, BluetoothState.CONNECTIONNTING))
-//                chageContextText("${UIUtils.getString(R.string.device_state_connectionning)} :  ${device?.bleName}")
+                chageContextText("${UIUtils.getString(R.string.device_state_connectionning)} :  ${device?.bleName}")
             }
 
         }
@@ -378,11 +393,13 @@ class BleService : BaseService() {
         Handler().postDelayed({
             var bleDevice = bluetoothDeviceInfo.scanResult.bleDevice.bluetoothDevice
             //准备连接设备  电量 适配号 绑定状态未知
-            device = getCurrDevice()
-            device!!.bleName = bleDevice.name
-            device!!.bleAddress = bleDevice.address
-            device!!.deviceType = bluetoothDeviceInfo.deviceType
-            device!!.createOrUpdate()
+            this.device = getCurrDevice()
+            this.device?.bleName = bleDevice.name
+            this.device?.bleAddress = bleDevice.address
+            this.device?.deviceType = bluetoothDeviceInfo.deviceType
+            this.device?.createOrUpdate()
+
+            Slog.d("--- connBle  $device")
             getManager().bindBle(bleDevice)
         }, 500)
 
@@ -393,6 +410,7 @@ class BleService : BaseService() {
      * 断开连接分发
      * */
     public fun disConnBle() {
+
         currManager.disConnectBle()
         setBind(false, true)
     }
@@ -501,10 +519,11 @@ class BleService : BaseService() {
      *快速设置设备是否绑定 是否连接
      * */
     fun setBind(isBind: Boolean, isHandConn: Boolean) {
-        var deviceInfo = getCurrDevice()
-        deviceInfo.isBind = isBind
-        deviceInfo.isHandConnect = isHandConn
-        deviceInfo.createOrUpdate()
+        this.device = getCurrDevice()
+         this.device!!.isBind = isBind
+         this.device!!.isHandConnect = isHandConn
+         this.device!!.createOrUpdate()
+Slog.d("--- setBind   $device")
     }
 
     /**

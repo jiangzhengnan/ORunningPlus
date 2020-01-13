@@ -54,7 +54,7 @@ interface BaseManager {
 
     fun  reConnect(){
         //不传输设备时 会取当前设备
-        BleService.INSTANCE.reScanDevice(null)
+        BleService.INSTANCE.reScanDevice( BleService.INSTANCE.getCurrDevice())
     }
 
 

@@ -13,8 +13,8 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="2dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:text="KM"
-                            android:textColor="@color/gray_date_text_color"
+                            android:textColor="@color/white_date_text_color"
                             android:textStyle="bold" />
 
                     </LinearLayout>

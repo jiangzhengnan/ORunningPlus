@@ -43,14 +43,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initViewPager() {
-
         fragmentList.add(TodayFragment())
         fragmentList.add(SportFragment())
         fragmentList.add(SportFragment())
         fragmentList.add(SettingsFragment())
         nsv_main.adapter = ViewPagerAdapter(supportFragmentManager)
         nsv_main.offscreenPageLimit = 4
-
     }
 
     private fun initTabBar() {

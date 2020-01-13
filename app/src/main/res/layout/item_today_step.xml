@@ -12,8 +12,8 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="2dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -44,6 +44,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="7dp"
                         android:text="----"
+                        android:textColor="@color/white_date_text_color"
                         android:gravity="bottom"
                         android:textSize="20sp" />
 
@@ -53,6 +54,7 @@
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="6dp"
                         android:gravity="bottom"
+                        android:textColor="@color/white_date_text_color"
                         android:text="@string/today_steps"
                         android:textSize="15sp" />
 
@@ -75,6 +77,7 @@
                         android:layout_gravity="center|center_vertical"
                         android:layout_marginStart="7dp"
                         android:text="--%"
+                        android:textColor="@color/white_date_text_color"
                         android:gravity="bottom"
                         android:textSize="20sp" />
 
@@ -84,6 +87,7 @@
                         android:layout_marginLeft="6dp"
                         android:gravity="bottom"
                         android:text="@string/today_goal"
+                        android:textColor="@color/white_date_text_color"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -172,6 +176,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="---" />
 
                         <TextView
@@ -179,6 +184,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="6dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="@string/sport_unit_km" />
                     </LinearLayout>
 
@@ -198,6 +204,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="---" />
 
                         <TextView
@@ -205,6 +212,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="6dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="@string/sport_unit_kcal" />
                     </LinearLayout>
 
@@ -224,6 +232,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="--:--:--" />
                     </LinearLayout>
                 </LinearLayout>

@@ -31,12 +31,13 @@ abstract class BaseService : Service() {
     lateinit var mNotificationManager: NotificationManager
 
 
+
     override fun onCreate() {
         super.onCreate()
         registerEventBus(this)
         mContext = UIUtils.getContext()
-        mNotificationManager =
-            mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

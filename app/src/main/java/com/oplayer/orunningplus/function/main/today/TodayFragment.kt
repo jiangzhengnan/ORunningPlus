@@ -3,6 +3,7 @@ package com.oplayer.orunningplus.function.main.today
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ng.lib_common.base.BaseFragment
@@ -102,11 +103,16 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
 
     override fun initView() {
-
-
         initToolBar()
+        Slog.d(" 检查连接状态   ${BleService.INSTANCE.isConnected()} ")
+        Slog.d(" 当前设备示例   ${BleService.INSTANCE.getCurrDevice()} ")
 
-        tv_conn.setText("unKnow")
+        if (BleService.INSTANCE.isConnected()) {
+            refreshBTState(BluetoothState.CONNECTION_SUCCESS)
+        } else {
+            refreshBTState(BluetoothState.CONNECTION_FAILED)
+        }
+
         initCander()
         initDSV()
 
@@ -116,7 +122,6 @@ class TodayFragment : BaseFragment(), TodayContract.View {
         toolbar_title.text = UIUtils.getString(R.string.main_today)
         iv_profile.setOnClickListener {
             startTo(context, MyProfileActivity::class.java)
-
         }
     }
 
@@ -195,10 +200,13 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
 
     private fun refreshBTState(str: String) {
-        showToast(str)
+
         when (str) {
             BluetoothState.CONNECTION_SUCCESS -> {
-                iv_conn.setImageResource(R.mipmap.today_connect); tv_conn.setText(BleService.INSTANCE.getCurrDevice().bleName)
+                Slog.d("连接成功  ${BleService.INSTANCE.getCurrDevice()} ")
+                iv_conn.setImageResource(R.mipmap.today_connect)
+                tv_conn.text = BleService.INSTANCE.getCurrDevice().bleName
+
             }
             BluetoothState.CONNECTION_FAILED -> {
                 iv_conn.setImageResource(R.mipmap.today_disconnect); tv_conn.setText(
@@ -271,11 +279,26 @@ class TodayFragment : BaseFragment(), TodayContract.View {
                         } else {
                             rate = 1f
                             v.findViewById<TextView>(R.id.tv_month)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
                             v.findViewById<TextView>(R.id.tv_day)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
                             v.findViewById<TextView>(R.id.tv_week)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
                         }
 
                         v.scaleY = 1 - rate * 0.1f
@@ -284,11 +307,26 @@ class TodayFragment : BaseFragment(), TodayContract.View {
                             rate =
                                 (recyclerView.width - padding - v.left) * 1f / v.width
                             v.findViewById<TextView>(R.id.tv_month)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
                             v.findViewById<TextView>(R.id.tv_day)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
                             v.findViewById<TextView>(R.id.tv_week)
-                                .setTextColor(UIUtils.getColor(R.color.white_date_text_color))
+                                .setTextColor(
+                                    ContextCompat.getColor(
+                                        mActivity,
+                                        R.color.white_date_text_color
+                                    )
+                                )
 
                         }
                         v.scaleY = 0.9f + rate * 0.1f
@@ -336,9 +374,6 @@ class TodayFragment : BaseFragment(), TodayContract.View {
             }
 
         }
-
-
-
 
 
 }

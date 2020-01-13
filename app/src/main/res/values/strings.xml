@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ORunningPlus</string>
     <string name="server_contextText">Connection service established successfully</string>
-    <string name="server_contextTitle">连接标题</string>
+    <string name="server_contextTitle">Context Title</string>
     <string name="device_state_success">Connection Success</string>
     <string name="device_state_not_conn">Not Connected</string>
     <string name="device_state_failed">Connection Failed</string>
@@ -45,7 +45,7 @@
     <string name="today_warm_up">Warm Up</string>
     <string name="today_total_sleep">TOTAL SLEEP</string>
     <string name="today_goal">GOAL</string>
-    <string name="sleep_band_time">Band Time</string>
+    <string name="sleep_bed_time">Bed Time</string>
     <string name="sleep_wake_time">Wake Time</string>
     <string name="sleep_light_sleep">Light Sleep</string>
     <string name="sleep_deep_sleep">Deep Sleep</string>
@@ -74,7 +74,7 @@
         <item>Mon</item>
         <item>Tue</item>
         <item>Wed</item>
-        <item>Thuy</item>
+        <item>Thu</item>
         <item>Fri</item>
         <item>Sat</item>
     </string-array>

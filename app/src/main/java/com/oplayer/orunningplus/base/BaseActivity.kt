@@ -15,13 +15,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
-import com.luck.picture.lib.PictureSelector
-import com.luck.picture.lib.config.PictureConfig
-import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.config.PictureMimeType.ofImage
 import com.ng.lib_common.base.Weak
 import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
@@ -38,7 +35,6 @@ import me.weyye.hipermission.PermissionCallback
 import me.weyye.hipermission.PermissionItem
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.io.File
 
 
 abstract class BaseActivity : AppCompatActivity(), IBaseView {
@@ -67,8 +63,14 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     open fun initToolbar(title: String, isShowBack: Boolean) {
         toolbar_title.text = title
-//        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(isShowBack)
+
+        if(isShowBack) iv_back.visibility=View.VISIBLE else iv_back.visibility=View.GONE
+
+        iv_back.setOnClickListener {
+            finish()
+        }
+
+
     }
 
 
@@ -143,7 +145,6 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
             .enableProgress(enablePro)
             .setIcon(iconResId)
             .showIcon(showIcon)
-
             .setBackgroundColorInt(getIconColor())
             .setText(message)
 
@@ -167,7 +168,6 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     @SuppressLint("CheckResult")
     public fun checkPermission(permissions: Array<String>) {
         val rxPermission = RxPermissions(this)
-        Slog.d("检查全权限")
         rxPermission
             .requestEach(*permissions)
             .subscribe { t ->
@@ -279,10 +279,11 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
      * 获取主题颜色
      * */
 
-        fun getBGColor():Int = UIUtils.getColor( R.color.colorPrimary)
-        fun getTransparentColor():Int = UIUtils.getColor( R.color.transparent_color)
-        fun getTextColor():Int = UIUtils.getColor( R.color.white_date_text_color)
-        fun getIconColor():Int = UIUtils.getColor( R.color.icon_green_color)
+        fun getBGColor():Int = ContextCompat.getColor(this,R.color.colorPrimary)
+        fun getBGGrayColor():Int = ContextCompat.getColor(this,R.color.gray_date_text_color)
+        fun getTransparentColor():Int = ContextCompat.getColor(this,R.color.transparent_color)
+        fun getTextColor():Int = ContextCompat.getColor(this, R.color.white_date_text_color)
+        fun getIconColor():Int = ContextCompat.getColor(this, R.color.icon_green_color)
 
 
 

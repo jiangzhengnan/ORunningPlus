@@ -23,7 +23,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 
-
 abstract class BaseFragment : Fragment(), IBaseView {
     private val STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN"
     lateinit var mActivity: Context
@@ -37,7 +36,11 @@ abstract class BaseFragment : Fragment(), IBaseView {
     private var hasLoadData = false
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         EventBus.builder().build().register(this)
         return inflater.inflate(getLayoutId(), null)
     }
@@ -112,9 +115,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
     }
 
 
-
-
-
     abstract fun onClick(v: View)
     abstract fun getLayoutId(): Int
     abstract fun initInjector()
@@ -126,16 +126,17 @@ abstract class BaseFragment : Fragment(), IBaseView {
      * 获取主题颜色
      * */
 
-    fun getBGColor():Int = UIUtils.getColor( R.color.colorPrimary)
-    fun getTransparentColor():Int = UIUtils.getColor( R.color.transparent_color)
-    fun getTextColor():Int = UIUtils.getColor( R.color.white_date_text_color)
-    fun getIconColor():Int = UIUtils.getColor( R.color.icon_green_color)
+    fun getBGColor(): Int = UIUtils.getColor(R.color.colorPrimary)
+
+    fun getTransparentColor(): Int = UIUtils.getColor(R.color.transparent_color)
+    fun getTextColor(): Int = UIUtils.getColor(R.color.white_date_text_color)
+    fun getIconColor(): Int = UIUtils.getColor(R.color.icon_green_color)
 
     open fun initToolbar(title: String) {
-//        toolbar.setBackgroundColor(getBGColor())
-        toolbar_title.text = title
-    }
 
+        toolbar_title.text = title
+        iv_back.visibility = View.GONE
+    }
 
 
     fun showToast(msg: String) {
@@ -149,10 +150,10 @@ abstract class BaseFragment : Fragment(), IBaseView {
     }
 
 
-    open fun startTo(mContext :Context?,targetClass: Class<out Activity>) {
+    open fun startTo(mContext: Context?, targetClass: Class<out Activity>) {
         Slog.d("普通 跳转 目标 ${targetClass.name}")
         val intent = Intent(mContext, targetClass)
-        mContext?. startActivity(intent)
+        mContext?.startActivity(intent)
 
     }
 

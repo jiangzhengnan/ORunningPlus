@@ -211,7 +211,7 @@ class FitCloudManager private constructor() : BaseManager {
     override fun bindBle(bluetoothLeDevice: BluetoothDevice) {
 
         var id = "1"
-        var isBind = true
+        var isBind = false
         var isSex = true
         var age = 18
         var height = 180F

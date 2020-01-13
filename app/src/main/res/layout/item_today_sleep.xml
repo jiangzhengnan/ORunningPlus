@@ -13,8 +13,8 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="2dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -56,6 +56,8 @@
                         android:gravity="bottom"
                         android:text="@string/today_total_sleep"
                         android:textSize="13sp"
+                        android:textColor="@color/white_date_text_color"
+                        android:layout_marginStart="3dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -77,6 +79,7 @@
                         android:layout_gravity="center|center_vertical"
                         android:layout_marginStart="7dp"
                         android:gravity="bottom"
+                        android:textColor="@color/white_date_text_color"
                         android:text="--%"
                         android:textSize="20sp" />
 
@@ -86,6 +89,7 @@
                         android:gravity="bottom"
                         android:layout_marginStart="2dp"
                         android:text="@string/today_goal"
+                        android:textColor="@color/white_date_text_color"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -160,9 +164,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:text="@string/sleep_band_time"
-                                android:textSize="13sp"
-                                android:textColor="@color/gray_date_text_color" />
+                                android:text="@string/sleep_bed_time"
+                                android:textSize="12sp"
+                                android:textColor="@color/white_date_text_color" />
 
                         </LinearLayout>
 
@@ -200,8 +204,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/sleep_wake_time"
-                                android:textSize="13sp"
-                                android:textColor="@color/gray_date_text_color" />
+                                android:textSize="12sp"
+                                android:textColor="@color/white_date_text_color" />
 
                         </LinearLayout>
 
@@ -239,8 +243,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/sleep_light_sleep"
-                                android:textSize="13sp"
-                                android:textColor="@color/gray_date_text_color" />
+                                android:textSize="12sp"
+                                android:textColor="@color/white_date_text_color" />
 
                         </LinearLayout>
 
@@ -278,8 +282,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/sleep_deep_sleep"
-                                android:textSize="13sp"
-                                android:textColor="@color/gray_date_text_color" />
+                                android:textSize="12sp"
+                                android:textColor="@color/white_date_text_color" />
 
                         </LinearLayout>
 

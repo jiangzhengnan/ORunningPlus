@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -8,6 +9,14 @@
     >
 
 
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/back"
+            android:layout_marginStart="10dp"
+            />
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
@@ -15,12 +24,20 @@
             android:layout_gravity="center"
             android:ellipsize="end"
             android:lines="1"
+            android:layout_centerInParent="true"
             android:textColor="@color/white_date_text_color"
             android:textSize="20sp"
             />
 
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_date_text_color"
+
+            />
 
 
 
-
-</androidx.appcompat.widget.Toolbar>
+</RelativeLayout>

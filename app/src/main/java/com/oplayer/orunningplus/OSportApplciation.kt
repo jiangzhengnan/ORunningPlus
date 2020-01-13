@@ -15,6 +15,7 @@ import com.facebook.stetho.Stetho
 import com.htsmart.wristband2.WristbandApplication
 import com.kct.bluetooth.KCTBluetoothManager
 import com.oplayer.common.common.*
+import com.oplayer.common.utils.PreferencesHelper
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.service.BleService
 import com.oplayer.orunningplus.utils.javautils.Utils
@@ -47,21 +48,21 @@ class OSportApplciation : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Slog.d("当前工作模式 debug? :  ${BuildConfig.DEBUG}")
-
-
-
         initRealm()
         sContext = this
         initSkin()
-        initLog()
         initNotifiCation()
         initStetho()
         initRxBleClient()
         initSDK()
-        initStrictMode()
+
         initBTService()
-        initLeakCanary()
+        if(BuildConfig.DEBUG){
+            initLeakCanary()
+            initLog()
+            initStrictMode()
+        }
+
 
 
     }
@@ -76,14 +77,8 @@ class OSportApplciation : Application() {
      * 初始化内存泄漏检测工具
      * */
     fun initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return
-        }
-        LeakCanary.install(this)
-        // Normal app init code...
-
+        if (LeakCanary.isInAnalyzerProcess(this)) { /* This process is dedicated to LeakCanary for heap analysis. You should not init your app in this process.*/ return }
+        LeakCanary.install(this) // Normal app init code...
     }
 
 
@@ -214,6 +209,8 @@ class OSportApplciation : Application() {
         //  MODE_NIGHT_FOLLOW_SYSTEM(默认选项):设置为跟随系统,通常为 MODE_NIGHT_NO
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
 //        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+
+        PreferencesHelper.setNight(false)
 
 
     }

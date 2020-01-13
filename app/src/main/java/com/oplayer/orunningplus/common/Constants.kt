@@ -73,6 +73,7 @@ class SecurityKey {
 class PreferencesKey {
     companion object {
         const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
+        const val IS_NIGHT = "IS_NIGHT"
 
 
     }

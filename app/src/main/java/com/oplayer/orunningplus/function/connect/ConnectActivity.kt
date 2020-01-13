@@ -35,13 +35,18 @@ class ConnectActivity : BaseActivity() {
         initSRL()
         checkState()
         initRecycle()
+        initToolbar(UIUtils.getString(R.string.title_current_device),true)
 
-        initToolbar(UIUtils.getString(R.string.title_current_device),false)
     }
     override fun initData() {
+        disConnaction()
         scanDevice()
     }
 
+    private fun disConnaction() {
+
+        BleService.INSTANCE.disConnBle()
+    }
 
 
     override fun onClick(v: View) {
@@ -139,7 +144,7 @@ class ConnectActivity : BaseActivity() {
 
     private fun initSRL() {
         //设置 Header 为 贝塞尔雷达 样式
-        srl_device.setPrimaryColors(getBGColor())
+        srl_device.setPrimaryColors(getBGGrayColor())
         srl_device.setRefreshHeader(BezierRadarHeader(this).setEnableHorizontalDrag(true))
         srl_device.setOnRefreshListener {
             it.finishRefresh(2000/*,false*/)//传入false表示刷新失败

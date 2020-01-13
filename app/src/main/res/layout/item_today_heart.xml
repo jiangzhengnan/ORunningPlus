@@ -12,8 +12,8 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="2dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -68,7 +68,7 @@
                         android:layout_marginLeft="6dp"
                         android:gravity="bottom"
                         android:text="@string/today_last_hr"
-                        android:textColor="@color/gray_date_text_color"
+                        android:textColor="@color/white_date_text_color"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -83,6 +83,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="---------- --:--"
+                    android:textColor="@color/white_date_text_color"
                     android:textSize="15sp" />
 
 
@@ -176,6 +177,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="--" />
 
                         <TextView
@@ -183,6 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="6dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="@string/today_bpm_lower" />
                     </LinearLayout>
 
@@ -203,6 +206,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="--" />
 
                         <TextView
@@ -210,6 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="6dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="@string/today_bpm_lower" />
                     </LinearLayout>
 
@@ -230,6 +235,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="13dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="--" />
 
                         <TextView
@@ -237,6 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="6dp"
+                            android:textColor="@color/white_date_text_color"
                             android:text="@string/today_bpm_lower" />
                     </LinearLayout>
                 </LinearLayout>

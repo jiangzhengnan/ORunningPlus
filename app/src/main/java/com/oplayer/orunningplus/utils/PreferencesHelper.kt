@@ -23,5 +23,11 @@ object PreferencesHelper {
         return PreferencesUtil.saveValue(PreferencesKey.DEVICE_TYPE, type)
     }
 
+    fun isNight(): Boolean {
+        return PreferencesUtil.getBoolean(PreferencesKey.IS_NIGHT, false)
+    }
 
+    fun setNight(type: Boolean) {
+        return PreferencesUtil.saveValue(PreferencesKey.IS_NIGHT, type)
+    }
 }
