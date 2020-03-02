@@ -28,12 +28,13 @@ class CustomizedPackName {
 
 class Constants {
     companion object {
-
         const val REALM_VERSION = 1L
         const val OPLAYER_LOG = "oplayer_error_log"
         const val BLUETOOTH_MESSAGE = "BLUETOOTH_MESSAGE"
         const val BLUETOOTH_DEVICE = "BLUETOOTH_DEVICE"
         const val DEVICE_SETTING = "DEVICE_SETTING"
+
+
 
     }
 }
@@ -43,10 +44,14 @@ class Constants {
 
 class TodayDateType {
     companion object {
+     const  val TYPE = "TodayDateType"
+
      const  val STEP = 0
      const  val HEART = 1
      const  val SLEEP = 2
      const  val SPORT = 3
+     const  val MANAGE = 4
+        const val MAIN_CARD_CHAGE = "MAIN_CARD_CHAGE"
     }
 }
 
@@ -75,6 +80,11 @@ class PreferencesKey {
         const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
         const val IS_NIGHT = "IS_NIGHT"
 
+        const val IS_SHOW_STEP  = "IS_SHOW_STEP"
+        const val IS_SHOW_HR    = "IS_SHOW_HR"
+        const val IS_SHOW_SLEEP = "IS_SHOW_SLEEP"
+        const val IS_SHOW_SPORT = "IS_SHOW_SPORT"
+
 
     }
 }
@@ -85,8 +95,6 @@ class DeviceSetting {
         const val FIND_DEVICE = "FIND_DEVICE"
         const val QUERY_BATTERY = "QUERY_BATTERY"
     }
-
-
 }
 
 
@@ -149,7 +157,7 @@ class NotifiDate {
 
 
 
-class DeviceUUID() {
+class DeviceUUID {
     companion object {
         //过滤非手环的蓝牙设备
         val FUNDO_BLE_YDS_UUID =
@@ -260,7 +268,6 @@ class SystemSetting{
 
 class PermissList {
     companion object {
-
         var PERMISSIONS_LIST = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -270,9 +277,37 @@ class PermissList {
             Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+            ,Manifest.permission.WRITE_SETTINGS
         )
 
     }
 
 }
+
+class SportModel{
+    /**
+     * 通用运动模式 各协议统一一封装
+     *
+     * MODE_WALKING       走路
+     * MODE_RUN_OUTDOORS  户外
+     * MODE_RUN_INSIDE    室内
+     * MODE_HIKING      登山
+     * MODE_CROSS_RUN     跑步
+     * MODE_CYCLING       骑行
+     * MODE_SWIMMING      游泳
+     * */
+    companion object {
+        val MODE_ALL = 0
+        val MODE_WALKING = 1
+        val MODE_RUN_OUTDOORS = 2
+        val MODE_RUN_INSIDE = 3
+        val MODE_HIKING = 4
+        val MODE_CROSS_RUN = 5
+        val MODE_CYCLING = 6
+        val MODE_SWIMMING = 7
+    }
+
+}
+
 

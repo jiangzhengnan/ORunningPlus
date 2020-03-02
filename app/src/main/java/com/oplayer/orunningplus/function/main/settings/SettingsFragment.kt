@@ -35,9 +35,6 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
     override fun onGetEvent(event: MessageEvent) {
     }
 
-    override fun onClick(v: View) {
-
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_settings
@@ -52,7 +49,9 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
 
     override fun onDetach() {
         super.onDetach()
-        mPresenter.detachView()
+        if(this::mPresenter.isInitialized){
+            mPresenter.detachView()
+        }
 
 
     }
@@ -66,7 +65,7 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
         settingsAdapter = SettingsAdapter(R.layout.item_settings, settingsList)
 
 
-        settingsAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT)
+        settingsAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
 
 
         rv_settings.layoutManager = LinearLayoutManager(mActivity)
@@ -75,6 +74,9 @@ class SettingsFragment : BaseFragment(), SettingsContract.View {
             Slog.d(" switchButton.isChecked  ${switchButton.isChecked}")
          return@setOnItemChildClickListener
         }
+
+
+
 
         settingsAdapter.setOnItemClickListener { adapter, view, position ->
             var settingItem = adapter.data[position] as SettingItem

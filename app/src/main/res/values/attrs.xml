@@ -43,4 +43,9 @@
         <attr name="progress" format="integer" />       <!--圆环进度-->
     </declare-styleable>
 
+
+    <declare-styleable name="DateSelectView">
+        <attr name="timeModel" format="integer" />
+    </declare-styleable>
+
 </resources>

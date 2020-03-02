@@ -52,11 +52,12 @@ class SettingsModelImpl : SettingsContract.Model {
             UIUtils.getString(R.string.settings_camera),false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
-        SettingItem(
-            R.mipmap.settings_googlefit,
-            UIUtils.getString(R.string.settings_googlefit),true,null
-        )
-        ,
+        //迁移到用户设置界面
+//        SettingItem(
+//            R.mipmap.settings_googlefit,
+//            UIUtils.getString(R.string.settings_googlefit),true,null
+//        )
+//        ,
         SettingItem(
             R.mipmap.settings_weather,
             UIUtils.getString(R.string.settings_weather),false

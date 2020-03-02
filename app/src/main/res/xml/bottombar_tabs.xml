@@ -2,8 +2,8 @@
 <tabs>
     <tab
         id="@+id/tab_today"
-        icon="@mipmap/today_calendar"
-        title="@string/main_today" />
+        icon="@mipmap/today_home"
+        title="@string/main_home" />
     <tab
         id="@+id/tab_history"
         icon="@mipmap/today_history"
@@ -17,5 +17,9 @@
     <tab
         id="@+id/tab_settings"
         icon="@mipmap/today_settings"
-        title="@string/main_settings" />
+        title="@string/main_devices" />
+    <tab
+        id="@+id/tab_profile"
+        icon="@mipmap/today_profile"
+        title="@string/main_profile" />
 </tabs>

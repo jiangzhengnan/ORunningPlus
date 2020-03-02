@@ -6,15 +6,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder
-import com.oplayer.common.common.BluetoothState
-import com.oplayer.common.common.Constants
-import com.oplayer.common.common.PermissList
-import com.oplayer.common.common.SystemSetting
+import com.oplayer.common.common.*
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.main.clockface.ClockFaceFragment
+import com.oplayer.orunningplus.function.main.profile.ProfileFragment
 import com.oplayer.orunningplus.function.main.settings.SettingsFragment
 import com.oplayer.orunningplus.function.main.today.SportFragment
 import com.oplayer.orunningplus.function.main.today.TodayFragment
@@ -36,7 +35,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-//        startTo(TestActivity::class.java)
         //开发阶段 指令测试
         initViewPager()
         initTabBar()
@@ -45,10 +43,11 @@ class MainActivity : BaseActivity() {
     private fun initViewPager() {
         fragmentList.add(TodayFragment())
         fragmentList.add(SportFragment())
-        fragmentList.add(SportFragment())
+        fragmentList.add(ClockFaceFragment())
         fragmentList.add(SettingsFragment())
+        fragmentList.add(ProfileFragment())
         nsv_main.adapter = ViewPagerAdapter(supportFragmentManager)
-        nsv_main.offscreenPageLimit = 4
+        nsv_main.offscreenPageLimit = 5
     }
 
     private fun initTabBar() {
@@ -65,6 +64,9 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.tab_settings -> {
                     nsv_main.setCurrentItem(3,false)
+                }
+                R.id.tab_profile -> {
+                    nsv_main.setCurrentItem(4,false)
                 }
                 else -> {
 
@@ -99,6 +101,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onGetEvent(event: MessageEvent) {
+
+        when (event.getMessageType()) {
+            TodayDateType.MAIN_CARD_CHAGE -> {
+                Slog.d("首页布局切换 刷新首页布局")
+             fragmentList[0].onResume()
+            }
+            else -> {
+            }
+        }
 
 
     }

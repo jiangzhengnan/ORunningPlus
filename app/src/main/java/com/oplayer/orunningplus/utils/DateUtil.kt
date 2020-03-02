@@ -79,6 +79,8 @@ class DateUtil {
                 date = sdf.parse(str)
             } catch (e: Exception) {
                 e.printStackTrace()
+
+
             }
             return date
         }
@@ -123,6 +125,17 @@ class DateUtil {
         fun getCurDateStr(format: String?): String? {
             val c = Calendar.getInstance()
             return date2Str(c, format)
+        }
+
+        fun getCurDateStr(): String? {
+            val c = Calendar.getInstance()
+            return date2Str(c, "yyyy-MM-dd")
+        }
+
+        fun getCurDateStr(date: Date): String? {
+            val c = Calendar.getInstance()
+            c.time = date
+            return date2Str(c, "yyyy-MM-dd")
         }
 
         /**
@@ -623,7 +636,7 @@ class DateUtil {
          * @param date
          * @return
          */
-        fun getDay(date: Date): Int {
+        fun getDay(date: Date?): Int {
             val c = Calendar.getInstance()
             c.time = date
             return c[Calendar.DATE]
@@ -698,6 +711,44 @@ class DateUtil {
             }
         }
 
+
+        fun getBeforeDay(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.DATE, -1) //向前一天
+            date = calendar.time
+            return date
+        }
+
+        fun getNextDay(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.DATE, +1) //向后一天
+            date = calendar.time
+            return date
+        }
+
+
+        fun getBeforeMonth(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.MONTH, -1) //向前一月
+            date = calendar.time
+            return date
+        }
+
+        fun getNextMonth(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.MONTH, +1) //向后一月
+            date = calendar.time
+            return date
+        }
+
         /**
          * 获得某年某月某日的前一天
          *
@@ -765,12 +816,6 @@ class DateUtil {
                 val cal = Calendar.getInstance()
                 val time = sdf.parse(dateStr)
                 cal.time = time
-                //判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
-                //            int dayWeek = cal.get(Calendar.DAY_OF_WEEK);//获得当前日期是一个星期的第几天
-                //            if(1 == dayWeek) {
-                //                cal.add(Calendar.DAY_OF_MONTH, -1);
-                //            }
-                //            cal.setFirstDayOfWeek(Calendar.MONDAY);//设置一个星期的第一天
                 cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
                 val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
                 cal.add(
@@ -783,6 +828,72 @@ class DateUtil {
             }
         }
 
+
+        /**
+         * 获得指定日期的当前周开始日期
+         */
+        fun getWeekStart(date: Date?): Date {
+            val cal = Calendar.getInstance()
+            cal.time = date
+            cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
+            val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
+            cal.add(Calendar.DATE, cal.firstDayOfWeek - day) //根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+            return cal.time
+        }
+
+        /**
+         * 获得指定日期的当前周结束日期
+         */
+        fun getWeekEnd(date: Date?): Date {
+            val cal = Calendar.getInstance()
+            cal.time = date
+            cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
+            val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
+            cal.add(
+                Calendar.DATE,
+                cal.firstDayOfWeek - day
+            ) //根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+            cal.add(Calendar.DATE, 6)
+            return cal.time
+        }
+
+
+        /**
+         * 获得指定日期的上一周第一天日期
+         */
+        fun getPreviousWeek(date: Date): Date {
+            val cal = Calendar.getInstance()
+            cal.time = date
+            cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
+            val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
+            cal.add(
+                Calendar.DATE,
+                cal.firstDayOfWeek - day
+            ) //根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+            cal.add(Calendar.DATE, -7)
+            return cal.time
+
+        }
+
+
+        /**
+         * 获得指定日期的下一周第一天日期
+         */
+        fun getNextWeek(date: Date): Date {
+            val cal = Calendar.getInstance()
+            cal.time = date
+            cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
+            val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
+            cal.add(
+                Calendar.DATE,
+                cal.firstDayOfWeek - day
+            ) //根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+            cal.add(Calendar.DATE, 7)
+            return cal.time
+
+        }
+
+
         /**
          * 获得指定日期的周结束日期
          * 周日为每周第一天（周一为每周第一天时需要处理）
@@ -792,17 +903,10 @@ class DateUtil {
          */
         fun getWeekEndStr(dateStr: String?): String {
             return try {
-                val sdf =
-                    SimpleDateFormat("yyyy-MM-dd") //设置时间格式
+                val sdf = SimpleDateFormat("yyyy-MM-dd") //设置时间格式
                 val cal = Calendar.getInstance()
                 val time = sdf.parse(dateStr)
                 cal.time = time
-                //判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
-                //            int dayWeek = cal.get(Calendar.DAY_OF_WEEK);//获得当前日期是一个星期的第几天
-                //            if(1 == dayWeek) {
-                //                cal.add(Calendar.DAY_OF_MONTH, -1);
-                //            }
-                //            cal.setFirstDayOfWeek(Calendar.MONDAY);//设置一个星期的第一天
                 cal.firstDayOfWeek = Calendar.SUNDAY //设置一个星期的第一天
                 val day = cal[Calendar.DAY_OF_WEEK] //获得当前日期是一个星期的第几天
                 cal.add(
@@ -1034,7 +1138,7 @@ class DateUtil {
          * @param endTime
          * @return
          */
-        fun timeDifference(startTime: String?, endTime: String?): Int {
+        fun timeDifference(startTime: String?, endTime: String?): Float {
             val simpleFormat =
                 SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
             var from: Long = 0
@@ -1045,7 +1149,28 @@ class DateUtil {
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-            return ((to - from) / (1000 * 60)).toInt()
+            return ((to - from) / (1000 * 60)).toFloat()
+        }
+
+
+        //日期减一天格式化处理
+        @Throws(IllegalArgumentException::class)
+        fun getSubtractDay(s: String): String? {
+            val date = s.split("-").toTypedArray()
+            val year = date[0].toInt()
+            val month = date[1].toInt()
+            val day = date[2].toInt()
+            val s1: String = getPreDay(year, month, day)
+            val date1 = s1.split("-").toTypedArray()
+            var monthStr = date1[1]
+            var dayStr = date1[2]
+            if (monthStr.length == 1) {
+                monthStr = "0$monthStr"
+            }
+            if (dayStr.length == 1) {
+                dayStr = "0$dayStr"
+            }
+            return date1[0] + "-" + monthStr + "-" + dayStr
         }
 
         /**
@@ -1176,7 +1301,7 @@ class DateUtil {
         fun is24Hour(mContext: Context): Boolean {
             var is24 = false
             is24 = try {
-                val cv: ContentResolver =mContext.getContentResolver()
+                val cv: ContentResolver = mContext.getContentResolver()
                 val strTimeFormat = Settings.System.getString(
                     cv,
                     Settings.System.TIME_12_24

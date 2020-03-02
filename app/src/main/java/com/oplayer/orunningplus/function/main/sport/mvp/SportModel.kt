@@ -15,7 +15,7 @@ object SportModel {
 
     fun getTestMessage(): String {
 
-        return "我是个脑残"
+        return ""
 
     }
 

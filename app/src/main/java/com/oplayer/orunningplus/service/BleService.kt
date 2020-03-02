@@ -18,6 +18,7 @@ import com.oplayer.orunningplus.base.BaseManager
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.bean.DeviceInfo
 import com.oplayer.orunningplus.bean.NotificationDate
+import com.oplayer.orunningplus.bean.UserInfo
 import com.oplayer.orunningplus.common.RxBleFactory
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.manager.FitCloudManager
@@ -36,6 +37,7 @@ import java.util.*
 
 
 class BleService : BaseService() {
+
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
@@ -49,8 +51,6 @@ class BleService : BaseService() {
     override fun onCreate() {
         super.onCreate()
         startService()
-
-
     }
 
 
@@ -82,8 +82,23 @@ class BleService : BaseService() {
      * 维护当前连接设备
      * */
     var device: DeviceInfo? = null
+    /**
+     * 维护当前用户
+     * */
+    var user: UserInfo? = null
 
+    fun getCurrUser(): UserInfo {
+        if (this.user == null) {
+        var deviceByRealm = UserInfo().queryFirst()
+        if (deviceByRealm == null) {
+            this.user = UserInfo()
+        } else {
+            this.user = deviceByRealm
+        }
+        }
 
+        return this.user as UserInfo
+    }
     fun getCurrDevice(): DeviceInfo {
 //        if (this.device == null) {
             var deviceByRealm = DeviceInfo().queryFirst()

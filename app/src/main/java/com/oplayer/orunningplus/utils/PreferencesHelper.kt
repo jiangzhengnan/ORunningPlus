@@ -15,19 +15,30 @@ import com.oplayer.common.common.PreferencesKey
 object PreferencesHelper {
 
 
-    fun getDeviceType(): String {
-        return PreferencesUtil.getString(PreferencesKey.DEVICE_TYPE, DeviceType.DEVICE_FUNDO)
-    }
+    fun getDeviceType(): String = PreferencesUtil.getString(PreferencesKey.DEVICE_TYPE, DeviceType.DEVICE_FUNDO)
 
-    fun setDeviceType(type: String) {
-        return PreferencesUtil.saveValue(PreferencesKey.DEVICE_TYPE, type)
-    }
+    fun setDeviceType(type: String) = PreferencesUtil.saveValue(PreferencesKey.DEVICE_TYPE, type)
 
-    fun isNight(): Boolean {
-        return PreferencesUtil.getBoolean(PreferencesKey.IS_NIGHT, false)
-    }
+    fun isNight(): Boolean = PreferencesUtil.getBoolean(PreferencesKey.IS_NIGHT, false)
 
-    fun setNight(type: Boolean) {
-        return PreferencesUtil.saveValue(PreferencesKey.IS_NIGHT, type)
-    }
+    fun setNight(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_NIGHT, type)
+
+
+
+
+    fun isShowStep(): Boolean = PreferencesUtil.getBoolean(PreferencesKey.IS_SHOW_STEP, true)
+    fun setIsShowStep(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_SHOW_STEP, type)
+    fun isShowSleep(): Boolean = PreferencesUtil.getBoolean(PreferencesKey.IS_SHOW_SLEEP, true)
+    fun setIsShowSleep(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_SHOW_SLEEP, type)
+    fun isShowHr(): Boolean = PreferencesUtil.getBoolean(PreferencesKey.IS_SHOW_HR, true)
+    fun setIsShowHr(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_SHOW_HR, type)
+    fun isShowSport(): Boolean = PreferencesUtil.getBoolean(PreferencesKey.IS_SHOW_SPORT, true)
+    fun setIsShowSport(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_SHOW_SPORT, type)
+
+
+
+
+
+
+
 }

@@ -1,34 +1,30 @@
 package com.oplayer.orunningplus.function.main.today
 
 
-import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import android.content.Intent
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.ng.lib_common.base.BaseFragment
 import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.Constants
-import com.oplayer.common.common.DeviceSetting
 import com.oplayer.common.common.TodayDateType
+import com.oplayer.common.utils.PreferencesHelper
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.calender.CalenderActivity
+import com.oplayer.orunningplus.function.details.DetailsActivity
+import com.oplayer.orunningplus.function.main.ManageActivity
 import com.oplayer.orunningplus.function.main.today.mvp.TodayAdapter
 import com.oplayer.orunningplus.function.main.today.mvp.TodayContract
 import com.oplayer.orunningplus.function.main.today.mvp.TodayData
 import com.oplayer.orunningplus.function.main.today.mvp.TodayPresenter
-import com.oplayer.orunningplus.function.main.today.mvp.CandlerAdapter
-import com.oplayer.orunningplus.function.profile.MyProfileActivity
 import com.oplayer.orunningplus.service.BleService
-import com.oplayer.orunningplus.utils.javautils.JavaUtil
-import com.oplayer.orunningplus.view.DiscreteScroll.DSVOrientation
-import com.oplayer.orunningplus.view.DiscreteScroll.InfiniteScrollAdapter
-import com.oplayer.orunningplus.view.DiscreteScroll.SpaceItemDecoration
-import com.oplayer.orunningplus.view.DiscreteScroll.transform.ScaleTransformer
+import com.oplayer.orunningplus.utils.DateUtil
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader
 import kotlinx.android.synthetic.main.fragment_today.*
-import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 
@@ -39,34 +35,15 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
 
     lateinit var mPresenter: TodayContract.Presenter
-    var mTodayPosition: Int = 0
-    var mCurrDate: Date
 
-    var dateList = mutableListOf<Date>()
-
-    init {
-        initDateList()
-        mCurrDate = Date()
-        mTodayPosition = dateList.size - 90
+    companion object {
+        const val requestInt = 1
+        const val resultInt = 2
+        //界面传值key
+        const val SELECT_DATE = "SELECT_DATE"
     }
 
-
-    /**
-     * 构建首页日历
-     * */
-
-    private fun initDateList(): List<Date> {
-        var tmpTime: Long = System.currentTimeMillis()
-        var leftTime: Long = System.currentTimeMillis()
-        for (index in 1..90) {
-            dateList.add(Date(tmpTime)); tmpTime += 1000 * 60 * 60 * 24
-        }
-        for (index in 0..90) {
-            leftTime -= 1000 * 60 * 60 * 24; dateList.add(0, Date(leftTime))
-        }
-        return dateList
-    }
-
+    var currDate = Date()
 
     override fun onGetEvent(event: MessageEvent) {
 
@@ -77,24 +54,13 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
 
             else -> {
+                Slog.d("首页布局更新  未知消息")
+
             }
         }
 
     }
 
-    override fun onClick(v: View) {
-
-        when (v.id) {
-            R.id.iv_refresh -> {
-
-                EventBus.getDefault().post(MessageEvent(DeviceSetting, DeviceSetting.TODAY_QUERY))
-            }
-            else -> {
-            }
-        }
-
-
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_today
@@ -104,76 +70,112 @@ class TodayFragment : BaseFragment(), TodayContract.View {
 
     override fun initView() {
         initToolBar()
-        Slog.d(" 检查连接状态   ${BleService.INSTANCE.isConnected()} ")
-        Slog.d(" 当前设备示例   ${BleService.INSTANCE.getCurrDevice()} ")
-
         if (BleService.INSTANCE.isConnected()) {
             refreshBTState(BluetoothState.CONNECTION_SUCCESS)
         } else {
             refreshBTState(BluetoothState.CONNECTION_FAILED)
         }
-
-        initCander()
+        setDate(currDate)
+        initSRL()
         initDSV()
+        initOnClick()
+
+    }
+
+    private fun initOnClick() {
+        tv_day.setOnClickListener {
+            val intent = Intent(activity, CalenderActivity::class.java)
+            intent.putExtra(SELECT_DATE, DateUtil.getCurDateStr(currDate))
+            startActivityForResult(intent, requestInt)
+        }
+
+        iv_share.setOnClickListener {
+            showToast("点击分享按钮")
+            UIUtils.originalShareImage(activity!!,context!!)
+
+        }
+
+
+    }
+
+    private fun setDate(date: Date) {
+        this.currDate = date
+        tv_time.text = DateUtil.date2Str(date, "dd/MM/yyyy")
+        tv_day.text = DateUtil.getDay(date).toString()
+
+        Slog.d("时间改变 切换数据源")
+
+    }
+
+    private fun initSRL() {
+        //设置 Header 为 贝塞尔雷达 样式
+//        srl_main.setPrimaryColors(getBGGrayColor())
+        srl_main.setPrimaryColorsId(R.color.colorPrimary)
+        srl_main.setRefreshHeader(BezierRadarHeader(mActivity).setEnableHorizontalDrag(true))
+        srl_main.setEnableLoadMore(false)//是否启用上拉加载功能
+        srl_main.setOnRefreshListener {
+            Slog.d("启用刷新方法  ")
+            it.finishRefresh(2000/*,false*/)//传入false表示刷新失败
+        }
+
 
     }
 
     private fun initToolBar() {
-        toolbar_title.text = UIUtils.getString(R.string.main_today)
-        iv_profile.setOnClickListener {
-            startTo(context, MyProfileActivity::class.java)
-        }
+
+
+    }
+
+    val todayList = mutableListOf<TodayData>()
+    var mainAdapter = TodayAdapter(todayList)
+
+    init {
+        refreshCard()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        todayList.clear()
+        refreshCard()
+        Slog.d("首页布局更新  ${todayList.toString()}")
+        mainAdapter.notifyDataSetChanged()
+
     }
 
 
-    private fun initCander() {
-        val candlerAdapter =
-            CandlerAdapter(
-                R.layout.item_today_candler,
-                dateList
-            )
-        dsv_candler.setOverScrollEnabled(true)
-        dsv_candler.setSlideOnFling(false)
-        dsv_candler.setOffscreenItems(7)
-        dsv_candler.setOrientation(DSVOrientation.HORIZONTAL)
-        dsv_candler.setOnScrollListener(mOnScrollListener)
-        dsv_candler.adapter = candlerAdapter
-        dsv_candler.scrollToPosition(mTodayPosition)
-        view_today.setOnClickListener {
-            //点击按钮滑动至当前选项
-            dsv_candler.smoothScrollToPosition(mTodayPosition)
-            view_today.visibility = View.GONE
-            mCurrDate = Date()
-        }
-
-
+    //初始化首页显示状态
+    fun refreshCard() {
+        if (PreferencesHelper.isShowStep()) todayList.add(TodayData(TodayDateType.STEP))
+        if (PreferencesHelper.isShowHr()) todayList.add(TodayData(TodayDateType.HEART))
+        if (PreferencesHelper.isShowSleep()) todayList.add(TodayData(TodayDateType.SLEEP))
+        if (PreferencesHelper.isShowSport()) todayList.add(TodayData(TodayDateType.SPORT))
+        todayList.add(TodayData(TodayDateType.MANAGE))
     }
 
     private fun initDSV() {
 
-        val todayList = mutableListOf<TodayData>()
-        todayList.add(TodayData(TodayDateType.STEP))
-        todayList.add(TodayData(TodayDateType.HEART))
-        todayList.add(TodayData(TodayDateType.SLEEP))
-        todayList.add(TodayData(TodayDateType.SPORT))
-        val mainAdapter = TodayAdapter(todayList)
-        val wrapper: InfiniteScrollAdapter<*> =
-            InfiniteScrollAdapter.wrap<RecyclerView.ViewHolder>(mainAdapter)
-        crv_main.setOrientation(DSVOrientation.VERTICAL)
-        crv_main.adapter = wrapper
-        crv_main.setItemTransitionTimeMillis(100)
-        crv_main.setOverScrollEnabled(true)
-        crv_main.setSlideOnFling(true)
-        crv_main.setOffscreenItems(4)
-        //默认位置1
-        crv_main.scrollToPosition(3)
-        crv_main.addItemDecoration(SpaceItemDecoration(0, 1))
-        crv_main.setItemTransformer(
-            ScaleTransformer.Builder()
-                .setMinScale(0.8f)
-                .build()
-        )
 
+        mainAdapter = TodayAdapter(todayList)
+        crv_main.layoutManager = LinearLayoutManager(activity)
+        mainAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
+        mainAdapter.setOnItemClickListener { adapter, view, position ->
+            var itemType = adapter.getItemViewType(position)
+            when (itemType) {
+
+                TodayDateType.MANAGE -> {
+                    Slog.d("多布局识别:   ${TodayDateType.MANAGE}")
+                    startTo(ManageActivity::class.java)
+                }
+                else -> {
+                    var intent = Intent(activity, DetailsActivity::class.java)
+                    intent.putExtra(TodayDateType.TYPE, itemType)
+                    startTo(intent)
+                }
+
+            }
+        }
+        crv_main.adapter = mainAdapter
     }
 
     override fun lazyLoadData() {
@@ -253,127 +255,20 @@ class TodayFragment : BaseFragment(), TodayContract.View {
     }
 
 
-    private val mOnScrollListener: RecyclerView.OnScrollListener =
-        object : RecyclerView.OnScrollListener() {
-            /**
-             * 监听滑动时间 上色
-             * */
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val childCount = recyclerView.childCount//总item的数量
-                val width = recyclerView.getChildAt(0).width//第一个item的宽度
-                val padding =
-                    (recyclerView.width - width) / 2//这个padding是 recycler的宽度减去第一个item的宽度然后除以2，作为padding
-                for (index in 0..childCount) {
-                    val v = recyclerView.getChildAt(index) ?: return//获取每一个child
-                    var rate = 0f//是一个缩放比例
-                    if (v.left <= padding) {//如果view距离左边的宽度 小于等于 左侧剩余空间(padding) （意味着这个view开始往左边滑动了，并且有遮挡）
-                        if (v.left >= padding - v.width) {//如果view距离左边的距离 小于等于滑进去的距离 （其实就是说滑动到一半的时候）
-                            v.findViewById<TextView>(R.id.tv_month)
-                                .setTextColor(UIUtils.getColor(R.color.icon_green_color))
-                            v.findViewById<TextView>(R.id.tv_day)
-                                .setTextColor(UIUtils.getColor(R.color.icon_green_color))
-                            v.findViewById<TextView>(R.id.tv_week)
-                                .setTextColor(UIUtils.getColor(R.color.icon_green_color))
-                            rate =
-                                (padding - v.left) * 1.1f / v.width//（这个比例的计算结果一般都会大于1，这样一来，根据下面的 1- rate * 0.1 得出，这个比例最多不会到达1，也就是 1- 0.1， 也就是 0.9， 所以这个view的宽度最大不会小于他本身的90%）
-                        } else {
-                            rate = 1f
-                            v.findViewById<TextView>(R.id.tv_month)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
-                            v.findViewById<TextView>(R.id.tv_day)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
-                            v.findViewById<TextView>(R.id.tv_week)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
-                        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Slog.d("回调到fragment")
 
-                        v.scaleY = 1 - rate * 0.1f
-                    } else {
-                        if (v.left <= recyclerView.width - padding) {//这个过程大概是指这个view 从最后侧刚刚出现的时候开始滑动过padding的距离
-                            rate =
-                                (recyclerView.width - padding - v.left) * 1f / v.width
-                            v.findViewById<TextView>(R.id.tv_month)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
-                            v.findViewById<TextView>(R.id.tv_day)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
-                            v.findViewById<TextView>(R.id.tv_week)
-                                .setTextColor(
-                                    ContextCompat.getColor(
-                                        mActivity,
-                                        R.color.white_date_text_color
-                                    )
-                                )
+        if (requestInt == requestCode && resultCode == resultInt) {
+            val result: String? = data!!.getStringExtra(SELECT_DATE)
+            val date = DateUtil.str2Date(result, "yyyy-MM-dd")
 
-                        }
-                        v.scaleY = 0.9f + rate * 0.1f
-                    }
-
-
-                }
-
-
+            if (date != null) {
+                setDate(date)
             }
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-
-                when (newState) {
-                    RecyclerView.SCROLL_STATE_IDLE -> {
-
-                        Slog.d("滑动停止  ")
-
-                        var currItem = dsv_candler.currentItem - 1
-
-                        val diff = JavaUtil.getAbs(currItem - mTodayPosition)
-                        //中点
-                        if (diff > 2) {
-                            view_today.visibility = View.VISIBLE
-                            Slog.d("显示按钮")
-                        } else {
-                            view_today.visibility = View.GONE
-                        }
-                        mCurrDate = dateList[currItem]
-
-
-                    }
-
-                    RecyclerView.SCROLL_STATE_DRAGGING -> {
-                        Slog.d("RecyclerView.SCROLL_STATE_DRAGGING")
-                    }
-                    RecyclerView.SCROLL_STATE_SETTLING -> {
-                        Slog.d("RecyclerView.SCROLL_STATE_SETTLING")
-                    }
-
-                }
-
-
-            }
-
+            Slog.d("接收到选择值 $result")
         }
-
+    }
 
 }

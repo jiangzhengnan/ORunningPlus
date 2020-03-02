@@ -14,7 +14,6 @@ import com.oplayer.common.common.TodayDateType
 import com.oplayer.common.utils.UIUtils.Companion.getColor
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.view.MainArc.CircularProgressView
-import kotlinx.android.synthetic.main.activity_test2.*
 
 /**
  *
@@ -36,6 +35,7 @@ class TodayAdapter(data: List<TodayData>) :
         addItemType(TodayDateType.HEART, R.layout.item_today_heart)
         addItemType(TodayDateType.SLEEP, R.layout.item_today_sleep)
         addItemType(TodayDateType.SPORT, R.layout.item_today_sport)
+        addItemType(TodayDateType.MANAGE, R.layout.item_today_manage)
     }
 
 
@@ -47,17 +47,11 @@ class TodayAdapter(data: List<TodayData>) :
 
                 val animation=     ValueAnimator.ofInt(6500).setDuration(commDuration)
                 animation  .addUpdateListener {
-
                     helper.setText(R.id.tv_step,it.animatedValue.toString())
-
-
                 }
                 animation.start()
                 var apStep = helper.getView<CircularProgressView>(R.id.ap_step)
                 apStep.setProgress(80,commDuration)
-
-
-
             }
             TodayDateType.HEART -> {
                 /**初始化多布局*/

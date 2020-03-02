@@ -55,8 +55,8 @@ class OSportApplciation : Application() {
         initStetho()
         initRxBleClient()
         initSDK()
-
         initBTService()
+
         if(BuildConfig.DEBUG){
             initLeakCanary()
             initLog()

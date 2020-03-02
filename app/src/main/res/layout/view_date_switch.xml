@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?attr/colorDateBg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tv_date_switch_today"
+            android:layout_margin="3dp"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="?attr/colorDateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="--" />
+
+
+
+            <TextView
+                android:id="@+id/tv_date_switch_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:textColor="?attr/colorDateText"
+                android:text="--" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_date_previous"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:src="@mipmap/date_previous" />
+
+    <ImageView
+        android:id="@+id/img_date_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:padding="10dp"
+        android:src="@mipmap/date_next" />
+</RelativeLayout>

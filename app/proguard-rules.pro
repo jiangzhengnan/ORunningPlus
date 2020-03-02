@@ -182,7 +182,7 @@
 # Retrolambda
 -dontwarn java.lang.invoke.*
 
-
+#  https://github.com/vicpinm/Kotlin-Realm-Extensions
 -keep class com.vicpin.krealmextensions.**
 -keepnames public class * extends io.realm.RealmObject
 -keepnames public class * extends io.realm.RealmModel
@@ -207,11 +207,12 @@
 
 
 #PictureSelector 2.0 图片选择框架
--keep class com.luck.picture.lib.** { *; }
--dontwarn com.yalantis.ucrop**
--keep class com.yalantis.ucrop** { *; }
--keep interface com.yalantis.ucrop** { *; }
+#-keep class com.luck.picture.lib.** { *; }
+#-dontwarn com.yalantis.ucrop**
+#-keep class com.yalantis.ucrop** { *; }
+#-keep interface com.yalantis.ucrop** { *; }
 
-
+#https://github.com/zhihu/Matisse
+-dontwarn com.squareup.picasso.**
 
 

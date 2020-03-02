@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".function.details.sleepDetails.week.SleepDetailWeekFragment">
+    <com.oplayer.orunningplus.function.view.DateSelectView
+        android:id="@+id/dsv_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:timeModel="1"
+        />
+    <LinearLayout
+        android:id="@+id/ll_sleep_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_sleep_details_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/today_time"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@color/white_date_text_color"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/tv_sleep_details_time"
+                android:text="@string/today_avg" />
+
+            <TextView
+                android:id="@+id/tv_sleep_details_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_toStartOf="@+id/tv_str_goal"
+                android:drawableStart="@mipmap/today_goal"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@color/white_date_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_str_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/today_goal"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <com.oplayer.orunningplus.view.LinChart.LinChartLayout
+            android:id="@+id/linChartLayout_sleep_details"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/sleep_lightsleep"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/sleep_light_sleep"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/sleep_deepsleep"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/sleep_deep_sleep"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/sleep_wakeuptime"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/sleep_wake_time"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

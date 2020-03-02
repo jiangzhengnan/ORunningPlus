@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
@@ -223,7 +224,6 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         val blueadapter = BluetoothAdapter.getDefaultAdapter()
         if (!blueadapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
         } else {
             Slog.d("蓝牙开启")
@@ -284,7 +284,6 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         fun getTransparentColor():Int = ContextCompat.getColor(this,R.color.transparent_color)
         fun getTextColor():Int = ContextCompat.getColor(this, R.color.white_date_text_color)
         fun getIconColor():Int = ContextCompat.getColor(this, R.color.icon_green_color)
-
 
 
 

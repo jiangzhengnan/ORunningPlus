@@ -1,176 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".function.main.today.SportFragment">
 
     <!--    //首页toolbar设置-->
+    <RelativeLayout
+        android:id="@+id/rv_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary">
 
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="@color/white_date_text_color"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_status"
+            android:text="14/01/2020"
+            android:textColor="@color/white_date_text_color" />
+
+        <TextView
+            android:id="@+id/tv_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_status"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toEndOf="@+id/tv_time"
+            android:text="@string/main_today"
+            android:textColor="@color/white_date_text_color" />
+
+
+        <ImageView
+            android:id="@+id/iv_conn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_candler"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="80dp"
+            android:src="@mipmap/today_disconnect" />
+
+        <TextView
+            android:id="@+id/tv_conn"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_candler"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+
+            android:maxLines="1"
+            android:text="Disconnect"
+            android:textColor="@color/white_date_text_color" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+
+            android:src="@mipmap/today_share" />
 
         <RelativeLayout
-            android:id="@+id/rv_toolbar"
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:id="@+id/rv_candler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/iv_share"
 
+            >
 
             <ImageView
-                android:id="@+id/iv_conn"
+                android:id="@+id/iv_candler"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:src="@mipmap/today_disconnect" />
-
+                android:src="@mipmap/today_calendar" />
 
             <TextView
-                android:id="@+id/tv_conn"
+                android:id="@+id/tv_day"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="5dp"
+                android:layout_height="18dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:text="00"
                 android:textColor="@color/white_date_text_color"
-                android:layout_toEndOf="@+id/iv_conn"
-                />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textColor="@color/white_date_text_color"
-                android:textSize="20sp" />
-
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:visibility="gone"
-                android:layout_toStartOf="@+id/iv_profile"
-                android:src="@mipmap/today_share" />
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="5dp"
-                android:src="@mipmap/today_profile" />
-
-            <View
-                android:id="@+id/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="0.3dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/gray_date_text_color"
-
-                />
-
+                android:textSize="9sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
 
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_date_text_color"
 
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <com.oplayer.orunningplus.view.DiscreteScroll.DiscreteScrollView
-            android:id="@+id/dsv_candler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
             />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/view_today"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@color/icon_green_color"
-            app:cardElevation="2dp"
-            app:cardMaxElevation="2dp"
-            android:visibility="gone"
-            app:cardCornerRadius="50dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/icon_green_color"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp"
-                android:gravity="center"
-                android:text="@string/main_today" />
-
-        </androidx.cardview.widget.CardView>
 
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-        <com.oplayer.orunningplus.view.DiscreteScroll.DiscreteScrollView
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnablePreviewInEditMode="true">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/crv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
             />
-
-        <ImageView
-            android:id="@+id/iv_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            android:src="@mipmap/today_up" />
-
-        <ImageView
-            android:id="@+id/iv_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:src="@mipmap/today_down" />
-
-
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:src="@mipmap/today_add" />
-
-        <ImageView
-            android:id="@+id/iv_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:layout_alignParentEnd="true"
-
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:src="@mipmap/today_refresh" />
-
-    </RelativeLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

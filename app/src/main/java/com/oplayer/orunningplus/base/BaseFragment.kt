@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
@@ -21,6 +22,7 @@ import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.toolbar_common.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 abstract class BaseFragment : Fragment(), IBaseView {
@@ -56,8 +58,11 @@ abstract class BaseFragment : Fragment(), IBaseView {
     open fun startTo(targetClass: Class<out Activity>) {
         val intent = Intent(context, targetClass)
         context?.startActivity(intent)
+    }    open fun startTo(intent: Intent) {
+        context?.startActivity(intent)
     }
 
+//    @Subscribe(sticky = true,threadMode = ThreadMode.POSTING)
     @Subscribe
     fun onMessageEvent(event: MessageEvent) {
         onGetEvent(event)
@@ -113,9 +118,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
         initInjector()
         lazyLoadData()
     }
-
-
-    abstract fun onClick(v: View)
     abstract fun getLayoutId(): Int
     abstract fun initInjector()
     abstract fun initView()
@@ -126,11 +128,13 @@ abstract class BaseFragment : Fragment(), IBaseView {
      * 获取主题颜色
      * */
 
-    fun getBGColor(): Int = UIUtils.getColor(R.color.colorPrimary)
+    fun getBGColor(): Int = ContextCompat.getColor(mActivity, R.color.colorPrimary)
+    fun getTransparentColor(): Int = ContextCompat.getColor(mActivity, R.color.transparent_color)
+    fun getTextColor(): Int = ContextCompat.getColor(mActivity, R.color.white_date_text_color)
+    fun getIconColor(): Int = ContextCompat.getColor(mActivity, R.color.icon_green_color)
 
-    fun getTransparentColor(): Int = UIUtils.getColor(R.color.transparent_color)
-    fun getTextColor(): Int = UIUtils.getColor(R.color.white_date_text_color)
-    fun getIconColor(): Int = UIUtils.getColor(R.color.icon_green_color)
+    fun getBGGrayColor(): Int = ContextCompat.getColor(mActivity, R.color.gray_date_text_color)
+
 
     open fun initToolbar(title: String) {
 
@@ -154,8 +158,9 @@ abstract class BaseFragment : Fragment(), IBaseView {
         Slog.d("普通 跳转 目标 ${targetClass.name}")
         val intent = Intent(mContext, targetClass)
         mContext?.startActivity(intent)
-
     }
+
+
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
         Alerter.create(activity)

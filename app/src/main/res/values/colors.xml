@@ -33,7 +33,13 @@
     <color name="deepblue_sleep_color">#003399</color>
     <color name="yellow_sleep_color">#ffa627</color>
 
-
+<!--睡眠图表-->
+    <color name="sleep_details_avg">#77E5E8</color>
+    <color name="sleep_details_goal">#81769A</color>
+    <color name="sleep_details_awake">#F9B280</color>
+    <color name="sleep_details_light">#77E5E8</color>
+    <color name="sleep_details_deep">#0013f2</color>
+    <color name="sleep_details_date">#808080</color>
 
 
 

@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':picturelibrary', ':ucrop'
 rootProject.name='ORunningPlus'

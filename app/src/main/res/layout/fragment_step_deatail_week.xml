@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".function.details.stepDeatails.week.StepDetailWeekFragment"
+    >
+    <com.oplayer.orunningplus.function.view.DateSelectView
+        android:id="@+id/dsv_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:timeModel="1"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                app:cardMaxElevation="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:src="@mipmap/today_steps"
+                            android:layout_centerVertical="true"
+
+                            />
+                        <TextView
+                            android:id="@+id/tv_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/iv_step"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white_date_text_color"
+                            android:text="@string/sport_total"
+                            tools:ignore="MissingConstraints" />
+                        <TextView
+                            android:id="@+id/tv_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_total"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/yellow_progress_color"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_step"
+                            android:text="@string/today_steps"
+                            android:layout_marginStart="5dp"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/today_avg"
+                            android:textColor="@color/white_date_text_color"
+                            android:layout_toLeftOf="@+id/tv_step_goal_proportion"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_step_goal_proportion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/tv_goal_str_step"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+                            android:id="@+id/tv_goal_str_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/today_goal"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_dail_goal_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sport_dail_goal"
+                            android:layout_marginStart="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_goal_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/yellow_progress_color"
+                            android:text="----"/>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/today_steps"
+                            android:layout_marginStart="5dp"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bc_step_week_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                    </com.github.mikephil.charting.charts.BarChart>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="30dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                app:cardMaxElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:src="@mipmap/today_distance"
+                            android:layout_centerVertical="true"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_total_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/iv_distance"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white_date_text_color"
+                            android:text="@string/sport_total"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/tv_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_total_distance"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_distance"
+                            android:text="@string/sport_unit_km"
+                            android:layout_marginStart="5dp"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/today_avg"
+                            android:textColor="@color/white_date_text_color"
+                            android:layout_toLeftOf="@+id/tv_distance_goal_proportion"
+
+                            />
+                        <TextView
+                            android:id="@+id/tv_distance_goal_proportion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/tv_goal_str_distance"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+                            android:id="@+id/tv_goal_str_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/today_goal"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_dail_goal_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sport_dail_goal"
+                            android:layout_marginStart="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_goal_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="----"/>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sport_unit_km"
+                            android:layout_marginStart="5dp"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bc_distance_week_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                    </com.github.mikephil.charting.charts.BarChart>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                app:cardMaxElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:src="@mipmap/today_calories"
+                            android:layout_centerVertical="true"
+
+                            />
+
+
+                        <TextView
+                            android:id="@+id/tv_total_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/iv_calories"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/white_date_text_color"
+                            android:text="@string/sport_total"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/tv_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_total_calories"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/tv_calories"
+                            android:text="@string/sport_unit_kcal"
+                            android:layout_marginStart="5dp"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/today_avg"
+                            android:textColor="@color/white_date_text_color"
+                            android:layout_toLeftOf="@+id/tv_calories_goal_proportion"
+
+                            />
+                        <TextView
+                            android:id="@+id/tv_calories_goal_proportion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/tv_goal_str_calories"
+                            android:text="----"
+                            tools:ignore="MissingConstraints" />
+
+
+                        <TextView
+                            android:id="@+id/tv_goal_str_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/today_goal"
+                            android:layout_centerVertical="true"
+                            tools:ignore="MissingConstraints" />
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_dail_goal_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sport_dail_goal"
+                            android:layout_marginStart="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_goal_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="----"/>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sport_unit_kcal"
+                            android:layout_marginStart="5dp"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bc_calories_week_detail"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                    </com.github.mikephil.charting.charts.BarChart>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

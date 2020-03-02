@@ -8,8 +8,8 @@
 
     <!--心率item-->
     <androidx.cardview.widget.CardView
-        android:layout_width="320dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+       android:layout_height="250dp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
@@ -36,7 +36,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/today_heartrate" />
+                        android:src="@mipmap/today_hr_title" />
 
                     <TextView
                         android:id="@+id/tv_title_heart"
@@ -47,7 +47,7 @@
                         android:layout_marginStart="7dp"
                         android:text="--"
 
-                        android:textColor="@color/pick_heart_color"
+                        android:textColor="@color/white_date_text_color"
                         android:textSize="20sp" />
 
                     <TextView
@@ -57,7 +57,7 @@
                         android:layout_marginLeft="6dp"
                         android:gravity="bottom"
                         android:text="@string/today_bpm_capital"
-                        android:textColor="@color/pick_heart_color"
+                        android:textColor="@color/white_date_text_color"
                         android:textSize="15sp" />
 
 

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".function.main.profile.activity.UserInfoActivity">
+    <include layout="@layout/toolbar_common" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/my_profile_icon"
+            app:civ_border_width="1dp"
+            app:civ_circle_background_color="@color/colorPrimary"
+            app:civ_border_color="@color/colorPrimary"
+
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            
+            
+            android:background="@color/gray_date_text_color" />
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_name"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            
+            android:onClick="onClick"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_name" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_name"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_gender"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:onClick="onClick"
+            
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_gender" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_gender"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentRight="true"
+                />
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:onClick="onClick"
+            
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_birthday" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_birthday"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_weight"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:onClick="onClick"
+            
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_weight" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_weight"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentRight="true"
+                />
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/rl_height"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:onClick="onClick"
+            
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_height" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_heightr"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_height"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_bp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:onClick="onClick"
+            
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/my_profile_bp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_bloodr"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:id="@+id/tv_bp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:gravity="center_vertical"
+                android:text="@string/profile_unknown"
+                android:layout_alignParentRight="true"
+                />
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

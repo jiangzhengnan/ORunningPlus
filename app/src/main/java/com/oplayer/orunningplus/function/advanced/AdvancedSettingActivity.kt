@@ -47,7 +47,7 @@ class AdvancedSettingActivity : BaseActivity(),AdvancedContract.View {
     }
 
     override fun onClick(v: View) {
-
+//test
     }
 
     override fun onGetEvent(event: MessageEvent) {

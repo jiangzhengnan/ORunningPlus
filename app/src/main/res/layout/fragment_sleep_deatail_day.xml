@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".function.details.sleepDetails.day.SleepDetailDayFragment">
+
+    <com.oplayer.orunningplus.function.view.DateSelectView
+        android:id="@+id/dsv_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:timeModel="0"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
+        >
+
+        <ImageView
+            android:id="@+id/iv_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@mipmap/sleep_title"
+            android:layout_centerVertical="true"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_sleep"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:text="----"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tv_sleep"
+            android:text="@string/today_total_sleep"
+            android:layout_marginStart="5dp"
+            android:layout_centerVertical="true"
+            tools:ignore="MissingConstraints" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+
+            android:src="@mipmap/today_goal"
+            android:layout_toLeftOf="@+id/tv_sleep_goal_proportion"
+            android:layout_centerVertical="true"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tv_sleep_goal_proportion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_toLeftOf="@+id/tv_goal_str_sleep"
+            android:text="----"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/tv_goal_str_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/today_goal"
+            android:layout_centerVertical="true"
+            tools:ignore="MissingConstraints" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_margin="10dp"
+        >
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toLeftOf="@+id/rl_sleep_pie"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/sleep_bedtime"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_bed_time"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_bed_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--:--"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/rl_sleep_pie"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/sleep_wakeuptime"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_wake_time"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_week_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--:--"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignBottom="@+id/rl_sleep_pie"
+            android:layout_toEndOf="@+id/rl_sleep_pie"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/sleep_deepsleep"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_deep_sleep"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_deep_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--:--"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignBottom="@+id/rl_sleep_pie"
+            android:layout_toLeftOf="@+id/rl_sleep_pie"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/sleep_lightsleep"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sleep_light_sleep"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_light_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--:--"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_sleep_pie"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            >
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/sleep_circle_time"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/sleep_pic_chart"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

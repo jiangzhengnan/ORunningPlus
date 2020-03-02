@@ -1,15 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".function.main.today.SportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+  <RelativeLayout
+      android:id="@+id/rv_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?actionBarSize">
+
+      <TextView
+          android:id="@+id/tv_sport_mode"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/sport_type_all"
+          android:textSize="20sp"
+          android:layout_centerInParent="true"
+          android:textColor="@color/white_date_text_color"
+
+          />
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@+id/tv_sport_mode"
+          android:layout_centerVertical="true"
+          android:layout_marginStart="5dp"
+          android:src="@mipmap/sport_type_open"
+          />
+
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@mipmap/today_history"
+          android:layout_alignParentEnd="true"
+          android:layout_centerVertical="true"
+          android:layout_marginEnd="10dp"
+          />
+
+  </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            >
+
+            <TextView
+                android:id="@+id/tv_str_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_date_text_color"
+                android:text="@string/sport_total_time" />
+
+            <TextView
+                android:id="@+id/tv_total_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_str_total"
+                android:text="--.--"
+                android:textColor="@color/white_date_text_color"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_str_km"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/white_date_text_color"
+                 android:text="@string/sport_unit_min"
+                android:layout_toEndOf="@+id/tv_total_distance"
+                android:layout_alignBottom="@+id/tv_total_distance"
+                />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sport_total_times"
+                    />
+                <TextView
+                    android:id="@+id/tv_times"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="--"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sport_total_days"
+                    />
+                <TextView
+                    android:id="@+id/_tv_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="--"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sport_total_calories"
+                    />
+                <TextView
+                    android:id="@+id/tv_total_calories"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:gravity="center"
+                    android:text="--"
+
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!--替换为 recycleview-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_4d" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_4d" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sport"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        />
+        android:layout_marginTop="5dp" />
 
-</FrameLayout>
+
+</LinearLayout>
