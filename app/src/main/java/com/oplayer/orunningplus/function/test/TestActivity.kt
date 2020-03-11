@@ -14,7 +14,8 @@ import com.oplayer.orunningplus.view.DiscreteScroll.transform.ScaleTransformer
 import kotlinx.android.synthetic.main.activity_test.*
 import org.greenrobot.eventbus.EventBus
 
-class TestActivity : BaseActivity() {
+class
+TestActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_test
 

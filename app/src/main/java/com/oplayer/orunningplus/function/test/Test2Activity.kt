@@ -30,6 +30,12 @@ class Test2Activity : BaseActivity(), OnChartValueSelectedListener {
 
     override fun initView() {
 
+                    pbProgress.setPercent(1F,"1\t\t06'13''")
+
+
+
+
+
     }
 
     override fun initInfo() {

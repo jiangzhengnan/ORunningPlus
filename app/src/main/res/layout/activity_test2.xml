@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +7,15 @@
     android:orientation="vertical"
     tools:context=".function.test.Test2Activity">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rv_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    <com.oplayer.orunningplus.view.progress.ProgressBar
+        android:id="@+id/pbProgress"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:pb_background_color="@color/gray_date_text_color"
+        app:pb_fill_color="@color/icon_green_color"
+        android:layout_centerInParent="true"
+        app:pb_show_text="true"
+        />
+
+</RelativeLayout>

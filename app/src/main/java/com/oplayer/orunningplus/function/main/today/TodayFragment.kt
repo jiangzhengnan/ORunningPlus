@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.ng.lib_common.base.BaseFragment
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.Constants
 import com.oplayer.common.common.TodayDateType
@@ -16,6 +16,7 @@ import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.calender.CalenderActivity
 import com.oplayer.orunningplus.function.details.DetailsActivity
+import com.oplayer.orunningplus.function.details.sportDetails.SportDetailsActivity
 import com.oplayer.orunningplus.function.main.ManageActivity
 import com.oplayer.orunningplus.function.main.today.mvp.TodayAdapter
 import com.oplayer.orunningplus.function.main.today.mvp.TodayContract
@@ -102,9 +103,7 @@ class TodayFragment : BaseFragment(), TodayContract.View {
         this.currDate = date
         tv_time.text = DateUtil.date2Str(date, "dd/MM/yyyy")
         tv_day.text = DateUtil.getDay(date).toString()
-
         Slog.d("时间改变 切换数据源")
-
     }
 
     private fun initSRL() {
@@ -167,6 +166,12 @@ class TodayFragment : BaseFragment(), TodayContract.View {
                     Slog.d("多布局识别:   ${TodayDateType.MANAGE}")
                     startTo(ManageActivity::class.java)
                 }
+
+                TodayDateType.SPORT->{
+                    Slog.d("多布局识别:   ${TodayDateType.SPORT}")
+                    startTo(SportDetailsActivity::class.java)
+                }
+
                 else -> {
                     var intent = Intent(activity, DetailsActivity::class.java)
                     intent.putExtra(TodayDateType.TYPE, itemType)

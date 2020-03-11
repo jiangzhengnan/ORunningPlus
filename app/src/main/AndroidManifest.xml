@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 相机权限   选择相片  拍照保存 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:name=".OSportApplciation"
         android:allowBackup="true"
@@ -22,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".function.details.sportDetails.SportDetailsActivity"></activity>
+        <activity android:name=".function.sportStatistics.SportStatisticsActivity" />
         <activity android:name=".function.details.DetailsActivity" />
         <activity android:name=".function.main.profile.activity.UserInfoActivity" />
         <activity
@@ -34,10 +35,11 @@
             android:name=".function.advanced.AdvancedSettingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".function.test.Test2Activity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
         </activity>
 
         <uses-library
@@ -61,11 +63,11 @@
         <activity
             android:name=".function.main.MainActivity"
             android:screenOrientation="portrait">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service

@@ -1,4 +1,4 @@
-package com.ng.lib_common.base
+package com.oplayer.orunningplus.base
 
 import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty

@@ -2,18 +2,13 @@ package com.oplayer.orunningplus.function.details.heartDetails.week
 
 
 import android.graphics.Color
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.ng.lib_common.base.BaseFragment
-
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
 import kotlinx.android.synthetic.main.fragment_heart_details_week.*

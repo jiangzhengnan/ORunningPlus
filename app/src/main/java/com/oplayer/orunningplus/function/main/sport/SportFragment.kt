@@ -8,7 +8,7 @@ import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ng.lib_common.base.BaseFragment
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.common.common.SportModel
 import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.R
@@ -17,12 +17,13 @@ import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.main.sport.SportModeSelectAdapter
 import com.oplayer.orunningplus.function.main.today.mvp.SportContract
 import com.oplayer.orunningplus.function.main.today.mvp.SportPresenter
+import com.oplayer.orunningplus.function.sportStatistics.SportStatisticsActivity
 import kotlinx.android.synthetic.main.fragment_sport.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class SportFragment : BaseFragment(), SportContract.View {
+class SportFragment : BaseFragment(), SportContract.View, View.OnClickListener {
 
 
     lateinit var mPresenter: SportContract.Presenter
@@ -50,11 +51,9 @@ class SportFragment : BaseFragment(), SportContract.View {
     }
 
     override fun initView() {
-        tv_sport_mode.setOnClickListener {
-
-            showPopupWindow(rv_toolbar)
-
-        }
+        tv_sport_mode.setOnClickListener(this)
+        iv_open.setOnClickListener(this)
+        iv_statistics.setOnClickListener (this)
     }
 
     override fun lazyLoadData() {
@@ -214,4 +213,18 @@ class SportFragment : BaseFragment(), SportContract.View {
         return models
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+         R.id.iv_statistics->{
+             startTo(SportStatisticsActivity::class.java)
+         }
+            else -> {
+                showPopupWindow(rv_toolbar)
+            }
+        }
+
+    }
+
 }
+
+

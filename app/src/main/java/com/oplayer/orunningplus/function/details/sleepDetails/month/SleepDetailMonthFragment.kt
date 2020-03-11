@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ng.lib_common.base.BaseFragment
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.common.utils.UIUtils
 
 import com.oplayer.orunningplus.R

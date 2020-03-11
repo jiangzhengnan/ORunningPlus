@@ -6,6 +6,8 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
+import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.utils.DateUtil
 import kotlinx.android.synthetic.main.view_date_switch.view.*
@@ -17,7 +19,7 @@ import java.util.*
  * @ProjectName:    BleProject
  * @Package:        com.oplayer.orunningplus.function.view
  * @ClassName:      DateSelectView
- * @Description:     java类作用描述
+ * @Description:    封装日期显示控件
  * @Author:         Ben
  * @CreateDate:     2020/2/14 14:26
  */
@@ -48,8 +50,35 @@ class DateSelectView @JvmOverloads constructor(
             0 -> initDayView()
             1 -> initWeekView()
             2 -> initMonthView()
+            3 -> initYearView()
+
         }
 
+
+    }
+
+    private fun initYearView() {
+        var currDate = Date()
+        tv_date_switch_today.visibility = View.GONE
+        setYearTime(currDate)
+        img_date_previous.setOnClickListener {
+            currDate = DateUtil.getBeforeYear(currDate)!!
+            setYearTime(currDate)
+        }
+        img_date_next.setOnClickListener {
+
+            //判断日期是否有效
+            var nextDate = DateUtil.getNextYear(currDate)
+            if (nextDate?.time!! > Date().time) {
+                Toast.makeText(context, R.string.select_future_date, Toast.LENGTH_LONG).show()
+            } else {
+                currDate = nextDate
+                setYearTime(currDate)
+            }
+
+
+
+        }
 
     }
 
@@ -57,12 +86,19 @@ class DateSelectView @JvmOverloads constructor(
         var currDate = Date()
         setMonthTime(currDate)
         img_date_previous.setOnClickListener {
-            currDate= DateUtil.getBeforeMonth(currDate)!!
+            currDate = DateUtil.getBeforeMonth(currDate)!!
             setMonthTime(currDate)
         }
         img_date_next.setOnClickListener {
-            currDate= DateUtil.getNextMonth(currDate)!!
-            setMonthTime(currDate)
+            var nextDate = DateUtil.getNextMonth(currDate)!!
+
+            if (nextDate.time > Date().time) {
+                Toast.makeText(context, R.string.select_future_date, Toast.LENGTH_LONG).show()
+            } else {
+                currDate = nextDate
+                setMonthTime(currDate)
+            }
+
         }
 
     }
@@ -74,21 +110,44 @@ class DateSelectView @JvmOverloads constructor(
         val day = DateUtil.getDay(currDate)
         val month = DateUtil.getMonth(currDate)
         val year = DateUtil.getYear(currDate)
-        var array=  context.resources.getStringArray(R.array.top_bar_arr)
-        tv_date_switch_today.text =array[2]
-        tv_date_switch_time.text = "${monthArray[month-1]}   $year"
+        var array = context.resources.getStringArray(R.array.top_bar_arr)
+        tv_date_switch_today.text = array[2]
+        tv_date_switch_time.text = "${monthArray[month - 1]}   $year"
     }
+
+
+    private fun setYearTime(currDate: Date) {
+        listener?.OnChage(currDate)
+
+        val year = DateUtil.getYear(currDate)
+        var array = context.resources.getStringArray(R.array.top_bar_arr)
+        tv_date_switch_today.text = ""
+        tv_date_switch_time.text = "$year"
+
+
+    }
+
 
     private fun initWeekView() {
         var currDate = Date()
         setWeekTime(currDate)
         img_date_previous.setOnClickListener {
-            currDate= DateUtil.getPreviousWeek(currDate)
+            currDate = DateUtil.getPreviousWeek(currDate)
             setWeekTime(currDate)
         }
         img_date_next.setOnClickListener {
-            currDate= DateUtil.getNextWeek(currDate)
-            setWeekTime(currDate)
+
+
+            var nextDate = DateUtil.getNextWeek(currDate)
+
+            if (nextDate?.time!! > Date().time) {
+                Toast.makeText(context, R.string.select_future_date, Toast.LENGTH_LONG).show()
+            } else {
+                currDate = nextDate
+                setWeekTime(currDate)
+            }
+
+
         }
 
     }
@@ -96,16 +155,15 @@ class DateSelectView @JvmOverloads constructor(
     @SuppressLint("SetTextI18n")
     private fun setWeekTime(currDate: Date) {
         listener?.OnChage(currDate)
-   val weekStart=     DateUtil.getWeekStart(currDate)
-        val weekEnd=      DateUtil.getWeekEnd(currDate)
-        val startDay = DateUtil.getDay(weekStart)+1
-        val endDay = DateUtil.getDay(weekEnd)+1
+        val weekStart = DateUtil.getWeekStart(currDate)
+        val weekEnd = DateUtil.getWeekEnd(currDate)
+        val startDay = DateUtil.getDay(weekStart) + 1
+        val endDay = DateUtil.getDay(weekEnd) + 1
         val month = DateUtil.getMonth(currDate)
         val year = DateUtil.getYear(currDate)
-        var array=  context.resources.getStringArray(R.array.top_bar_arr)
-        tv_date_switch_today.text =array[1]
-        tv_date_switch_time.text = "$startDay-$endDay ${monthArray[month-1]} $year"
-
+        var array = context.resources.getStringArray(R.array.top_bar_arr)
+        tv_date_switch_today.text = array[1]
+        tv_date_switch_time.text = "$startDay-$endDay ${monthArray[month - 1]} $year"
 
 
     }
@@ -119,13 +177,22 @@ class DateSelectView @JvmOverloads constructor(
 
         img_date_previous.setOnClickListener {
             //显示前一天日期
-            currDate= DateUtil.getBeforeDay(currDate)!!
+            currDate = DateUtil.getBeforeDay(currDate)!!
             setDayTime(currDate)
         }
         img_date_next.setOnClickListener {
-            //显示后一天日期
-            currDate= DateUtil.getNextDay(currDate)!!
-            setDayTime(currDate)
+
+
+            var nextDate = DateUtil.getNextDay(currDate)
+
+            if (nextDate?.time!! > Date().time) {
+                Toast.makeText(context, R.string.select_future_date, Toast.LENGTH_LONG).show()
+            } else {
+                //显示后一天日期
+                currDate = DateUtil.getNextDay(currDate)!!
+                setDayTime(currDate)
+            }
+
         }
 
 
@@ -138,14 +205,15 @@ class DateSelectView @JvmOverloads constructor(
         val day = DateUtil.getDay(currDate)
         val month = DateUtil.getMonth(currDate)
         val year = DateUtil.getYear(currDate)
-        tv_date_switch_today.text = weekArray[week-1]
-        tv_date_switch_time.text = " $day   ${monthArray[month-1]}   $year"
+        tv_date_switch_today.text = weekArray[week - 1]
+        tv_date_switch_time.text = " $day   ${monthArray[month - 1]}   $year"
     }
 
 
     interface onDateChageListener {
         fun OnChage(date: Date)
     }
+
     private var listener: onDateChageListener? = null
 
     fun setListener(listener: onDateChageListener?) {

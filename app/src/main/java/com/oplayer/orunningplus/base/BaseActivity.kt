@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
-import com.ng.lib_common.base.Weak
+import com.oplayer.orunningplus.base.Weak
 import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
 import com.oplayer.common.mvp.IBaseView

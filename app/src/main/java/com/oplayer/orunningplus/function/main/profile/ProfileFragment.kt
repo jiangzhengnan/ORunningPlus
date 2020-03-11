@@ -16,7 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
-import com.ng.lib_common.base.BaseFragment
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
 

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.ng.lib_common.base.BaseFragment
+import com.oplayer.orunningplus.base.BaseFragment
 import com.oplayer.common.common.DeviceSetting
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils

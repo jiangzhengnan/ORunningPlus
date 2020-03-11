@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".function.sportStatistics.year.YearStatisFragment">
+    <com.oplayer.orunningplus.function.view.DateSelectView
+        android:id="@+id/dsv_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:timeModel="3"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_sport_details_km"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/sport_total"
+                android:textColor="@color/white_date_text_color"
+                />
+
+            <TextView
+                android:id="@+id/tv_sport_details_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:text="@string/sport_unit_km"
+                android:textColor="@color/white_date_text_color"
+                />
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bc_sport_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            >
+
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="top"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/today_time"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/sport_total_time"
+                    android:textColor="@color/white_date_text_color"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sport_details_total_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="--"
+                    android:textColor="@color/white_date_text_color"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/ll_sport_details_calories"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/sport_history_stat"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/sport_total_times"
+                    android:textColor="@color/white_date_text_color"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sport_details_times"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="--"
+                    android:textColor="@color/white_date_text_color"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/ll_sport_details_calories"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/today_calories"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/sport_total_calories"
+                    android:textColor="@color/white_date_text_color"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sport_details_calories"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="--"
+                    android:textColor="@color/white_date_text_color"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/ll_sport_details_pace"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/sport_pace"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/sport_avg_pace"
+                    android:textColor="@color/white_date_text_color"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_sport_details_pace"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical|right"
+                    android:text="--"
+                    android:textColor="@color/white_date_text_color"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/sport_pace"
+                android:drawablePadding="10dp"
+                android:text="@string/sport_chart_pace"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="@string/sport_chart_pace_unit"
+                android:textColor="@color/yellow_heart_color" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_chart_pace_avg"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_chart_pace_fast"
+                android:textColor="@color/white_date_text_color" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/bc_pace_chart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+    </com.github.mikephil.charting.charts.LineChart>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/white_date_text_color" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_chart_km_pace"
+                android:textColor="@color/white_date_text_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/sport_chart_time"
+                android:textColor="@color/white_date_text_color" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.oplayer.orunningplus.view.progress.ProgressBar
+                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                app:pb_background_color="@color/gray_date_text_color"
+                app:pb_fill_color="@color/icon_green_color" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--:--:--"
+                android:textColor="@color/white_date_text_color" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

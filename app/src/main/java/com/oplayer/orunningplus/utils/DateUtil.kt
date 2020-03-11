@@ -749,6 +749,25 @@ class DateUtil {
             return date
         }
 
+
+        fun getBeforeYear(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.YEAR, -1) //向前一年
+            date = calendar.time
+            return date
+        }
+
+        fun getNextYear(date: Date?): Date? {
+            var date = date
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(Calendar.YEAR, +1) //向后一年
+            date = calendar.time
+            return date
+        }
+
         /**
          * 获得某年某月某日的前一天
          *

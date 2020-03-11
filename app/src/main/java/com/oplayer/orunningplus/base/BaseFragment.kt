@@ -1,4 +1,4 @@
-package com.ng.lib_common.base
+package com.oplayer.orunningplus.base
 
 import android.app.Activity
 import android.content.Context
@@ -68,7 +68,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
         onGetEvent(event)
     }
 
-    protected abstract fun onGetEvent(event: MessageEvent)
 
     private lateinit var alertDialog: AlertDialog
     fun isAlertDialogInit() = ::alertDialog.isInitialized
@@ -119,9 +118,11 @@ abstract class BaseFragment : Fragment(), IBaseView {
         lazyLoadData()
     }
     abstract fun getLayoutId(): Int
+
     abstract fun initInjector()
     abstract fun initView()
     abstract fun lazyLoadData()
+    protected abstract fun onGetEvent(event: MessageEvent)
 
 
     /**

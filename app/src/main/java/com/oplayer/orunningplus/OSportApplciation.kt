@@ -133,13 +133,13 @@ class OSportApplciation : Application() {
 //                    .penaltyFlashScreen() //API等级11
 //                    .build()
 //            )
-            StrictMode.setVmPolicy(
-                StrictMode.VmPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build()
-            )
+//            StrictMode.setVmPolicy(
+//                StrictMode.VmPolicy.Builder()
+//                    .detectAll()
+//                    .penaltyLog()
+//                    .penaltyDeath()
+//                    .build()
+//            )
         }
     }
 

@@ -45,7 +45,26 @@
 
 
     <declare-styleable name="DateSelectView">
+        <!--时间选择试图的显示类型-->
         <attr name="timeModel" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="ProgressCircle">
+        <attr name="mpc_percent" format="float" />
+        <attr name="mpc_stroke_width" format="dimension" />
+        <attr name="mpc_start_color" format="color" />
+        <attr name="mpc_end_color" format="color" />
+        <!-- 背景环的颜色 -->
+        <attr name="mpc_default_color" format="color" />
+        <!-- 圆弧: 结尾是否覆盖开始 -->
+        <attr name="mpc_foot_over_head" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressBar">
+        <attr name="pb_percent" format="float" />
+        <attr name="pb_fill_color" format="color" />
+        <attr name="pb_background_color" format="color" />
+        <attr name="pb_flat" format="boolean" />
+        <attr name="pb_show_text" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -56,6 +56,8 @@
     <string name="sport_unit_kcal">kcal</string>
     <string name="sport_unit_line_km">/km</string>
     <string name="sport_unit_km">km</string>
+    <string name="sport_unit_cm">cm</string>
+    <string name="sport_unit_step_min">step/min</string>
 
     <string name="profile_name">Name</string>
     <string name="profile_gender">Gender</string>
@@ -146,6 +148,19 @@
 
     </string-array>
 
+    <string-array name="top_bar_arr_all">
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+        <item>All</item>
+    </string-array>
+
+    <string-array name="sport_details_top_bar">
+        <item>Map</item>
+        <item>Overview</item>
+        <item>Chart</item>
+    </string-array>
+
     <string-array name="candler_month_arr">
         <item>Jan</item>
         <item>Feb</item>
@@ -178,6 +193,11 @@
     <string name="sport_dail_goal">DAIL GOAL</string>
     <string name="today_str_share">Share</string>
 
+    <string name="sport_detail_calories">Calories</string>
+    <string name="sport_detail_step_lenth">Step length</string>
+
+    <string name="sport_detail_avg_cadence">Avg Cadence</string>
+
 
     <string name="sport_type_all">All</string>
     <string name="sport_type_run">Running</string>
@@ -187,6 +207,19 @@
     <string name="sport_type_swim">Swimming</string>
     <string name="sport_type_hiking">Hiking</string>
 
+
+    <string name="today_total_step">Total Steps</string>
+    <string name="select_future_date">Unable to select future date</string>
+
+    <string name="sport_chart_pace">PACE</string>
+    <string name="sport_chart_hr">HEART RATE</string>
+    <string name="sport_chart_hr_unit">BPM</string>
+    <string name="sport_chart_hr_zone">HEART RATE ZONE</string>
+    <string name="sport_chart_pace_unit">(MIN/KM)</string>
+    <string name="sport_chart_pace_avg">Average:</string>
+    <string name="sport_chart_pace_fast">Fastest:</string>
+    <string name="sport_chart_km_pace">km pace</string>
+    <string name="sport_chart_time">Time</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
