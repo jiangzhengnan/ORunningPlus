@@ -1,6 +1,7 @@
 package com.oplayer.orunningplus
 
 import com.oplayer.orunningplus.bean.DeviceInfo
+import com.oplayer.orunningplus.utils.DateUtil
 import com.vicpin.krealmextensions.queryFirst
 import org.junit.Test
 
@@ -15,81 +16,10 @@ import java.util.logging.Handler
  */
 class ExampleUnitTest {
 
-    private var queueFun = LinkedList<Function>()
-
-    private var currentFun: (() -> Unit?)? = null // 当前任务
-
-    fun addFunc(function: () -> Unit?) {
-        var func = Function(function)
-        doFunc(func)
-    }
-
-    fun finishFunc() {
-        doFunc(null)
-    }
-
-    private fun doFunc(func: Function?) {
-        if (func != null) {
-            queueFun.offer(func)
-        } else {
-            currentFun = null
-        }
-        if (currentFun == null) {
-            if (queueFun.size != 0) {
-                var funnow = queueFun.poll()
-                currentFun = funnow.function
-                currentFun?.invoke()
-            }
-        }
-    }
-
-    data class Function(var function: () -> Unit? = {})
-
-
     @Test
     fun addition_isCorrect() {
-
-        print("test function")
-        addFunc { chage() }
-        addFunc { add() }
-        addFunc { del() }
-        addFunc { edit() }
-
-//        Thread.sleep(500)
-//        finishFunc()
-//        Thread.sleep(4000)
-//        finishFunc()
-//        Thread.sleep(1000)
-//        finishFunc()
-//        Thread.sleep(3000)
-//        finishFunc()
+        print("当前是星期几   ${ DateUtil.getWeek(Date())}")
     }
 
 
-    fun add() {
-        print("this fun is add")
-
-    }
-
-    fun del() {
-
-        print("this fun is del")
-
-    }
-
-    fun edit() {
-        print("this fun is edit")
-
-    }
-
-    fun chage() {
-        print("this fun is chage")
-
-
-
-    }
-
-    fun print(str: String) {
-        System.out.println(str)
-    }
 }
