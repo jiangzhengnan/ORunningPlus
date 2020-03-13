@@ -69,7 +69,7 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
 
         if (tv_user_name != null) {
 
-            tv_user_name.setText(BleService.INSTANCE.user?.name)
+//            tv_user_name.setText(BleService.INSTANCE.user?.name)
 
         }
 

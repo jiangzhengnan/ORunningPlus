@@ -236,16 +236,11 @@ class BleService : BaseService() {
                             }
                             var identifyDevice = IdentifyTypes(scanResult)
                             //todo 测试代码 搜索单一协议
-                            if (identifyDevice.deviceType == DeviceType.DEVICE_FITCLOUD) {
+//                            if (identifyDevice.deviceType == DeviceType.DEVICE_FITCLOUD) {
                                 mDevice.add(scanResult)
-                                EventBus.getDefault().post(
-                                    MessageEvent(
-                                        ScanDeviceState.SCAN_RESULT,
-                                        identifyDevice
-                                    )
-                                )
+                                EventBus.getDefault().post(MessageEvent(ScanDeviceState.SCAN_RESULT, identifyDevice))
 
-                            }
+//                            }
 
 
                         }
@@ -262,12 +257,12 @@ class BleService : BaseService() {
 
         }
     }
-
     /**
      * 重新搜索蓝牙方法 根据设备名称  mac地址构建搜索过滤器搜索
      * scanFilter 搜索过滤器
      * */
     public fun reScanDevice(deviceInfo: DeviceInfo) {
+
 
 
         //为传输设备重连时，重连当前设备
@@ -295,9 +290,14 @@ class BleService : BaseService() {
      * 停止搜索
      * */
     public fun stopScanDevice() {
-        mDevice.clear()
-        scanDisposable?.dispose()
-        scanDisposable = null
+
+        if(isScanning){
+            Slog.d("停止搜索 ")
+            mDevice.clear()
+            scanDisposable?.dispose()
+            scanDisposable = null
+        }
+
     }
 
     /**
@@ -405,6 +405,7 @@ Slog.d("--- CONNECTION_SUCCESS  $device")
         //连接设备的时候应该停止搜索 并延时连接
         stopScanDevice()
 
+
         Handler().postDelayed({
             var bleDevice = bluetoothDeviceInfo.scanResult.bleDevice.bluetoothDevice
             //准备连接设备  电量 适配号 绑定状态未知
@@ -416,7 +417,7 @@ Slog.d("--- CONNECTION_SUCCESS  $device")
 
             Slog.d("--- connBle  $device")
             getManager().bindBle(bleDevice)
-        }, 500)
+        }, 1000)
 
 
     }

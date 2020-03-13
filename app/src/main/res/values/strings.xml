@@ -220,6 +220,13 @@
     <string name="sport_chart_pace_fast">Fastest:</string>
     <string name="sport_chart_km_pace">km pace</string>
     <string name="sport_chart_time">Time</string>
+    <string name="user_info_name">Modify name</string>
+
+    <string name="device_select_gps">Gps Watch/Bracelet</string>
+    <string name="device_select_round">Smart Watch Round</string>
+    <string name="device_select_square">Smart Watch Square</string>
+    <string name="device_select_bracelet">Smart Bracelet</string>
+    <string name="device_select_ecg">ECG Watch</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

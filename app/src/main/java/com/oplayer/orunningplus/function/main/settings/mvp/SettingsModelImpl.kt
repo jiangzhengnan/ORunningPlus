@@ -9,6 +9,7 @@ import com.oplayer.orunningplus.bean.SettingItem
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.advanced.AdvancedSettingActivity
 import com.oplayer.orunningplus.function.connect.ConnectActivity
+import com.oplayer.orunningplus.function.connect.DeviceSelectActivity
 import com.oplayer.orunningplus.function.test.TestActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -28,7 +29,7 @@ class SettingsModelImpl : SettingsContract.Model {
         SettingItem(
             R.mipmap.settings_connect,
             UIUtils.getString(R.string.settings_conn),false
-        ) { mContext.startActivity(Intent(mContext, ConnectActivity::class.java)) }
+        ) { mContext.startActivity(Intent(mContext, DeviceSelectActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_find,

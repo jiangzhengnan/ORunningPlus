@@ -6,30 +6,25 @@ import android.bluetooth.BluetoothAdapter
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils
-import com.oplayer.orunningplus.base.Weak
 import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
 import com.oplayer.common.mvp.IBaseView
 import com.oplayer.common.utils.Slog
-import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
 import com.tbruyelle.rxpermissions2.RxPermissions
+import kotlinx.android.synthetic.main.activity_user_info.*
 import kotlinx.android.synthetic.main.toolbar_common.*
 import me.weyye.hipermission.HiPermission
 import me.weyye.hipermission.PermissionCallback
@@ -64,9 +59,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
     open fun initToolbar(title: String, isShowBack: Boolean) {
         toolbar_title.text = title
-
         if(isShowBack) iv_back.visibility=View.VISIBLE else iv_back.visibility=View.GONE
-
         iv_back.setOnClickListener {
             finish()
         }

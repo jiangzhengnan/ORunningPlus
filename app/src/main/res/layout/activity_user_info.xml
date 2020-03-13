@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".function.main.profile.activity.UserInfoActivity">
-    <include layout="@layout/toolbar_common" />
+   <include layout="@layout/toolbar_common"/>
 
     <LinearLayout
+        android:id="@+id/ll_profile"
         android:layout_width="match_parent"
         android:layout_height="166dp"
         android:background="@color/colorPrimary"
@@ -34,11 +35,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
-            
-            
             android:background="@color/gray_date_text_color" />
-
-
 
     </LinearLayout>
 

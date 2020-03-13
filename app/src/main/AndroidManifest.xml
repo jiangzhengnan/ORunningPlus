@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.oplayer.orunningplus">
     <!-- 前台服务 -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 蓝牙搜索所需权限 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 前台服务权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 蓝牙搜索所需权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 文件夹读写权限   选择相片  拍照保存 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 相机权限   选择相片  拍照保存 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 文件夹读写权限   选择相片  拍照保存 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 相机权限   选择相片  拍照保存 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".OSportApplciation"
@@ -21,10 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".function.details.sportDetails.SportDetailsActivity"></activity>
+        <activity android:name=".function.connect.DeviceSelectActivity"></activity>
+        <activity android:name=".function.details.sportDetails.SportDetailsActivity" />
         <activity android:name=".function.sportStatistics.SportStatisticsActivity" />
         <activity android:name=".function.details.DetailsActivity" />
-        <activity android:name=".function.main.profile.activity.UserInfoActivity" />
+        <activity
+            android:name=".function.main.profile.activity.UserInfoActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".function.main.ManageActivity"
             android:screenOrientation="portrait" />

@@ -2,11 +2,13 @@ package com.oplayer.orunningplus.function.connect
 
 import android.Manifest
 import android.os.Handler
+import android.os.ParcelUuid
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.oplayer.common.common.BluetoothState
 import com.oplayer.common.common.Constants
+import com.oplayer.common.common.DeviceUUID
 import com.oplayer.common.common.ScanDeviceState
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
@@ -104,7 +106,9 @@ class ConnectActivity : BaseActivity() {
         mDeviceAdapter.isFirstOnly(false)
         mDeviceAdapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+                //停止搜索
                 BleService.INSTANCE.stopScanDevice()
+
                 val bluetoothDeviceInfo = mDevice[position]
                 Slog.d("device  $bluetoothDeviceInfo")
                 showAlert(UIUtils.getString(R.string.device_state_connectionning), true, R.mipmap.ic_launcher_round, false)
@@ -161,7 +165,7 @@ class ConnectActivity : BaseActivity() {
 
     private fun scanDevice() {
         val scanFilter = ScanFilter.Builder()
-//            .setServiceUuid(ParcelUuid.fromString(DeviceUUID.FUNDO_BLE_YDS_UUID.toString()))
+            .setServiceUuid(ParcelUuid.fromString(DeviceUUID.FUNDO_BLE_YDS_UUID.toString()))
             .build()
         BleService.INSTANCE.scanDevice(scanFilter)
     }

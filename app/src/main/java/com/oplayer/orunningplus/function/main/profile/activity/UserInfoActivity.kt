@@ -2,7 +2,12 @@ package com.oplayer.orunningplus.function.main.profile.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -30,10 +35,6 @@ class UserInfoActivity : BaseActivity() {
     val REQUEST_CODE_CHOOSE = 1
 
     var userInfo: UserInfo = BleService.INSTANCE.getCurrUser()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_info)
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_user_info
@@ -43,24 +44,21 @@ class UserInfoActivity : BaseActivity() {
     }
 
     override fun initView() {
-        initToolbar(UIUtils.getString(R.string.main_profile), true)
         initImageView()
+
+        initToolbar(UIUtils.getString(R.string.main_profile),true)
 
     }
 
     private fun initImageView() {
+
         profile_image.setOnClickListener {
-
             selectPhoto()
-            //            showPicSeleDialog()
-
-
+//                        showPicSeleDialog()
         }
     }
 
     fun selectPhoto() {
-        // 进入相册 以下是例子：用不到的api可以不写
-        // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage()) //全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
 //                .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
@@ -113,6 +111,8 @@ class UserInfoActivity : BaseActivity() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.rl_name -> {
+                showNamePop()
+
             }
             R.id.rl_gender -> {
                 showGenderSelect()
@@ -130,9 +130,41 @@ class UserInfoActivity : BaseActivity() {
         }
 
     }
+    private var popupWindow = PopupWindow(
+        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+
+    private fun showNamePop() {
+
+
+
+            val popupView = LayoutInflater.from(this).inflate(R.layout.pop_user_name, null)
+        popupView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
+            showToast("取消")
+
+        }
+
+        popupView.findViewById<Button>(R.id.btn_ok).setOnClickListener {
+            showToast("OK")
+
+        }
+
+
+            popupWindow.contentView = popupView
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+            popupWindow.isClippingEnabled = false
+            if (!popupWindow.isShowing) {
+                popupWindow.showAtLocation(popupView,Gravity.BOTTOM, 0, 0)
+            }
+
+
+
+    }
 
     private fun showGenderSelect() {
-        val list: List<String> = UIUtils.getContext().resources.getStringArray(R.array.gender_arr).toList()
+        val list: List<String> =
+            UIUtils.getContext().resources.getStringArray(R.array.gender_arr).toList()
         // 不联动的多级选项
         var pvOptions = OptionsPickerBuilder(this,
             OnOptionsSelectListener { options1, options2, options3, v ->
@@ -142,8 +174,8 @@ class UserInfoActivity : BaseActivity() {
             .setOptionsSelectChangeListener { options1, options2, options3 ->
 
             }
-            .setSubmitText("确定")//确定按钮文字
-            .setCancelText("取消")//取消按钮文字
+            .setSubmitText(getString(R.string.button_ok))//确定按钮文字
+            .setCancelText(getString(R.string.button_cancel))//取消按钮文字
             .build<Any>()
         pvOptions.setPicker(list)
         pvOptions.show()

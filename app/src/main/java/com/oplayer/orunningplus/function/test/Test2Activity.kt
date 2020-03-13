@@ -12,6 +12,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.event.MessageEvent
+import com.oplayer.orunningplus.function.connect.DeviceSelectActivity
 import kotlinx.android.synthetic.main.activity_test2.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,10 +31,9 @@ class Test2Activity : BaseActivity(), OnChartValueSelectedListener {
 
     override fun initView() {
 
-                    pbProgress.setPercent(1F,"1\t\t06'13''")
+//                    pbProgress.setPercent(1F,"1\t\t06'13''")
 
-
-
+        startTo(DeviceSelectActivity::class.java)
 
 
     }

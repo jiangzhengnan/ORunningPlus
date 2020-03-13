@@ -34,6 +34,8 @@ class Constants {
         const val BLUETOOTH_DEVICE = "BLUETOOTH_DEVICE"
         const val DEVICE_SETTING = "DEVICE_SETTING"
 
+        const val DEVICE_SELECT_ONCLICK = "DEVICE_SELECT_ONCLICK"
+
 
 
     }
@@ -160,9 +162,7 @@ class NotifiDate {
 class DeviceUUID {
     companion object {
         //过滤非手环的蓝牙设备
-        val FUNDO_BLE_YDS_UUID =
-            UUID.fromString("0000FEA0-0000-1000-8000-00805f9b34fb") as UUID//分动
-
+        val FUNDO_BLE_YDS_UUID = UUID.fromString("0000FEA0-0000-1000-8000-00805f9b34fb") as UUID//分动
          //仿苹果设备没有UUID 用公司识别码判断
         val FITCLOULD_TYPE: Int = 0x5448
 
@@ -269,15 +269,12 @@ class SystemSetting{
 class PermissList {
     companion object {
         var PERMISSIONS_LIST = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.CAMERA,
             Manifest.permission.FOREGROUND_SERVICE,
             Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-
             ,Manifest.permission.WRITE_SETTINGS
         )
 
