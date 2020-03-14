@@ -176,11 +176,26 @@
         <item>Dec</item>
     </string-array>
 
+    <string-array name="unit_arr">
+        <item>cm</item>
+        <item>ft in</item>
+    </string-array>
+
+    <string-array name="unit_weight_arr">
+        <item>kg</item>
+        <item>lb</item>
+    </string-array>
+
+    <string name="unit_bp">mmHg</string>
+
+
     <string-array name="gender_arr">
         <item>Male</item>
         <item>FeMale</item>
-
     </string-array>
+
+
+
 
     <string name="sport_total_distance">Total DisTance</string>
     <string name="sport_total_times">Total (Times)</string>
@@ -222,11 +237,18 @@
     <string name="sport_chart_time">Time</string>
     <string name="user_info_name">Modify name</string>
 
+    <string name="user_info_old_name">Old NickName :</string>
+    <string name="user_info_chage_message">Our nickname cannot be longer than 10 characters!</string>
+
     <string name="device_select_gps">Gps Watch/Bracelet</string>
     <string name="device_select_round">Smart Watch Round</string>
     <string name="device_select_square">Smart Watch Square</string>
     <string name="device_select_bracelet">Smart Bracelet</string>
     <string name="device_select_ecg">ECG Watch</string>
+
+    <string name="notification_title">Notification of usage rights</string>
+    <string name="notification_message">Please turn on notification usage rights to ensure that you can receive notification messages on your device.</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

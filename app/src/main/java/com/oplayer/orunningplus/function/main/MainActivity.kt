@@ -124,14 +124,14 @@ class MainActivity : BaseActivity() {
             return
         }
         val dialogBuilder = NiftyDialogBuilder.getInstance(this)
-        dialogBuilder.withTitle("通知使用权")
-            .withMessage("请开启通知使用权")
+        dialogBuilder.withTitle(getString(R.string.notification_title))
+            .withMessage(R.string.notification_message)
             .withEffect(Effectstype.RotateBottom)
             .withDialogColor(getBGColor())
             .withTitleColor(getTextColor())
             .withMessageColor(getTextColor())
-            .withButton1Text("取消")
-            .withButton2Text("确定")
+            .withButton1Text(getString(R.string.button_cancel))
+            .withButton2Text(getString(R.string.button_ok))
             .isCancelableOnTouchOutside(true)
             .setButton1Click {
                 dialogBuilder.dismiss()

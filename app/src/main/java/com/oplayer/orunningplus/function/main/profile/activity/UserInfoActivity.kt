@@ -1,38 +1,44 @@
 package com.oplayer.orunningplus.function.main.profile.activity
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bumptech.glide.Glide
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.oplayer.common.common.Constants
+import com.oplayer.common.common.UnitType
+import com.oplayer.common.common.constant
 import com.oplayer.common.utils.Slog
 import com.oplayer.common.utils.UIUtils
+import com.oplayer.orunningplus.OSportApplciation
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.bean.UserInfo
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.service.BleService
+import com.oplayer.orunningplus.utils.DateUtil
+import com.oplayer.orunningplus.utils.javautils.Utils
+import com.rengwuxian.materialedittext.MaterialEditText
 import com.vicpin.krealmextensions.createOrUpdate
 import kotlinx.android.synthetic.main.activity_user_info.*
+import java.text.DecimalFormat
 import java.util.*
 
 
 class UserInfoActivity : BaseActivity() {
 
     val REQUEST_CODE_CHOOSE = 1
+
 
     var userInfo: UserInfo = BleService.INSTANCE.getCurrUser()
 
@@ -46,7 +52,26 @@ class UserInfoActivity : BaseActivity() {
     override fun initView() {
         initImageView()
 
-        initToolbar(UIUtils.getString(R.string.main_profile),true)
+        initToolbar(UIUtils.getString(R.string.main_profile), true)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        assignmentName()
+        assignmentBP()
+        assignmentBirthday()
+        assignmentGender()
+        assignmentHeight()
+        assignmentWeight()
+        var path = BleService.INSTANCE.getCurrUser().iconPath
+        if (path != null) {
+            Glide.with(this)
+                .load(path)
+                .into(profile_image)
+
+        }
+
 
     }
 
@@ -75,7 +100,7 @@ class UserInfoActivity : BaseActivity() {
             .sizeMultiplier(0.5f) // glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
             .setOutputCameraPath("/CustomPath") // 自定义拍照保存路径,可不填
             .enableCrop(true) // 是否裁剪 true or false
-            .compress(true) // 是否压缩 true or false
+            .compress(false) // 是否压缩 true or false
             .glideOverride(200, 200) // int glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
 //                .withAspectRatio()// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
             .hideBottomControls(true) // 是否显示uCrop工具栏，默认不显示 true or false
@@ -83,8 +108,8 @@ class UserInfoActivity : BaseActivity() {
 //                .compressSavePath(getPath())//压缩图片保存地址
             .freeStyleCropEnabled(true) // 裁剪框是否可拖拽 true or false
             .circleDimmedLayer(true) // 是否圆形裁剪 true or false
-            .showCropFrame(false) // 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
-            .showCropGrid(false) // 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
+            .showCropFrame(true) // 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
+            .showCropGrid(true) // 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
             .openClickSound(false) // 是否开启点击声音 true or false
 //                .selectionMedia()// 是否传入已选图片 List<LocalMedia> list
             .previewEggs(true) // 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
@@ -104,6 +129,9 @@ class UserInfoActivity : BaseActivity() {
 
     }
 
+
+    var currUnit = OSportApplciation.getCurrUnit()
+
     override fun initInfo() {
 
     }
@@ -111,73 +139,274 @@ class UserInfoActivity : BaseActivity() {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.rl_name -> {
-                showNamePop()
+                showNameDialog()
 
             }
             R.id.rl_gender -> {
-                showGenderSelect()
+                val list: List<String> =
+                    UIUtils.getContext().resources.getStringArray(R.array.gender_arr).toList()
+
+                showCommSelect(
+                    getString(R.string.profile_gender),
+                    Constants.SELECT_OPTION_GENDER,
+                    list,
+                    null,
+                    null
+                )
             }
             R.id.rl_birthday -> {
                 showDateSelect(Date())
             }
             R.id.rl_weight -> {
+                val numberList: MutableList<String> = mutableListOf()
+                val floatList: MutableList<String> = mutableListOf()
+                if (currUnit == UnitType.UNIT_METRIC) {
+                    for (index in 1..220) numberList.add(index.toString())
+                    for (index in 0..9) floatList.add(".$index")
+                } else {
+                    for (index in 70..500) numberList.add("$index")
+                    for (index in 0..9) floatList.add(".$index")
+                }
+                showCommSelect(
+                    "${getString(R.string.profile_weight)} (${getWeightUnit()})",
+                    Constants.SELECT_OPTION_WEIGHT,
+                    numberList,
+                    floatList,
+                    null
+                )
+
+
             }
             R.id.rl_height -> {
+                val numberList: MutableList<String> = mutableListOf()
+                val floatList: MutableList<String> = mutableListOf()
+                if (currUnit == UnitType.UNIT_METRIC) {
+                    for (index in 120..220) numberList.add(index.toString())
+                    for (index in 0..9) floatList.add(".$index")
+                } else {
+                    for (index in 3..7) numberList.add("${index}\'")
+                    for (index in 0..11) floatList.add("${index}\"")
+                }
+                showCommSelect(
+                    "${getString(R.string.profile_heightr)} (${getHeightUnit()})",
+                    Constants.SELECT_OPTION_HEIGHT,
+                    numberList,
+                    floatList,
+                    null
+                )
+
+
             }
             R.id.rl_bp -> {
+                val numberList: MutableList<Int> = mutableListOf()
+                for (index in 60..170) numberList.add(index)
+                showCommSelect(
+                    "${getString(R.string.profile_bloodr)} (${getString(R.string.unit_bp)})",
+                    Constants.SELECT_OPTION_BP,
+                    numberList,
+                    numberList,
+                    null
+                )
+
+
             }
 
         }
 
     }
+
+    private fun showNameDialog() {
+        var view = View.inflate(this, R.layout.pop_user_name, null)
+        var met_name = view.findViewById<MaterialEditText>(R.id.met_name)
+        var userName = BleService.INSTANCE.getCurrUser().name
+
+        if (userName == null) {
+            userName = getString(R.string.profile_unknown)
+        }
+        var hintName = "${getString(R.string.user_info_old_name)} ${userName}"
+
+        met_name.floatingLabelText = hintName
+        met_name.floatingLabelTextColor=getIconColor()
+        met_name.hint = hintName
+        val dialogBuilder = NiftyDialogBuilder.getInstance(this)
+        dialogBuilder
+            .withTitle(getString(R.string.user_info_name))
+            .withMessage(R.string.user_info_chage_message)
+
+            .setCustomView(view, this)
+            .withEffect(Effectstype.RotateBottom)
+            .withDialogColor(getBGColor())
+            .withTitleColor(getTextColor())
+            .withMessageColor(getTextColor())
+            .withButton1Text(getString(R.string.button_cancel))
+
+            .withButton2Text(getString(R.string.button_ok))
+            .isCancelableOnTouchOutside(true)
+            .setButton1Click {
+                dialogBuilder.dismiss()
+            }
+            .setButton2Click {
+
+                showToast(" 输入文字  met_name   ${met_name.text} ")
+                if (met_name.text?.length!! > 30) {
+                    showToast(R.string.user_info_chage_message)
+
+                } else {
+                    user.name = met_name.text.toString()
+                    BleService.INSTANCE.saveCurrUser(user)
+                    assignmentName()
+                    dialogBuilder.dismiss()
+                }
+
+
+            }
+        dialogBuilder.show()
+
+
+    }
+
+
     private var popupWindow = PopupWindow(
         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
     )
 
-    private fun showNamePop() {
+//    private fun showNamePop() {
+//
+//
+//        val popupView = LayoutInflater.from(this).inflate(R.layout.pop_user_name, null)
+//        popupView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
+//            showToast("取消")
+//
+//        }
+//
+//        popupView.findViewById<Button>(R.id.btn_ok).setOnClickListener {
+//            showToast("OK")
+//
+//        }
+//
+//
+//        popupWindow.contentView = popupView
+//        popupWindow.isOutsideTouchable = true
+//        popupWindow.isFocusable = true
+//        popupWindow.isClippingEnabled = false
+//        if (!popupWindow.isShowing) {
+//            popupWindow.showAtLocation(popupView, Gravity.BOTTOM, 0, 0)
+//        }
+//
+//
+//    }
+
+    var user = BleService.INSTANCE.getCurrUser()
+    private fun showCommSelect(
+        title: String,
+        optionType: String,
+        opentionList1: List<Any>?,
+        opentionList2: List<Any>?,
+        opentionList3: List<Any>?
+    ) {
 
 
-
-            val popupView = LayoutInflater.from(this).inflate(R.layout.pop_user_name, null)
-        popupView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
-            showToast("取消")
-
-        }
-
-        popupView.findViewById<Button>(R.id.btn_ok).setOnClickListener {
-            showToast("OK")
-
-        }
-
-
-            popupWindow.contentView = popupView
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-            popupWindow.isClippingEnabled = false
-            if (!popupWindow.isShowing) {
-                popupWindow.showAtLocation(popupView,Gravity.BOTTOM, 0, 0)
-            }
-
-
-
-    }
-
-    private fun showGenderSelect() {
-        val list: List<String> =
-            UIUtils.getContext().resources.getStringArray(R.array.gender_arr).toList()
         // 不联动的多级选项
         var pvOptions = OptionsPickerBuilder(this,
             OnOptionsSelectListener { options1, options2, options3, v ->
+                Slog.d("OnOptionsSelectListener  optionType  $optionType  title  $title  optionType  $optionType   options1 $options1   options2 $options2   options3 $options3 ")
+
+                when (optionType) {
+                    Constants.SELECT_OPTION_GENDER -> {
+
+                        var gender = opentionList1?.get(options1)
+                        user.gender = options1
+                        BleService.INSTANCE.saveCurrUser(user)
+                        assignmentGender()
+                        showToast("当前性别为  $gender")
+                    }
+                    Constants.SELECT_OPTION_WEIGHT -> {
+
+                        var weightInt = opentionList1?.get(options1)
+                        var weightFloat = opentionList2?.get(options2)
+
+                        var str = "$weightInt$weightFloat"
+
+                        //全部转换为公制保存
+                        var weightValue = 70F
+                        try {
+                            weightValue = str.toFloat()
+                            if (currUnit == UnitType.UNIT_BRITISH) {
+                                weightValue = str.toFloat() / constant.kg_to_lb
+                            }
+                        } catch (e: Exception) {
+                            Slog.d("体重转换异常  ${e.toString()}")
+
+                        }
+
+                        user.weight = weightValue
+                        BleService.INSTANCE.saveCurrUser(user)
+                        assignmentWeight()
+                        showToast("当前体重为   weightValue  $weightValue")
+
+
+                    }
+                    Constants.SELECT_OPTION_HEIGHT -> {
+
+
+                        var heightInt = opentionList1?.get(options1)
+                        var heightFloat = opentionList2?.get(options2)
+
+
+                        //全部转换为公制保存
+                        var heightValue = 175F
+                        try {
+
+                            if (currUnit == UnitType.UNIT_METRIC) {
+                                var str = "$heightInt$heightFloat"
+
+                                heightValue = str.toFloat()
+                            } else {
+                                heightInt = heightInt.toString().replace("\'", "").toInt()
+                                heightFloat = heightFloat.toString().replace("\"", "").toInt()
+                                heightValue =
+                                    (heightInt * constant.ft_to_cm) + (heightFloat * constant.in_to_cm)
+
+                            }
+
+                        } catch (e: Exception) {
+                            Slog.d("身高转换异常  ${e.toString()}")
+
+                        }
+
+
+                        showToast("当前体重为   weightValue  $heightValue")
+                        user.height = heightValue
+                        BleService.INSTANCE.saveCurrUser(user)
+                        assignmentHeight()
+
+                    }
+                    Constants.SELECT_OPTION_BP -> {
+
+                        var bp_hight = opentionList1?.get(options1)
+                        var bp_low = opentionList2?.get(options2)
+
+                        showToast("当前血压为   高压 $bp_hight  低压 $bp_low")
+                        user.bloodPressure = "$bp_hight/$bp_low"
+                        BleService.INSTANCE.saveCurrUser(user)
+                        assignmentBP()
+                    }
+
+                }
 
 
             })
-            .setOptionsSelectChangeListener { options1, options2, options3 ->
 
-            }
+            .setTitleColor(getIconColor())
+            .setSubmitColor(getIconColor())
+            .setCancelColor(getIconColor())
+            .setTitleText(title)
+//            .setCyclic(true, true, true)//循环与否
             .setSubmitText(getString(R.string.button_ok))//确定按钮文字
             .setCancelText(getString(R.string.button_cancel))//取消按钮文字
             .build<Any>()
-        pvOptions.setPicker(list)
+        pvOptions.setNPicker(opentionList1, opentionList2, opentionList3)
+
         pvOptions.show()
 
 
@@ -198,11 +427,26 @@ class UserInfoActivity : BaseActivity() {
 
                     // 图片选择结果回调
                     var selectList = PictureSelector.obtainMultipleResult(data)
+
+                    selectList.forEach {
+
+                        Slog.d("   图片选择结果回调  $it ")
+                    }
+
                     val local = selectList.first()
+
                     if (local != null) {
+
+                        user.iconPath = local.path
+                        BleService.INSTANCE.saveCurrUser(user)
+
                         Glide.with(this)
-                            .load(local.path)
+                            .load(user.iconPath)
                             .into(profile_image)
+
+
+                        Slog.d("图片选择界面路径   ${user.iconPath}")
+
                     }
                 }
                 else -> {
@@ -212,6 +456,7 @@ class UserInfoActivity : BaseActivity() {
 
 
     }
+
 
     fun showDateSelect(date: Date?) {
         val endDate = Date()
@@ -225,16 +470,15 @@ class UserInfoActivity : BaseActivity() {
         val pvTime =
             TimePickerBuilder(this,
                 OnTimeSelectListener { date, v ->
-                    Toast.makeText(this, date.toString(), Toast.LENGTH_SHORT)
-                        .show()
+                    assignmentBirthday()
                     userInfo.birthday = date
                     userInfo.createOrUpdate()
-                    Slog.d(" 当前用户对象   $userInfo ")
+
                 })
                 .setCancelText(getString(R.string.button_cancel))//取消按钮文字
                 .setSubmitText(getString(R.string.button_ok))//确认按钮文字
                 .setTitleSize(20)//标题文字大小
-                .setTitleText(getString(R.string.profile_date_pick))//标题文字
+                .setTitleText(getString(R.string.profile_birthday))//标题文字
                 .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
                 .isCyclic(false)//是否循环滚动
                 .setTitleColor(getIconColor())//标题文字颜色
@@ -252,4 +496,80 @@ class UserInfoActivity : BaseActivity() {
     }
 
 
+    fun assignmentGender() {
+        var gender = BleService.INSTANCE.getCurrUser().gender
+        if (gender != null) {
+            tv_gender.text = resources.getStringArray(R.array.gender_arr)[gender]
+        }
+
+    }
+
+
+    fun assignmentBirthday() {
+
+        var data = BleService.INSTANCE.getCurrUser().birthday
+        if (data != null) {
+            tv_birthday.text = DateUtil.getCurDateStr(data)
+        }
+    }
+
+    fun assignmentWeight() {
+        var weight = BleService.INSTANCE.getCurrUser().weight
+        if (weight != null) {
+            if (currUnit == UnitType.UNIT_BRITISH) {
+                weight *= constant.kg_to_lb
+                weight=Utils.formatFloat(weight,"0.0");
+            }
+            tv_weight.text = "$weight ${getWeightUnit()}"
+        }
+    }
+
+    fun assignmentName() {
+        var name = BleService.INSTANCE.getCurrUser().name
+        if (name != null) {
+
+            tv_name.text = name
+        }
+    }
+
+    fun assignmentHeight() {
+        var height = BleService.INSTANCE.getCurrUser().height
+        var heightStr = height.toString()
+
+        if (height != null) {
+
+            if (currUnit == UnitType.UNIT_BRITISH) {
+                height / constant.ft_to_cm
+                heightStr =
+
+                    "${(height / constant.ft_to_cm).toInt()}\'${(height % constant.ft_to_cm / constant.in_to_cm).toInt()}\""
+
+            }
+
+            tv_height.text = "$heightStr ${getHeightUnit()}"
+        }
+    }
+
+    fun assignmentBP() {
+        var BP = BleService.INSTANCE.getCurrUser().bloodPressure
+
+        if (BP != null) {
+
+            tv_bp.text = "$BP ${resources.getString(R.string.unit_bp)}"
+        }
+    }
+
+
+    fun getWeightUnit(): String {
+
+        return resources.getStringArray(R.array.unit_weight_arr)[currUnit]
+
+    }
+
+
+    fun getHeightUnit(): String {
+
+        return resources.getStringArray(R.array.unit_arr)[currUnit]
+
+    }
 }

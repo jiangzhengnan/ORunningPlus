@@ -68,12 +68,16 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
         super.onResume()
 
         if (tv_user_name != null) {
+            var path = BleService.INSTANCE.getCurrUser().iconPath
+            var name = BleService.INSTANCE.getCurrUser().name
+            if (path != null) Glide.with(this).load(path).into(profile_image)
+            if (name != null) tv_user_name.text = name
 
-//            tv_user_name.setText(BleService.INSTANCE.user?.name)
-
+            Slog.d("图片选择界面路径   $path")
         }
 
     }
+
 
     override fun lazyLoadData() {
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.oplayer.orunningplus">
+    package="com.oplayer.orunningplus"
+
+    >
     <!-- 前台服务 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 前台服务权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 蓝牙搜索所需权限 -->
@@ -13,6 +15,23 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 相机权限   选择相片  拍照保存 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <application
         android:name=".OSportApplciation"
         android:allowBackup="true"
@@ -21,6 +40,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
+        android:requestLegacyExternalStorage = "true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".function.connect.DeviceSelectActivity"></activity>
         <activity android:name=".function.details.sportDetails.SportDetailsActivity" />

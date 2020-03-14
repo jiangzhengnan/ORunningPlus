@@ -29,6 +29,7 @@ import com.polidea.rxandroidble2.scan.ScanResult
 import com.vicpin.krealmextensions.createOrUpdate
 import com.vicpin.krealmextensions.queryAll
 import com.vicpin.krealmextensions.queryFirst
+import com.vicpin.krealmextensions.save
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -99,6 +100,15 @@ class BleService : BaseService() {
 
         return this.user as UserInfo
     }
+
+    fun saveCurrUser(userinfo:UserInfo) {
+
+        Slog.d("保存用户信息   ${userinfo.toString()}")
+        this.user=userinfo
+        userinfo.save()
+    }
+
+
     fun getCurrDevice(): DeviceInfo {
 //        if (this.device == null) {
             var deviceByRealm = DeviceInfo().queryFirst()

@@ -133,6 +133,16 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
             .setAnimations(Style.ANIMATIONS_POP).show()
     }
 
+    fun showToast(resId: Int) {
+        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
+            .setText(getString(resId))
+            .setDuration(Style.DURATION_VERY_SHORT)
+            .setFrame(Style.FRAME_LOLLIPOP)
+            .setTextColor(getTextColor())
+            .setColor(getBGColor())
+            .setAnimations(Style.ANIMATIONS_POP).show()
+    }
+
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
         Alerter.create(this@BaseActivity)
@@ -214,6 +224,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
     val REQUEST_ENABLE_BT = 1
 
     public fun checkBTState() {
+
         val blueadapter = BluetoothAdapter.getDefaultAdapter()
         if (!blueadapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)

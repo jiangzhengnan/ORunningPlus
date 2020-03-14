@@ -9,178 +9,247 @@
 
     <include layout="@layout/toolbar_common" />
 
-    <RelativeLayout
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp">
 
-        <ImageView
-            android:id="@+id/iv_icon_step"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:src="@mipmap/information_goal_steps" />
-
-        <TextView
-            android:id="@+id/tv_pedpmeter"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@+id/iv_icon_step"
-            android:gravity="center_vertical"
-            android:text="@string/manage_pedpmeter"
-            android:textColor="@color/white_date_text_color" />
-
-
-        <com.suke.widget.SwitchButton
-            android:id="@+id/sb_step_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-          />
-
-
-
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray_date_text_color" />
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            >
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_icon_step"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/information_goal_steps" />
+
+            <TextView
+                android:id="@+id/tv_pedpmeter"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/iv_icon_step"
+                android:gravity="center_vertical"
+                android:text="@string/manage_pedpmeter"
+                android:textColor="@color/white_date_text_color" />
 
 
-    <RelativeLayout
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_step_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                   android:layout_height="0.3dp"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+        
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp">
 
-        <ImageView
-            android:id="@+id/iv_icon_hr"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:src="@mipmap/today_heartrate_big" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@+id/iv_icon_hr"
-            android:gravity="center_vertical"
-            android:text="@string/manage_hr"
-            android:textColor="@color/white_date_text_color" />
-
-
-        <com.suke.widget.SwitchButton
-            android:id="@+id/sb_hr_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            />
-
-
-
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray_date_text_color" />
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_icon_hr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/today_heartrate_big" />
 
-    <RelativeLayout
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/iv_icon_hr"
+                android:gravity="center_vertical"
+                android:text="@string/manage_hr"
+                android:textColor="@color/white_date_text_color" />
+
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_hr_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                   android:layout_height="0.3dp"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp">
 
-        <ImageView
-            android:id="@+id/iv_icon_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:src="@mipmap/information_goal_sleep" />
-
-        <TextView
-            android:id="@+id/tv_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@+id/iv_icon_sleep"
-            android:gravity="center_vertical"
-            android:text="@string/manage_sleep"
-            android:textColor="@color/white_date_text_color" />
-
-
-        <com.suke.widget.SwitchButton
-            android:id="@+id/sb_sleep_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            />
-
-
-
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray_date_text_color" />
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_icon_sleep"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/information_goal_sleep" />
 
-    <RelativeLayout
+            <TextView
+                android:id="@+id/tv_sleep"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/iv_icon_sleep"
+                android:gravity="center_vertical"
+                android:text="@string/manage_sleep"
+                android:textColor="@color/white_date_text_color" />
+
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_sleep_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                   android:layout_height="0.3dp"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp">
 
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:src="@mipmap/sport_running" />
-
-        <TextView
-            android:id="@+id/tv_sport"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_toEndOf="@+id/iv_icon"
-            android:gravity="center_vertical"
-            android:text="@string/main_sport"
-            android:textColor="@color/white_date_text_color" />
-
-
-        <com.suke.widget.SwitchButton
-            android:id="@+id/sb_sport_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            />
-
-
-
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray_date_text_color" />
+            android:layout_height="55dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/sport_running" />
+
+            <TextView
+                android:id="@+id/tv_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/iv_icon"
+                android:gravity="center_vertical"
+                android:text="@string/main_sport"
+                android:textColor="@color/white_date_text_color" />
+
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/sb_sport_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                   android:layout_height="0.3dp"
+                android:visibility="gone"
+
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_date_text_color" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+  
+
+
 
 
 </LinearLayout>

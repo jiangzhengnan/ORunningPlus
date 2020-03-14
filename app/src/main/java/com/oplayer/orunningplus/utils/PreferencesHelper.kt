@@ -2,6 +2,7 @@ package com.oplayer.common.utils
 
 import com.oplayer.common.common.DeviceType
 import com.oplayer.common.common.PreferencesKey
+import com.oplayer.common.common.UnitType
 
 /**
  *
@@ -23,6 +24,10 @@ object PreferencesHelper {
 
     fun setNight(type: Boolean) = PreferencesUtil.saveValue(PreferencesKey.IS_NIGHT, type)
 
+
+    //默认公制单位
+    fun getCurrUnit(): Int = PreferencesUtil.getInt(PreferencesKey.CURR_UNIT, UnitType.UNIT_METRIC)
+    fun setCurrUnit(type: String) = PreferencesUtil.saveValue(PreferencesKey.CURR_UNIT, type)
 
 
 

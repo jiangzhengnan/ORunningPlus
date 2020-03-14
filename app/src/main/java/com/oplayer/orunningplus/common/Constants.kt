@@ -17,13 +17,12 @@ import java.util.*
 //定制包名
 class CustomizedPackName {
     companion object {
-        var ORunningPlus="com.oplayer.orunningplus"
+        var ORunningPlus = "com.oplayer.orunningplus"
 
     }
 
 
 }
-
 
 
 class Constants {
@@ -36,23 +35,25 @@ class Constants {
 
         const val DEVICE_SELECT_ONCLICK = "DEVICE_SELECT_ONCLICK"
 
+        const val SELECT_OPTION_GENDER = "SELECT_OPTION_GENDER"
+        const val SELECT_OPTION_WEIGHT = "SELECT_OPTION_WEIGHT"
+        const val SELECT_OPTION_HEIGHT = "SELECT_OPTION_HEIGHT"
+        const val SELECT_OPTION_BP = "SELECT_OPTION_BP"
 
 
     }
 }
 
 
-
-
 class TodayDateType {
     companion object {
-     const  val TYPE = "TodayDateType"
+        const val TYPE = "TodayDateType"
 
-     const  val STEP = 0
-     const  val HEART = 1
-     const  val SLEEP = 2
-     const  val SPORT = 3
-     const  val MANAGE = 4
+        const val STEP = 0
+        const val HEART = 1
+        const val SLEEP = 2
+        const val SPORT = 3
+        const val MANAGE = 4
         const val MAIN_CARD_CHAGE = "MAIN_CARD_CHAGE"
     }
 }
@@ -60,9 +61,9 @@ class TodayDateType {
 
 class SleepDateType {
     companion object {
-        const  val light = 0
-        const  val deep = 1
-        const  val wake = 2
+        const val light = 0
+        const val deep = 1
+        const val wake = 2
     }
 }
 
@@ -76,14 +77,15 @@ class SecurityKey {
 }
 
 
-
 class PreferencesKey {
     companion object {
         const val DEVICE_TYPE = DeviceType.DEVICE_FUNDO
         const val IS_NIGHT = "IS_NIGHT"
+        const val CURR_UNIT = "CURR_UNIT"
 
-        const val IS_SHOW_STEP  = "IS_SHOW_STEP"
-        const val IS_SHOW_HR    = "IS_SHOW_HR"
+
+        const val IS_SHOW_STEP = "IS_SHOW_STEP"
+        const val IS_SHOW_HR = "IS_SHOW_HR"
         const val IS_SHOW_SLEEP = "IS_SHOW_SLEEP"
         const val IS_SHOW_SPORT = "IS_SHOW_SPORT"
 
@@ -111,6 +113,41 @@ class DeviceType {
 
 }
 
+class UnitType {
+    companion object {
+
+        //Metric system  公制单位
+        const val UNIT_METRIC = 0
+        //British system  英制单位
+        const val UNIT_BRITISH = 1
+    }
+
+}
+
+class UserConstant(){
+    companion object {
+        const val USER_FEMALE = 0
+        const val USER_MALE = 1
+    }
+}
+
+
+
+class constant{
+    companion object {
+        //1公斤等于2.20458554磅
+        const val kg_to_lb = 2.20458554F
+        //1英尺等于 30.48 厘米
+        const val ft_to_cm = 30.48F
+        //1英寸等于 2.54 厘米
+        const val in_to_cm = 2.54F
+
+    }
+
+
+}
+
+
 class BluetoothState {
     companion object {
         const val CONNECTION_SUCCESS = "CONNECTION_SUCCESS"
@@ -136,19 +173,19 @@ class ScanDeviceState {
 class NotifiDate {
     companion object {
 
-        const val APP_PACKAGE_QQ            = "com.tencent.mobileqq"
-        const val APP_PACKAGE_WECHAT        = "com.tencent.mm"
-        const val APP_PACKAGE_WHATSAPP      = "com.whatsapp"
-        const val APP_PACKAGE_MESSENGER     = "com.facebook.orca"
-        const val APP_PACKAGE_TWITTER        = "com.twitter.android"
-        const val APP_PACKAGE_LINKEDIN       = "com.linkedin.android"
-        const val APP_PACKAGE_INSTAGRAM      = "com.instagram.android"
-        const val APP_PACKAGE_FACEBOOK      = "com.facebook.katana"
-        const val APP_PACKAGE_SMS           = "com.android.mms"
-        const val APP_PACKAGE_LINE           = "jp.naver.line.android"
-        const val APP_PACKAGE_VIBER          = "com.viber.voip"
-        const val APP_PACKAGE_SKYPE          = "com.skype.raider"
-        const val APP_PACKAGE_OUTLOOK         = "com.microsoft.office.outlook"
+        const val APP_PACKAGE_QQ = "com.tencent.mobileqq"
+        const val APP_PACKAGE_WECHAT = "com.tencent.mm"
+        const val APP_PACKAGE_WHATSAPP = "com.whatsapp"
+        const val APP_PACKAGE_MESSENGER = "com.facebook.orca"
+        const val APP_PACKAGE_TWITTER = "com.twitter.android"
+        const val APP_PACKAGE_LINKEDIN = "com.linkedin.android"
+        const val APP_PACKAGE_INSTAGRAM = "com.instagram.android"
+        const val APP_PACKAGE_FACEBOOK = "com.facebook.katana"
+        const val APP_PACKAGE_SMS = "com.android.mms"
+        const val APP_PACKAGE_LINE = "jp.naver.line.android"
+        const val APP_PACKAGE_VIBER = "com.viber.voip"
+        const val APP_PACKAGE_SKYPE = "com.skype.raider"
+        const val APP_PACKAGE_OUTLOOK = "com.microsoft.office.outlook"
 
     }
 
@@ -156,14 +193,11 @@ class NotifiDate {
 }
 
 
-
-
-
 class DeviceUUID {
     companion object {
         //过滤非手环的蓝牙设备
         val FUNDO_BLE_YDS_UUID = UUID.fromString("0000FEA0-0000-1000-8000-00805f9b34fb") as UUID//分动
-         //仿苹果设备没有UUID 用公司识别码判断
+        //仿苹果设备没有UUID 用公司识别码判断
         val FITCLOULD_TYPE: Int = 0x5448
 
     }
@@ -256,10 +290,11 @@ class FundoCompanyCode {
 /**
  * 系统界面
  * */
-class SystemSetting{
-    companion object{
-       //通知使用界面
-        val NOTIFICATION_LISTENER_INTENT = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+class SystemSetting {
+    companion object {
+        //通知使用界面
+        val NOTIFICATION_LISTENER_INTENT =
+            Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
 
 
     }
@@ -274,15 +309,18 @@ class PermissList {
             Manifest.permission.FOREGROUND_SERVICE,
             Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ,Manifest.permission.WRITE_SETTINGS
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_SETTINGS
         )
 
     }
 
+
+//
+
 }
 
-class SportModel{
+class SportModel {
     /**
      * 通用运动模式 各协议统一一封装
      *

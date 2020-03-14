@@ -44,6 +44,14 @@ class OSportApplciation : Application() {
     companion object {
         lateinit var sContext: Context
         lateinit var rxBleClient: RxBleClient
+
+
+
+//        fun getCurrUnit(): Int = PreferencesHelper.getCurrUnit()
+        fun getCurrUnit(): Int = 1
+
+
+
     }
 
     override fun onCreate() {
@@ -57,18 +65,16 @@ class OSportApplciation : Application() {
         initSDK()
         initBTService()
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             initLeakCanary()
             initLog()
             initStrictMode()
         }
 
 
-
     }
 
     private fun initNotifiCation() {
-
 
 
     }
@@ -77,7 +83,8 @@ class OSportApplciation : Application() {
      * 初始化内存泄漏检测工具
      * */
     fun initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) { /* This process is dedicated to LeakCanary for heap analysis. You should not init your app in this process.*/ return }
+        if (LeakCanary.isInAnalyzerProcess(this)) { /* This process is dedicated to LeakCanary for heap analysis. You should not init your app in this process.*/ return
+        }
         LeakCanary.install(this) // Normal app init code...
     }
 
@@ -220,7 +227,7 @@ class OSportApplciation : Application() {
      * */
     private fun initRealm() {
         Realm.init(this)
-           val realmKey=Utils.toMakekey(SecurityKey.REALM_KEY,64,"0")?.toByteArray()
+        val realmKey = Utils.toMakekey(SecurityKey.REALM_KEY, 64, "0")?.toByteArray()
         //   SecureRandom().nextBytes(realmKey)
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
@@ -245,7 +252,8 @@ class OSportApplciation : Application() {
         val dm: DisplayMetrics = resources.displayMetrics
         val config: Configuration = resources.configuration
         config.uiMode = config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()
-        config.uiMode = config.uiMode or if (on) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+        config.uiMode =
+            config.uiMode or if (on) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
         resources.updateConfiguration(config, dm)
     }
 
@@ -257,8 +265,6 @@ class OSportApplciation : Application() {
             .setLogEnable(true)
             .setBorderEnable(true)
     }
-
-
 
 
 }
