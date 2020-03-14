@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(':ucrop')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+
+
+}
