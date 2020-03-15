@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.oplayer.common.common.Constants.Companion.DEVICE_SELECT_ONCLICK
@@ -74,20 +75,11 @@ class DeviceSelectAdapter(data: List<MultiItemEntity>) :
             TYPE_DEVICE_DETAIL -> {
 
                 var detailItem = item as DeviceDetailDataArr
-                var recyclerView =
-                    helper.itemView.findViewById<RecyclerView>(R.id.rv_device_detaill)
+                var recyclerView = helper.itemView.findViewById<RecyclerView>(R.id.rv_device_detaill)
                 recyclerView.layoutManager = GridLayoutManager(OSportApplciation.sContext, 2)
-                var adapter =
-                    DeviceDetailAdapter(
-                        R.layout.item_device_detail,
-                        detailItem.list
-                    )
-
-                adapter.setOnItemClickListener { adapter, view, position ->
-                    val device = adapter.data[position] as DeviceDetailData
-                    EventBus.getDefault().post(MessageEvent(DEVICE_SELECT_ONCLICK,device))
-
-                }
+                var adapter = DeviceDetailAdapter(R.layout.item_device_detail, detailItem.list)
+                adapter.setOnItemClickListener { adapter, view, position -> val device = adapter.data[position] as DeviceDetailData; EventBus.getDefault().post(MessageEvent(DEVICE_SELECT_ONCLICK, device)) }
+                adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN)
                 recyclerView.adapter = adapter
 
 

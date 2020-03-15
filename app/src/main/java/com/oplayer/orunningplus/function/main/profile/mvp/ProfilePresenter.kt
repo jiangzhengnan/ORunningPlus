@@ -21,18 +21,21 @@ class ProfilePresenter :ProfileContract.Presenter {
     protected var mView:ProfileContract.View? = null
     //    protected var mModel: ProfileContract.Model
     lateinit var settingsItem: List<SettingItem>
-    val mContext = UIUtils.getContext()
 
-    init {
-//        mModel = ProfileModelImpl()
 
+    override fun getSettingItem(mContext: Context) {
+        getSettingData(mContext)
+        mView?.showSettingItem(settingsItem)
+    }
+
+    private fun getSettingData(mContext: Context) {
         settingsItem = mutableListOf(
 
             SettingItem(
                 R.mipmap.information_goal,
                 UIUtils.getString(R.string.profile_goals),
                 false,
-                { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }),
+                {  mContext.startActivity(Intent(mContext, TestActivity::class.java))  }),
 
             SettingItem(
                 R.mipmap.information_goal,
@@ -62,13 +65,12 @@ class ProfilePresenter :ProfileContract.Presenter {
                 { mContext.startActivity(Intent(mContext, TestActivity::class.java)) })
 
         )
+
+
+
+
     }
 
-    override fun getSettingItem(mContext: Context) {
-//        Slog.d("getSettingItem   ${ mModel.getSettingItem(mContext).size}")
-
-        mView?.showSettingItem(settingsItem)
-    }
 
     override fun initUserSettings() {
     }
@@ -82,6 +84,9 @@ class ProfilePresenter :ProfileContract.Presenter {
     override fun detachView() {
         this.mView = null
     }
+
+
+
 
 
 }

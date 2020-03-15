@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/rv_welcome"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +11,5 @@
     tools:context=".function.test.Test2Activity">
 
 
-    <com.oplayer.orunningplus.view.progress.ProgressBar
-        android:id="@+id/pbProgress"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        app:pb_background_color="@color/gray_date_text_color"
-        app:pb_fill_color="@color/icon_green_color"
-        android:layout_centerInParent="true"
-        app:pb_show_text="true"
-        />
 
 </RelativeLayout>

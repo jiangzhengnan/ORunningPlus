@@ -235,9 +235,12 @@ class UserInfoActivity : BaseActivity() {
 
             .setCustomView(view, this)
             .withEffect(Effectstype.RotateBottom)
-            .withDialogColor(getBGColor())
+            .withDialogColor(getBGGrayColor())
+
+
             .withTitleColor(getTextColor())
             .withMessageColor(getTextColor())
+
             .withButton1Text(getString(R.string.button_cancel))
 
             .withButton2Text(getString(R.string.button_ok))
@@ -247,7 +250,7 @@ class UserInfoActivity : BaseActivity() {
             }
             .setButton2Click {
 
-                showToast(" 输入文字  met_name   ${met_name.text} ")
+
                 if (met_name.text?.length!! > 30) {
                     showToast(R.string.user_info_chage_message)
 
@@ -265,37 +268,6 @@ class UserInfoActivity : BaseActivity() {
 
     }
 
-
-    private var popupWindow = PopupWindow(
-        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-    )
-
-//    private fun showNamePop() {
-//
-//
-//        val popupView = LayoutInflater.from(this).inflate(R.layout.pop_user_name, null)
-//        popupView.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
-//            showToast("取消")
-//
-//        }
-//
-//        popupView.findViewById<Button>(R.id.btn_ok).setOnClickListener {
-//            showToast("OK")
-//
-//        }
-//
-//
-//        popupWindow.contentView = popupView
-//        popupWindow.isOutsideTouchable = true
-//        popupWindow.isFocusable = true
-//        popupWindow.isClippingEnabled = false
-//        if (!popupWindow.isShowing) {
-//            popupWindow.showAtLocation(popupView, Gravity.BOTTOM, 0, 0)
-//        }
-//
-//
-//    }
-
     var user = BleService.INSTANCE.getCurrUser()
     private fun showCommSelect(
         title: String,
@@ -304,8 +276,6 @@ class UserInfoActivity : BaseActivity() {
         opentionList2: List<Any>?,
         opentionList3: List<Any>?
     ) {
-
-
         // 不联动的多级选项
         var pvOptions = OptionsPickerBuilder(this,
             OnOptionsSelectListener { options1, options2, options3, v ->

@@ -1,6 +1,7 @@
 package com.oplayer.orunningplus.function.main.profile
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Environment
 import androidx.fragment.app.Fragment
@@ -87,8 +88,6 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
 
     }
 
-    val CHOOSE_PHOTO_REQUEST = 1
-
 
     private fun initRecycleView() {
 
@@ -101,11 +100,13 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
             when (settingItem.function) {
                 null -> {
                     Slog.d("该项不执行方法  ")
-                }
 
+                }
                 else -> {
+
                     var function = settingItem.function as () -> Unit
                     function.invoke()
+
 
                 }
 
@@ -145,17 +146,6 @@ class ProfileFragment : BaseFragment(), ProfileContract.View {
 
     override fun onError(message: String) {
     }
-
-//
-//    // 压缩后图片文件存储位置
-//    fun getCompressPath(): String {
-//        val path = Environment.getDataDirectory().absolutePath + "/PictureSelector/image/"
-//        val file = File(path)
-//        if (file.mkdirs()) {
-//            return path
-//        }
-//        return path
-//    }
 
 
 }

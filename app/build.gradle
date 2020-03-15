@@ -85,6 +85,7 @@ android {
         }
     }
 
+
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
@@ -99,8 +100,16 @@ android {
     packagingOptions {
         pickFirst 'META-INF/*'
     }
+
+
     productFlavors {
 
+//        orunningPlus {
+//            dimension "LocalAPP"
+//            applicationId "com.oplayer.orunningplus"
+//            resValue "string", "app_name", "LocalAPP"
+//            manifestPlaceholders = [provider_path: applicationId,]
+//        }
 
     }
 
@@ -148,31 +157,11 @@ dependencies {
 //https://github.com/JohnPersano/SuperToasts
     implementation 'com.github.johnpersano:supertoasts:2.0'
 
-    def htextview_version = "0.1.6"
-    implementation "com.hanks:htextview-base:$htextview_version"
+    implementation "com.hanks:htextview-base:0.1.6"
+    implementation "com.hanks:htextview-typer:0.1.6"
 
-    // base library
-    implementation "com.hanks:htextview-fade:$htextview_version"
 
-    // optional
-    implementation "com.hanks:htextview-line:$htextview_version"
 
-    // optional
-    implementation "com.hanks:htextview-rainbow:$htextview_version"
-
-    // optional
-    implementation "com.hanks:htextview-typer:$htextview_version"
-
-    // optional
-    implementation "com.hanks:htextview-scale:$htextview_version"
-
-    // optional
-    implementation "com.hanks:htextview-evaporate:$htextview_version"
-
-    // optional
-    implementation "com.hanks:htextview-fall:$htextview_version"
-
-    // optional
 
     // RxKotlin and RxAndroid
     implementation 'io.reactivex:rxkotlin:1.0.0'

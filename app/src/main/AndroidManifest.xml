@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.oplayer.orunningplus"
-
-    >
+    package="com.oplayer.orunningplus">
     <!-- 前台服务 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 前台服务权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 蓝牙搜索所需权限 -->
@@ -15,34 +13,30 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 相机权限   选择相片  拍照保存 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <application
         android:name=".OSportApplciation"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppLightTheme"
-        android:requestLegacyExternalStorage = "true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".function.connect.DeviceSelectActivity"></activity>
+
+
+
+        <activity android:name=".function.welcome.WelcomeActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+           </activity>
+
+
+
+
+        <activity android:name=".function.connect.DeviceSelectActivity" />
         <activity android:name=".function.details.sportDetails.SportDetailsActivity" />
         <activity android:name=".function.sportStatistics.SportStatisticsActivity" />
         <activity android:name=".function.details.DetailsActivity" />
@@ -59,11 +53,11 @@
             android:name=".function.advanced.AdvancedSettingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".function.test.Test2Activity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <uses-library
@@ -87,11 +81,11 @@
         <activity
             android:name=".function.main.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <service

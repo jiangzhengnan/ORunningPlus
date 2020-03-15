@@ -28,29 +28,29 @@ class SettingsModelImpl : SettingsContract.Model {
     override fun getSettingItem(mContext: Context): List<SettingItem> = mutableListOf(
         SettingItem(
             R.mipmap.settings_connect,
-            UIUtils.getString(R.string.settings_conn),false
+            UIUtils.getString(R.string.settings_conn), false
         ) { mContext.startActivity(Intent(mContext, DeviceSelectActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_find,
-            UIUtils.getString(R.string.settings_find),false,
+            UIUtils.getString(R.string.settings_find), false,
             DeviceSetting.FIND_DEVICE
         )
 
         ,
         SettingItem(
             R.mipmap.settings_12format,
-            UIUtils.getString(R.string.settings_12Hour),true,null
+            UIUtils.getString(R.string.settings_12Hour), true, null
         )
         ,
         SettingItem(
             R.mipmap.settings_notification,
-            UIUtils.getString(R.string.settings_notifi),false
+            UIUtils.getString(R.string.settings_notifi), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_camera,
-            UIUtils.getString(R.string.settings_camera),false
+            UIUtils.getString(R.string.settings_camera), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
         //迁移到用户设置界面
@@ -61,27 +61,27 @@ class SettingsModelImpl : SettingsContract.Model {
 //        ,
         SettingItem(
             R.mipmap.settings_weather,
-            UIUtils.getString(R.string.settings_weather),false
+            UIUtils.getString(R.string.settings_weather), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.today_settings,
-            UIUtils.getString(R.string.settings_advanced),false
+            UIUtils.getString(R.string.settings_advanced), false
         ) { mContext.startActivity(Intent(mContext, AdvancedSettingActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_appstability,
-            UIUtils.getString(R.string.settings_stability),false
+            UIUtils.getString(R.string.settings_stability), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_reset,
-            UIUtils.getString(R.string.settings_reset),false
+            UIUtils.getString(R.string.settings_reset), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
         ,
         SettingItem(
             R.mipmap.settings_firmware,
-            UIUtils.getString(R.string.settings_firmware),false
+            UIUtils.getString(R.string.settings_firmware), false
         ) { mContext.startActivity(Intent(mContext, TestActivity::class.java)) }
 
 
