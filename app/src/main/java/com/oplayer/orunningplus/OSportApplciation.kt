@@ -47,8 +47,7 @@ class OSportApplciation : Application() {
 
 
 
-//        fun getCurrUnit(): Int = PreferencesHelper.getCurrUnit()
-        fun getCurrUnit(): Int = 1
+        fun getCurrUnit(): Int = PreferencesHelper.getCurrUnit()
 
 
 

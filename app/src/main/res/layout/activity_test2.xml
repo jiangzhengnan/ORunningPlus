@@ -12,4 +12,11 @@
 
 
 
+    <com.oplayer.orunningplus.view.DiscreteScroll.DiscreteScrollView
+     android:id="@+id/dsv_sport_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dsv_orientation="horizontal"
+        />
+
 </RelativeLayout>

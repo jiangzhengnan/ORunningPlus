@@ -8,7 +8,7 @@
     tools:context=".function.details.stepDeatails.day.StepDetailDayFragment"
    >
 
-    <com.oplayer.orunningplus.function.view.DateSelectView
+    <com.oplayer.orunningplus.view.DateView.DateSelectView
         android:id="@+id/dsv_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

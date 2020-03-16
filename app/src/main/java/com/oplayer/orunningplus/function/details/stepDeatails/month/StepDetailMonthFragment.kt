@@ -1,11 +1,7 @@
 package com.oplayer.orunningplus.function.details.stepDeatails.month
 
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -21,8 +17,7 @@ import com.oplayer.common.utils.UIUtils
 
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
-import com.oplayer.orunningplus.function.view.DateSelectView
-import kotlinx.android.synthetic.main.fragment_step_deatail_day.*
+import com.oplayer.orunningplus.view.DateView.DateSelectView
 import kotlinx.android.synthetic.main.fragment_step_deatail_month.*
 import java.util.*
 import kotlin.collections.ArrayList

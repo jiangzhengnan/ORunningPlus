@@ -30,28 +30,37 @@
             android:background="@color/colorPrimary"
             android:orientation="vertical">
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+            <androidx.cardview.widget.CardView
                 android:layout_width="115dp"
                 android:layout_height="115dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-     android:layout_centerInParent="true"
-                android:background="@color/colorPrimary"
-                android:src="@mipmap/my_profile_icon"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="1dp"
-                app:civ_circle_background_color="@color/colorPrimary"
+                app:cardCornerRadius="60dp"
+                android:layout_centerInParent="true"
+                app:cardBackgroundColor="#00000000"
+                app:cardElevation="5dp"
+                app:cardMaxElevation="5dp">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimary"
+                    android:src="@mipmap/my_profile_icon"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp"
+                    app:civ_circle_background_color="@color/colorPrimary"
 
 
-                />
+                    />
+
+            </androidx.cardview.widget.CardView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
-                android:visibility="gone"
-                android:background="@color/gray_date_text_color" />
+                android:background="@color/gray_date_text_color"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -171,7 +180,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.3dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/gray_date_text_color" />
+                    android:background="@color/gray_date_text_color"
+                    android:visibility="gone" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -181,8 +191,6 @@
             android:layout_height="55dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-
-
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
@@ -282,7 +290,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.3dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/gray_date_text_color" />
+                    android:background="@color/gray_date_text_color"
+                    android:visibility="gone" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -395,7 +404,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.3dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/gray_date_text_color" />
+                    android:background="@color/gray_date_text_color"
+                    android:visibility="gone" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

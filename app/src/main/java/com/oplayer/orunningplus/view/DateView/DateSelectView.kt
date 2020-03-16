@@ -1,4 +1,4 @@
-package com.oplayer.orunningplus.function.view
+package com.oplayer.orunningplus.view.DateView
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import com.oplayer.common.utils.Slog
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.utils.DateUtil
 import kotlinx.android.synthetic.main.view_date_switch.view.*

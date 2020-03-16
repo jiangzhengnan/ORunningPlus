@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".function.sportStatistics.week.WeekStatisFragment">
 
-    <com.oplayer.orunningplus.function.view.DateSelectView
+    <com.oplayer.orunningplus.view.DateView.DateSelectView
         android:id="@+id/dsv_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

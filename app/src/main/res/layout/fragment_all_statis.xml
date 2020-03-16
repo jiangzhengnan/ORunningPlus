@@ -8,7 +8,7 @@
     tools:context=".function.sportStatistics.all.AllStatisFragment">
 
 
-    <com.oplayer.orunningplus.function.view.DateSelectView
+    <com.oplayer.orunningplus.view.DateView.DateSelectView
         android:id="@+id/dsv_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

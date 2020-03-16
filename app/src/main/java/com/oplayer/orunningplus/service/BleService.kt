@@ -515,9 +515,6 @@ Slog.d("--- CONNECTION_SUCCESS  $device")
                 addFunc { currManager.todayQuery() }
             }
 
-
-
-
             //查找设备指令
             DeviceSetting.FIND_DEVICE -> {
                 Slog.d("发送查找设备指令")

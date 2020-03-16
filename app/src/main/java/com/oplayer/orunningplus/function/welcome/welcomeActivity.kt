@@ -28,26 +28,15 @@ class WelcomeActivity : BaseActivity() {
     }
 
     override fun initView() {
-//        val alphaAnimator = ObjectAnimator.ofFloat(iv_icon, "alpha", 0F, 1F, 0F, 1F)
-//        alphaAnimator.duration = 4000
-//        alphaAnimator.start()
-
 
         rv_bg.viewTreeObserver.addOnGlobalLayoutListener {
-
             animateBG()
-
+            htv_name.animateText(getString(R.string.app_name))
         }
 
 
     }
 
-    override fun onResume() {
-        super.onResume()
-
-
-        htv_name.animateText(getString(R.string.app_name));
-    }
 
     var animatorTime = 2000L
     var startTime = 3000L
@@ -93,9 +82,7 @@ class WelcomeActivity : BaseActivity() {
 
                 Slog.d("  跳转界面 ")
                 var intent = Intent(this, MainActivity::class.java)
-
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
 
                 finish()

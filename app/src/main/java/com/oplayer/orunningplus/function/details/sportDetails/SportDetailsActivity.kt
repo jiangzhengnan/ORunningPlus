@@ -30,6 +30,10 @@ class SportDetailsActivity : BaseActivity() {
     }
 
     override fun initView() {
+
+
+        tv_sport_type.setText("Running")
+
         initTopBar()
 
         initViewPager()

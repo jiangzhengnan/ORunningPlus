@@ -1,492 +1,523 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
+
     tools:context=".function.details.sportDetails.map.MapFragment">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/icon_green_color"
-        android:layout_weight="2" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-
+        android:layout_height="match_parent"
         android:orientation="vertical">
-        <!--距离和用户-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@color/icon_green_color"
+            android:clipChildren="false">
+
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:ignore="NestedWeights">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-               >
-
-                <TextView
-                    android:id="@+id/tv_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="--"
-                    android:textColor="@color/white_date_text_color"
-                    android:textSize="50sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tv_distance"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/tv_distance"
-                    android:layout_toRightOf="@+id/tv_distance"
-                    android:text="@string/sport_unit_km"
-                    android:textColor="@color/white_date_text_color"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_distance"
-                    app:layout_constraintStart_toEndOf="@+id/tv_distance"
-                    />
-
-            </RelativeLayout>
-
+            android:clipChildren="false"
+            android:orientation="vertical">
+            <!--距离和用户-->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:clipChildren="false"
+                android:orientation="horizontal"
+                tools:ignore="NestedWeights">
 
-                <ImageView
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@mipmap/my_profile_icon" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tv_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="---- --"
-                    android:textColor="@color/white_date_text_color" />
+                    <TextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="--"
+                        android:textColor="@color/white_date_text_color"
+                        android:textSize="50sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_sport_time"
-                    android:layout_width="match_parent"
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_distance"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/tv_distance"
+                        android:layout_toRightOf="@+id/tv_distance"
+                        android:text="@string/sport_unit_km"
+                        android:textColor="@color/white_date_text_color"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_distance"
+                        app:layout_constraintStart_toEndOf="@+id/tv_distance" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                  android:layout_marginTop="50dp"
+                    android:layout_weight="1"
+                    android:clipChildren="false"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="115dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/tv_sport_time"
+                        android:layout_gravity="right|bottom"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="---- --"
+                        android:textColor="@color/white_date_text_color" />
+
+                    <TextView
+                        android:id="@+id/tv_sport_time"
+                        android:layout_width="115dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="---- --"
+                        android:textColor="@color/white_date_text_color" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--卡路里和时间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="---- --"
-                    android:textColor="@color/white_date_text_color" />
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/today_calories" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_calories"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="@color/white_date_text_color" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_toRightOf="@+id/tv_sport_details_calories"
+                                    android:text="@string/sport_unit_kcal" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:id="@+id/tv_sport_details_distance_suffix"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/sport_detail_calories" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/today_time" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--:--:--"
+                                    android:textColor="@color/white_date_text_color" />
+
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/sport_total_time" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <!--配速和步数-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/sport_pace" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_pace"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="@color/white_date_text_color" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_toRightOf="@+id/tv_sport_details_pace"
+                                    android:text="@string/sport_unit_line_km" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/sport_avg_pace" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/detail_steps" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_distance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="@color/white_date_text_color" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/tv_sport_details_distance"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_toRightOf="@+id/tv_sport_details_distance"
+                                    android:text="@string/today_steps" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/today_total_step" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <!--步距和分钟步数-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/information_goal_steps" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_step_lenth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="@color/white_date_text_color" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/tv_sport_details_step_lenth"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_toRightOf="@+id/tv_sport_details_step_lenth"
+                                    android:text="@string/sport_unit_cm" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/sport_detail_step_lenth" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:padding="5dp"
+                            app:srcCompat="@mipmap/information_goal_steps" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_sport_details_step_min"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--"
+                                    android:textColor="@color/white_date_text_color" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/tv_sport_details_step_min"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_toRightOf="@+id/tv_sport_details_step_min"
+                                    android:text="@string/sport_unit_step_min" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/sport_detail_avg_cadence" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
             </LinearLayout>
 
         </LinearLayout>
-
-
-        <!--卡路里和时间-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                  android:layout_centerInParent="true"
-                   >
-
-                   <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center_vertical"
-                       android:padding="5dp"
-                       android:layout_marginEnd="10dp"
-                       app:srcCompat="@mipmap/today_calories" />
-
-                   <LinearLayout
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center_vertical"
-                       android:orientation="vertical">
-
-                       <RelativeLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content">
-
-                           <TextView
-                               android:id="@+id/tv_sport_details_calories"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="--"
-                               android:textColor="@color/white_date_text_color" />
-
-                           <TextView
-                               android:layout_toRightOf="@+id/tv_sport_details_calories"
-                               android:layout_width="wrap_content"
-                               android:layout_marginLeft="3dp"
-                               android:layout_height="wrap_content"
-                               android:text="@string/sport_unit_kcal" />
-
-                       </RelativeLayout>
-
-
-                       <TextView
-                           android:id="@+id/tv_sport_details_distance_suffix"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="3dp"
-                           android:text="@string/sport_detail_calories" />
-                   </LinearLayout>
-
-               </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:layout_marginEnd="10dp"
-                        app:srcCompat="@mipmap/today_time" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_sport_details_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="--:--:--"
-                                android:textColor="@color/white_date_text_color" />
-
-
-
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/sport_total_time" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-
-        <!--配速和步数-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:layout_marginEnd="10dp"
-                        app:srcCompat="@mipmap/sport_pace" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_sport_details_pace"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="--"
-                                android:textColor="@color/white_date_text_color" />
-
-                            <TextView
-                                android:layout_toRightOf="@+id/tv_sport_details_pace"
-                                android:layout_width="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sport_unit_line_km" />
-
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/sport_avg_pace" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:layout_marginEnd="10dp"
-                        app:srcCompat="@mipmap/detail_steps" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_sport_details_distance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="--"
-                                android:textColor="@color/white_date_text_color" />
-
-                            <TextView
-                                android:layout_toRightOf="@+id/tv_sport_details_distance"
-                                android:layout_alignBottom="@+id/tv_sport_details_distance"
-                                android:layout_width="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/today_steps" />
-
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/today_total_step" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-
-
-        </LinearLayout>
-
-        <!--步距和分钟步数-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:layout_marginEnd="10dp"
-                        app:srcCompat="@mipmap/information_goal_steps" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_sport_details_step_lenth"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="--"
-                                android:textColor="@color/white_date_text_color" />
-
-                            <TextView
-                                android:layout_toRightOf="@+id/tv_sport_details_step_lenth"
-                                android:layout_alignBottom="@+id/tv_sport_details_step_lenth"
-                                android:layout_width="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sport_unit_cm" />
-
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/sport_detail_step_lenth" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="5dp"
-                        android:layout_marginEnd="10dp"
-                        app:srcCompat="@mipmap/information_goal_steps" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/tv_sport_details_step_min"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="--"
-                                android:textColor="@color/white_date_text_color" />
-
-                            <TextView
-                                android:layout_toRightOf="@+id/tv_sport_details_step_min"
-                                android:layout_alignBottom="@+id/tv_sport_details_step_min"
-                                android:layout_width="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sport_unit_step_min" />
-
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="@string/sport_detail_avg_cadence" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
     </LinearLayout>
 
 
-</LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="60dp"
+        app:cardBackgroundColor="#00000000"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="5dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/sport_user_image"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:clipChildren="false"
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/my_profile_icon"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="1dp"
+            app:civ_circle_background_color="@color/colorPrimary" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
