@@ -11,6 +11,8 @@
     <color name="white_date_text_color">@android:color/black</color>
 
     <color name="gray_date_text_color">#808080</color>
+
+    <color name="gray_a_date_text_color">#a0a0a0</color>
     <color name="icon_green_color">#FF00C996</color>
     <!--  透明色-->
     <color name="transparent_color">#00000000</color>

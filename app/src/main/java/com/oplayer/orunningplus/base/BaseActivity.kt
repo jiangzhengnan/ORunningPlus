@@ -285,6 +285,7 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
 
         fun getBGColor():Int = ContextCompat.getColor(this,R.color.colorPrimary)
         fun getBGGrayColor():Int = ContextCompat.getColor(this,R.color.gray_date_text_color)
+        fun getBGGrayAColor():Int = ContextCompat.getColor(this,R.color.gray_a_date_text_color)
         fun getTransparentColor():Int = ContextCompat.getColor(this,R.color.transparent_color)
         fun getTextColor():Int = ContextCompat.getColor(this, R.color.white_date_text_color)
         fun getIconColor():Int = ContextCompat.getColor(this, R.color.icon_green_color)

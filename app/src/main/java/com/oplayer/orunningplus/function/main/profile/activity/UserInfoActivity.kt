@@ -1,9 +1,8 @@
 package com.oplayer.orunningplus.function.main.profile.activity
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.View
-import android.view.ViewGroup
-import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -31,7 +30,6 @@ import com.oplayer.orunningplus.utils.javautils.Utils
 import com.rengwuxian.materialedittext.MaterialEditText
 import com.vicpin.krealmextensions.createOrUpdate
 import kotlinx.android.synthetic.main.activity_user_info.*
-import java.text.DecimalFormat
 import java.util.*
 
 
@@ -227,6 +225,9 @@ class UserInfoActivity : BaseActivity() {
 
         met_name.floatingLabelText = hintName
         met_name.floatingLabelTextColor=getIconColor()
+
+
+
         met_name.hint = hintName
         val dialogBuilder = NiftyDialogBuilder.getInstance(this)
         dialogBuilder
@@ -235,11 +236,12 @@ class UserInfoActivity : BaseActivity() {
 
             .setCustomView(view, this)
             .withEffect(Effectstype.RotateBottom)
-            .withDialogColor(getBGGrayColor())
+            .withDialogColor(getBGGrayAColor())
 
 
             .withTitleColor(getTextColor())
             .withMessageColor(getTextColor())
+
 
             .withButton1Text(getString(R.string.button_cancel))
 
@@ -267,6 +269,8 @@ class UserInfoActivity : BaseActivity() {
 
 
     }
+
+
 
     var user = BleService.INSTANCE.getCurrUser()
     private fun showCommSelect(

@@ -80,6 +80,9 @@ class Slog private constructor() {
         throw UnsupportedOperationException("u can't instantiate me...")
     }
 
+
+
+
     /**
      * LogTools设置类
      */

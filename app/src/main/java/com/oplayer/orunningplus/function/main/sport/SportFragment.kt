@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -76,7 +77,7 @@ class SportFragment : BaseFragment(), SportContract.View, View.OnClickListener {
 
         //模拟数据
 
-        for(index in 1..10){
+        for (index in 1..10) {
 
             list.add(Sport())
         }
@@ -85,7 +86,7 @@ class SportFragment : BaseFragment(), SportContract.View, View.OnClickListener {
 
         rv_sport.layoutManager = LinearLayoutManager(activity)
         var sportAdapter = SportAdapter(R.layout.item_sport, list)
-        sportAdapter.setOnItemClickListener {    adapter, view, position ->
+        sportAdapter.setOnItemClickListener { adapter, view, position ->
             startTo(SportDetailsActivity::class.java)
 
         }
@@ -103,9 +104,7 @@ class SportFragment : BaseFragment(), SportContract.View, View.OnClickListener {
         dsv_sport_date.setOverScrollEnabled(false) //Can also be set using android:overScrollMode xml attribute
         dsv_sport_date.scrollToPosition(19) //position becomes selected
         dsv_sport_date.addOnItemChangedListener { viewHolder, adapterPosition ->
-
             showToast("选择改变   $adapterPosition")
-            viewHolder!!.itemView.findViewById<View>(R.id.view_line).visibility = View.VISIBLE
 
             var monthArr = activity!!.resources.getStringArray(R.array.candler_month_arr)
             var date = dateSelectAdapter.data[adapterPosition]
@@ -114,13 +113,28 @@ class SportFragment : BaseFragment(), SportContract.View, View.OnClickListener {
 
 
             tv_date_str.setText("${monthArr[DateUtil.getMonth(date) - 1]} ${DateUtil.getYear(date)}")
+
+            if (date.time > Date().time) {
+                Toast.makeText(context, R.string.select_future_date, Toast.LENGTH_LONG).show()
+                dsv_sport_date.scrollToPosition(adapterPosition - 1)
+                dsv_sport_date.getViewHolder(adapterPosition - 1)!!.itemView.findViewById<View>(R.id.view_line).visibility = View.VISIBLE
+            }else{
+                viewHolder!!.itemView.findViewById<View>(R.id.view_line).visibility = View.VISIBLE
+            }
+
+
         }
 
         dsv_sport_date.addScrollListener { scrollPosition, currentPosition, newPosition, currentHolder, newCurrent ->
+
             var line = currentHolder!!.itemView.findViewById<View>(R.id.view_line)
+
             Slog.d("ScrollListener  scrollPosition  $scrollPosition  currentPosition $currentPosition   newPosition $newPosition ")
             line.visibility = View.GONE
+
+
         }
+
     }
 
 
