@@ -18,7 +18,6 @@ import com.oplayer.orunningplus.base.BaseActivity
 import com.oplayer.orunningplus.bean.BluetoothDeviceInfo
 import com.oplayer.orunningplus.event.MessageEvent
 import com.oplayer.orunningplus.function.main.MainActivity
-import com.oplayer.orunningplus.function.test.TestActivity
 import com.oplayer.orunningplus.service.BleService
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.scwang.smartrefresh.layout.header.BezierRadarHeader

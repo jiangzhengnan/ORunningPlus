@@ -12,6 +12,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.github.johnpersano.supertoasts.library.Style
@@ -20,6 +21,7 @@ import com.oplayer.common.common.AppManager
 import com.oplayer.common.mvp.IBasePresenter
 import com.oplayer.common.mvp.IBaseView
 import com.oplayer.common.utils.Slog
+import com.oplayer.common.utils.UIUtils
 import com.oplayer.orunningplus.R
 import com.oplayer.orunningplus.event.MessageEvent
 import com.tapadoo.alerter.Alerter
@@ -123,35 +125,35 @@ abstract class BaseActivity : AppCompatActivity(), IBaseView {
         }
     }
 
-    fun showToast(msg: String) {
-        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
-            .setText(msg)
-            .setDuration(Style.DURATION_VERY_SHORT)
-            .setFrame(Style.FRAME_LOLLIPOP)
-            .setTextColor(getTextColor())
-            .setColor(getBGColor())
-            .setAnimations(Style.ANIMATIONS_POP).show()
-    }
+//    fun showToast(msg: String) {
+//        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
+//            .setText(msg)
+//            .setDuration(Style.DURATION_VERY_SHORT)
+//            .setFrame(Style.FRAME_LOLLIPOP)
+//            .setTextColor(getTextColor())
+//            .setColor(getBGColor())
+//            .setAnimations(Style.ANIMATIONS_POP).show()
+//    }
 
-    fun showToast(resId: Int) {
-        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
-            .setText(getString(resId))
-            .setDuration(Style.DURATION_VERY_SHORT)
-            .setFrame(Style.FRAME_LOLLIPOP)
-            .setTextColor(getTextColor())
-            .setColor(getBGColor())
-            .setAnimations(Style.ANIMATIONS_POP).show()
+    fun showToast( msg: String) {
+        Toast.makeText(UIUtils.getContext(), msg, Toast.LENGTH_SHORT).show()
+//        SuperActivityToast.create(this, Style(), Style.TYPE_STANDARD)
+//            .setText(getString(resId))
+//            .setDuration(Style.DURATION_VERY_SHORT)
+//            .setFrame(Style.FRAME_LOLLIPOP)
+//            .setTextColor(getTextColor())
+//            .setColor(getBGColor())
+//            .setAnimations(Style.ANIMATIONS_POP).show()
     }
 
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {
-        Alerter.create(this@BaseActivity)
+        Alerter.create(this)
             .enableProgress(enablePro)
             .setIcon(iconResId)
             .showIcon(showIcon)
             .setBackgroundColorInt(getIconColor())
             .setText(message)
-
             .show()
     }
 

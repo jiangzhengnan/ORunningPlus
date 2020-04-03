@@ -19,7 +19,7 @@
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary"
         app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
+        app:cardElevation="0dp"
         app:cardMaxElevation="5dp">
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 app:cardCornerRadius="60dp"
                 android:layout_centerInParent="true"
                 app:cardBackgroundColor="#00000000"
-                app:cardElevation="5dp"
+                app:cardElevation="0dp"
                 app:cardMaxElevation="5dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
@@ -86,7 +86,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout
@@ -137,7 +137,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout
@@ -195,7 +195,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout
@@ -247,7 +247,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout
@@ -306,7 +306,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout
@@ -358,7 +358,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             app:cardMaxElevation="5dp">
 
             <RelativeLayout

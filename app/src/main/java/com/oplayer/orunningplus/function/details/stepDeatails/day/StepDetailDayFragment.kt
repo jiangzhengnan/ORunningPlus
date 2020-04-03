@@ -72,9 +72,7 @@ class StepDetailDayFragment : BaseFragment(), OnChartValueSelectedListener {
             mBarChart.getData().notifyDataChanged()
             mBarChart.notifyDataSetChanged()
         } else {
-
             set = BarDataSet(yVals1, "")
-
             //设置有四种颜色
             set.setColors(lineColorInt)
             val dataSets = ArrayList<IBarDataSet>()

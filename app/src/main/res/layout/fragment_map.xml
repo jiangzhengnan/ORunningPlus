@@ -504,7 +504,7 @@
         android:background="@color/colorPrimary"
         app:cardCornerRadius="60dp"
         app:cardBackgroundColor="#00000000"
-        app:cardElevation="5dp"
+        app:cardElevation="0dp"
         app:cardMaxElevation="5dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/sport_user_image"

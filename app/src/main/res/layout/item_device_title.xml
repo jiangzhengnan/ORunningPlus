@@ -6,7 +6,7 @@
     android:layout_height="40dp"
     android:layout_margin="3dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
+    app:cardElevation="0dp"
     app:cardMaxElevation="5dp"
     >
     <RelativeLayout

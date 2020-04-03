@@ -254,7 +254,7 @@ class UserInfoActivity : BaseActivity() {
 
 
                 if (met_name.text?.length!! > 30) {
-                    showToast(R.string.user_info_chage_message)
+                    showToast(getString(R.string.user_info_chage_message))
 
                 } else {
                     user.name = met_name.text.toString()

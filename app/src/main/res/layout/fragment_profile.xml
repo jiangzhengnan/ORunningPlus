@@ -18,7 +18,7 @@
         android:layout_marginBottom="5dp"
         android:background="@color/colorPrimary"
         app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
+        app:cardElevation="0dp"
         app:cardMaxElevation="5dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             app:cardCornerRadius="60dp"
             app:cardBackgroundColor="#00000000"
-            app:cardElevation="5dp"
+            app:cardElevation="0dp"
             android:layout_margin="8dp"
             app:cardMaxElevation="5dp">
             <de.hdodenhof.circleimageview.CircleImageView
@@ -79,7 +79,7 @@
  <androidx.recyclerview.widget.RecyclerView
      android:id="@+id/rv_myProfile"
 
-     android:background="@color/colorPrimary"
+
 
      android:layout_width="match_parent"
      android:layout_height="match_parent"/>

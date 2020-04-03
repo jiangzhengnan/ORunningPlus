@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
+                app:cardElevation="0dp"
                 android:layout_margin="5dp"
                 app:cardMaxElevation="5dp">
                 <LinearLayout
@@ -164,7 +164,7 @@
                 android:layout_height="400dp"
                 app:cardCornerRadius="10dp"
                 android:layout_marginTop="30dp"
-                app:cardElevation="5dp"
+                app:cardElevation="0dp"
                 android:layout_margin="5dp"
                 app:cardMaxElevation="5dp">
 
@@ -299,7 +299,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
+                app:cardElevation="0dp"
                 android:layout_margin="5dp"
                 android:layout_marginTop="30dp"
                 app:cardMaxElevation="5dp">

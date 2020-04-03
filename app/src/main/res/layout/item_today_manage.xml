@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
+        app:cardElevation="0dp"
         app:cardMaxElevation="5dp"
         app:cardUseCompatPadding="true">
 

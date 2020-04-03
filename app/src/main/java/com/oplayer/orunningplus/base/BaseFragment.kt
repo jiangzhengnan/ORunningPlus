@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.github.johnpersano.supertoasts.library.Style
 import com.github.johnpersano.supertoasts.library.SuperActivityToast
 
@@ -28,10 +30,12 @@ import org.greenrobot.eventbus.ThreadMode
 abstract class BaseFragment : Fragment(), IBaseView {
     private val STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN"
     lateinit var mActivity: Context
+
     /**
      * 视图是否加载完毕
      */
     private var isViewPrepare = false
+
     /**
      * 数据是否加载过了
      */
@@ -58,11 +62,13 @@ abstract class BaseFragment : Fragment(), IBaseView {
     open fun startTo(targetClass: Class<out Activity>) {
         val intent = Intent(context, targetClass)
         context?.startActivity(intent)
-    }    open fun startTo(intent: Intent) {
+    }
+
+    open fun startTo(intent: Intent) {
         context?.startActivity(intent)
     }
 
-//    @Subscribe(sticky = true,threadMode = ThreadMode.POSTING)
+    //    @Subscribe(sticky = true,threadMode = ThreadMode.POSTING)
     @Subscribe
     fun onMessageEvent(event: MessageEvent) {
         onGetEvent(event)
@@ -97,6 +103,10 @@ abstract class BaseFragment : Fragment(), IBaseView {
         super.onAttach(context)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
@@ -117,6 +127,7 @@ abstract class BaseFragment : Fragment(), IBaseView {
         initInjector()
         lazyLoadData()
     }
+
     abstract fun getLayoutId(): Int
 
     abstract fun initInjector()
@@ -144,14 +155,15 @@ abstract class BaseFragment : Fragment(), IBaseView {
     }
 
 
-    fun showToast(msg: String) {
-        SuperActivityToast.create(mActivity, Style(), Style.TYPE_STANDARD)
-            .setText(msg)
-            .setDuration(Style.DURATION_VERY_SHORT)
-            .setFrame(Style.FRAME_LOLLIPOP)
-            .setTextColor(getTextColor())
-            .setColor(getBGColor())
-            .setAnimations(Style.ANIMATIONS_POP).show()
+    fun showToast( msg: String) {
+//            SuperActivityToast.create(context, Style(), Style.TYPE_STANDARD)
+//                .setText(msg)
+//                .setDuration(Style.DURATION_VERY_SHORT)
+//                .setFrame(Style.FRAME_LOLLIPOP)
+//                .setTextColor(getTextColor())
+//                .setColor(getBGColor())
+//                .setAnimations(Style.ANIMATIONS_POP).show()
+        Toast.makeText(UIUtils.getContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
 
@@ -160,7 +172,6 @@ abstract class BaseFragment : Fragment(), IBaseView {
         val intent = Intent(mContext, targetClass)
         mContext?.startActivity(intent)
     }
-
 
 
     override fun showAlert(message: String, enablePro: Boolean, iconResId: Int, showIcon: Boolean) {

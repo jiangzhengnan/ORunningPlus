@@ -159,7 +159,7 @@ class TodayFragment : BaseFragment(), TodayContract.View {
         crv_main.layoutManager = LinearLayoutManager(activity)
         mainAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
         mainAdapter.setOnItemClickListener { adapter, view, position ->
-            var itemType = adapter.getItemViewType(position)
+            val itemType = adapter.getItemViewType(position)
             when (itemType) {
 
                 TodayDateType.MANAGE -> {
